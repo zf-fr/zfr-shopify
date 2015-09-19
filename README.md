@@ -1,7 +1,8 @@
 ZfrShopify
 ==========
 
-[![Latest Stable Version](https://poser.pugx.org/zfr/shopify/v/stable.png)](https://packagist.org/packages/zfr/shopify)
+[![Latest Stable Version](https://poser.pugx.org/zfr/zfr-shopify/v/stable.png)](https://packagist.org/packages/zfr/zfr-shopify)
+[![Build Status](https://travis-ci.org/zf-fr/zfr-shopify.svg)](https://travis-ci.org/zf-fr/zfr-shopify)
 
 ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.shopify.com).
 
@@ -16,5 +17,5 @@ ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.sho
 Installation of ZfrShopify is only officially supported using Composer:
 
 ```sh
-php composer.phar require 'zfr/shopify:0.1.*'
+php composer.phar require 'zfr/zfr-shopify:0.1.*'
 ```
