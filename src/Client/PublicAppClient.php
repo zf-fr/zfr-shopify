@@ -34,7 +34,7 @@ use Zfr\Shopify\Exception;
  *
  * @author Michaël Gallego
  */
-class ShopifyClient extends Client
+class PublicAppClient extends Client
 {
     /**
      * @var string
