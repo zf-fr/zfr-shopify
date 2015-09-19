@@ -1,5 +1,5 @@
 {
-    "name": "zfr/shopify",
+    "name": "zfr/zfr-shopify",
     "type": "library",
     "license": "MIT",
     "description" : "PHP library for interacting with the Shopify REST API",
@@ -7,7 +7,7 @@
         "shopify",
         "api"
     ],
-    "homepage": "https://github.com/zf-fr/shopify",
+    "homepage": "https://github.com/zf-fr/zfr-shopify",
     "authors": [
         {
             "name": "Michaël Gallego",
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Zfr\\Shopify\\": "src/"
+            "ZfrShopify\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ZfrTest\\Shopify\\": "tests/"
+            "ZfrShopifyTest\\": "tests/"
         }
     }
 }

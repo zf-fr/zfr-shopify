@@ -16,7 +16,7 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zfr\Shopify\Exception;
+namespace ZfrShopify\Exception;
 
 /**
  * This exception is thrown when a webhook is considered as invalid (not signed correctly)

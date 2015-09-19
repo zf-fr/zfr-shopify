@@ -16,95 +16,73 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zfr\Shopify\Client;
+namespace ZfrShopify;
 
+use Guzzle\Common\Event;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\PhpInputStream;
 use Zend\Diactoros\Response\RedirectResponse;
-use Zfr\Shopify\Exception;
+use ZfrShopify\Exception;
 
 /**
  * Shopify client used to interact with the Shopify API
  *
  * It also offers several utility, to allow generate URLs needed for the OAuth dance, as well
- * as validating incoming request
+ * as validating incoming request and webhooks
  *
  * @author Michaël Gallego
+ *
+ * ORDER RELATED METHODS:
+ *
+ * @method array getOrders(array $args = []) {@command Shopify GetOrders}
+ *
+ * SHOP RELATED METHODS:
+ *
+ * @method array getShop(array $args = []) {@command Shopify GetShop}
  */
-class PublicAppClient extends Client
+class ShopifyClient extends Client
 {
     /**
-     * @var string
+     * @var array
      */
-    private $sharedSecret;
+    private $options;
 
     /**
-     * @var string
+     * @param array $options
      */
-    private $shop;
-
-    /**
-     * @var string
-     */
-    private $accessToken;
-
-    /**
-     * @var string
-     */
-    private $apiKey;
-
-    /**
-     * @param string $sharedSecret
-     * @param string $shop
-     * @param string $accessToken
-     * @param string $apiKey
-     */
-    public function __construct($sharedSecret, $shop, $accessToken = '', $apiKey = '')
+    public function __construct(array $options)
     {
-        $this->sharedSecret = (string) $sharedSecret;
-        $this->shop         = (string) $shop;
-        $this->accessToken  = (string) $accessToken;
-        $this->apiKey       = (string) $apiKey;
+        parent::__construct();
 
-        parent::__construct('', [
-            'shop'           => $this->shop,
-            'command.params' => [
-                'access_token' => $this->accessToken
-            ]
-        ]);
+        $this->options = $options;
 
         $this->setUserAgent('zfr-shopify-php', true);
-
         $this->setDescription(ServiceDescription::factory(__DIR__ . '/ServiceDescription/Shopify-v1.php'));
+
+        // Add an event to set the Authorization param
+        $dispatcher = $this->getEventDispatcher();
+        $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
     }
 
     /**
-     * Set an access token
-     *
-     * This is often useful when you are dynamically retrieving the access token of a shop,
-     * and set it as the client access token
-     *
+     * @param  string $shop
+     * @return void
+     */
+    public function setShop($shop)
+    {
+        $this->options['shop'] = (string) $shop;
+    }
+
+    /**
      * @param  string $accessToken
      * @return void
      */
     public function setAccessToken($accessToken)
     {
-        $this->accessToken = (string) $accessToken;
-        $this->getConfig()->set('access_token', $this->accessToken);
-    }
-
-    /**
-     * Set an API key
-     *
-     * @param  string $apiKey
-     * @return void
-     */
-    public function setApiKey($apiKey)
-    {
-        $this->apiKey = (string) $apiKey;
+        $this->options['access_token'] = (string) $accessToken;
     }
 
     /**
@@ -113,6 +91,31 @@ class PublicAppClient extends Client
     public function __call($method, $args = [])
     {
         return parent::__call(ucfirst($method), $args);
+    }
+
+    /**
+     * Authorize the request
+     *
+     * @internal
+     * @param  Event $event
+     * @return void
+     */
+    public function authorizeRequest(Event $event)
+    {
+        /* @var \Guzzle\Service\Command\CommandInterface $command */
+        $command = $event['command'];
+        $request = $command->getRequest();
+
+        // For private app, we need to use basic auth, otherwise we need to add
+        // an access token in a header
+        if ($this->options['private_app']) {
+            $request->setAuth($this->options['api_key'], $this->options['password']);
+        } else {
+            $request->setHeader('X-Shopify-Access-Token', $this->options['access_token']);
+        }
+
+        // In both cases, we need to set the "shop" options for the request
+        $command['shop'] = $this->options['shop'];
     }
 
     /**
@@ -157,7 +160,7 @@ class PublicAppClient extends Client
         }
 
         $data           = new PhpInputStream();
-        $calculatedHmac = base64_encode(hash_hmac('sha256', $data->getContents(), $this->sharedSecret, true));
+        $calculatedHmac = base64_encode(hash_hmac('sha256', $data->getContents(), $this->options['shared_secret'], true));
 
         if (hash_equals($hmac, $calculatedHmac)) {
             return;
@@ -178,16 +181,12 @@ class PublicAppClient extends Client
      * @return ResponseInterface
      * @throws Exception\MissingApiKeyException
      */
-    public function createAuthorizationRequest($shop, $scopes, $redirectionUri)
+    public function createAuthorizationResponse($shop, $scopes, $redirectionUri)
     {
-        if (empty($this->apiKey)) {
-            throw new Exception\MissingApiKeyException('A Shopify API key is needed to do the OAuth dance');
-        }
-
         $uri = sprintf(
             'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
             $shop,
-            $this->apiKey,
+            $this->options['api_key'],
             implode(',', $scopes),
             $redirectionUri,
             str_replace('.', '', uniqid('', true))
@@ -228,7 +227,7 @@ class PublicAppClient extends Client
         $key = 'shop=' . $shop . '&timestamp=' . $timestamp;
         $key = strtr($key, ['&' => '%26', '%' => '%25', '=' => '%3D']);
 
-        if (hash_equals($hmac, hash_hmac('sha256', $key, $this->sharedSecret))) {
+        if (hash_equals($hmac, hash_hmac('sha256', $key, $this->options['shared_secret']))) {
             return;
         };
 

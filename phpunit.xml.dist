@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<phpunit bootstrap="./tests/Bootstrap.php" colors="true">
-    <testsuite name="ZfrStripe tests">
+<phpunit bootstrap="./vendor/autoload.php" colors="true">
+    <testsuite name="ZfrShopify tests">
         <directory>./tests</directory>
     </testsuite>
     <filter>

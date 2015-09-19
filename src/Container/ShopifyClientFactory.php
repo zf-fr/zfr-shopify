@@ -16,11 +16,11 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zfr\Shopify\Factory;
+namespace ZfrShopify\Container;
 
 use Interop\Container\ContainerInterface;
-use Zfr\Shopify\Exception\RuntimeException;
-use Zfr\Shopify\ShopifyClient\ShopifyClient;
+use ZfrShopify\Exception\RuntimeException;
+use ZfrShopify\ShopifyClient;
 
 /**
  * Create and return an instance of the Shopify client.
@@ -30,10 +30,12 @@ use Zfr\Shopify\ShopifyClient\ShopifyClient;
  *
  * <code>
  *     'zfr_shopify' => [
- *         'shared_secret' => '', // your shared secret, used to validate any request
  *         'shop'          => '', // a shop name, WITHOUT the ".myshopify.com" part
- *         'access_token'  => '', // an access token that you got from the OAuth dance
- *         'api_key'       => '', // an API key, needed when developping an app published in the Shopify store
+ *         'api_key'       => '', // an API key, always required
+ *         'shared_secret' => '', // your shared secret, used to validate any request (only required for public apps)
+ *         'access_token'  => '', // an access token that you got from the OAuth dance (only required for public apps)
+ *         'password'      => '', // a password retrieved from private app (only required for private apps)
+ *         'private_app'   => true, // true for private app, false for apps on App Store
  *     ]
  * </code>
  *
@@ -49,10 +51,12 @@ class ShopifyClientFactory
             throw new RuntimeException('Container config does not have a "zfr_shopify" key');
         }
 
-        $config      = $config['zfr_shopify'];
-        $accessToken = isset($config['access_token']) ? $config['access_token'] : '';
-        $apiKey      = isset($config['api_key']) ? $config['api_key'] : '';
+        $config = $config['zfr_shopify'];
 
-        return new ShopifyClient($config['shared_secret'], $config['shop'], $accessToken, $apiKey);
+        if (!isset($config['shop']) || !isset($config['private_app']) || !isset($config['api_key'])) {
+            throw new RuntimeException('Options "shop", "api_key" and "private_app" are mandatory when creating Shopify client');
+        }
+
+        return new ShopifyClient($config);
     }
 }

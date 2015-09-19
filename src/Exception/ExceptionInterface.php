@@ -16,7 +16,7 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zfr\Shopify\Exception;
+namespace ZfrShopify\Exception;
 
 /**
  * @author Michaël Gallego
