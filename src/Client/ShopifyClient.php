@@ -16,7 +16,7 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zfr\Shopify\ShopifyClient;
+namespace Zfr\Shopify\Client;
 
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;

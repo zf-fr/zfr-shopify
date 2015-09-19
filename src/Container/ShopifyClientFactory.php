@@ -30,10 +30,12 @@ use Zfr\Shopify\ShopifyClient\ShopifyClient;
  *
  * <code>
  *     'zfr_shopify' => [
- *         
+ *         'shared_secret' => '', // your shared secret, used to validate any request
+ *         'shop'          => '', // a shop name, WITHOUT the ".myshopify.com" part
+ *         'access_token'  => '', // an access token that you got from the OAuth dance
+ *         'api_key'       => '', // an API key, needed when developping an app published in the Shopify store
  *     ]
  * </code>
- *
  *
  * @author Michaël Gallego
  */
