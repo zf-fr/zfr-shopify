@@ -64,17 +64,17 @@ class ShopifyClient extends Client
      */
     public function __construct($sharedSecret, $shop, $accessToken = '', $apiKey = '')
     {
-        parent::__construct('', [
-            'command.params' => [
-                'shop'         => (string) $shop,
-                'access_token' => (string) $accessToken
-            ]
-        ]);
-
         $this->sharedSecret = (string) $sharedSecret;
         $this->shop         = (string) $shop;
         $this->accessToken  = (string) $accessToken;
         $this->apiKey       = (string) $apiKey;
+
+        parent::__construct('', [
+            'shop'           => $this->shop,
+            'command.params' => [
+                'access_token' => $this->accessToken
+            ]
+        ]);
 
         $this->setUserAgent('zfr-shopify-php', true);
 

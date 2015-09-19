@@ -31,7 +31,7 @@ return [
 
         'GetShop' => [
             'httpMethod'       => 'GET',
-            'uri'              => '/shop.json',
+            'uri'              => 'shop.json',
             'summary'          => 'Get data about a single shop',
             'parameters'       => [
                 'access_token' => [
