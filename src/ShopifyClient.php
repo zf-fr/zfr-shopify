@@ -125,22 +125,14 @@ class ShopifyClient extends Client
      * @param  ServerRequestInterface $request
      * @return void
      * @throws Exception\InvalidRequestException
-     * @throws Exception\MissingSignatureException
      */
     public function validateRequest(ServerRequestInterface $request)
     {
+        // First step: extract the query params
         $queryParams = $request->getQueryParams();
 
-        $shop      = isset($queryParams['shop']) ? $queryParams['shop'] : null;
-        $hmac      = isset($queryParams['hmac']) ? $queryParams['hmac'] : null;
-        $timestamp = isset($queryParams['timestamp']) ? $queryParams['timestamp'] : null;
-
-        if ($shop === null || $hmac === null || $timestamp === null) {
-            throw new Exception\MissingSignatureException('Incoming request do not contain any Shopify data to validate signature');
-        }
-
-        $this->validateShopHostname($shop);
-        $this->validateHmac($shop, $timestamp, $hmac);
+        $this->validateShopHostname($queryParams);
+        $this->validateHmac($queryParams);
     }
 
     /**
@@ -199,12 +191,14 @@ class ShopifyClient extends Client
      * According to Shopify, a shop hostname must ends by "myshopify.com", and must only contains
      * letters, numbers, dots and hyphens
      *
-     * @param  string $shop
+     * @param  array $queryParams
      * @return void
      * @throws Exception\InvalidRequestException
      */
-    private function validateShopHostname($shop)
+    private function validateShopHostname(array $queryParams)
     {
+        $shop = isset($queryParams['shop']) ? $queryParams['shop'] : '';
+
         if (preg_match('/^[a-zA-Z0-9.-]*(myshopify.com)$/', $shop) === 1) {
             return;
         }
@@ -215,19 +209,34 @@ class ShopifyClient extends Client
     /**
      * Validate the given HMAC
      *
-     * @param  string $shop
-     * @param  string $timestamp
-     * @param  string $hmac
+     * @param  array  $queryParams
      * @return void
      * @throws Exception\InvalidRequestException
      */
-    private function validateHmac($shop, $timestamp, $hmac)
+    private function validateHmac(array $queryParams)
     {
-        // &, % and = are replaced by %26, %25 and %3D, respectively
-        $key = 'shop=' . $shop . '&timestamp=' . $timestamp;
-        $key = strtr($key, ['&' => '%26', '%' => '%25', '=' => '%3D']);
+        $expectedHmac = isset($queryParams['hmac']) ? $queryParams['hmac'] : '';
 
-        if (hash_equals($hmac, hash_hmac('sha256', $key, $this->options['shared_secret']))) {
+        // First step: remove HMAC and signature keys
+        unset($queryParams['hmac'], $queryParams['signature']);
+
+        // Second step: keys are sorted lexicographically
+        ksort($queryParams);
+
+        $pairs = [];
+
+        foreach ($queryParams as $key => $value) {
+            // Third step: "&" and "%" are replaced by "%26" and "%25" in keys and values, and in addition
+            // "=" is replaced by "%3D" in keys
+            $key   = strtr($key, ['&' => '%26', '%' => '%25', '=' => '%3D']);
+            $value = strtr($value, ['&' => '%26', '%' => '%25']);
+
+            $pairs[] = $key . '=' . $value;
+        }
+
+        $key = implode('&', $pairs);
+
+        if (hash_equals($expectedHmac, hash_hmac('sha256', $key, $this->options['shared_secret']))) {
             return;
         };
 

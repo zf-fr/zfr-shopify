@@ -23,7 +23,6 @@ use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Service\Command\CommandInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use ZfrShopify\Exception\InvalidRequestException;
-use ZfrShopify\Exception\MissingSignatureException;
 use ZfrShopify\ShopifyClient;
 
 /**
@@ -95,37 +94,6 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $client->authorizeRequest($event);
     }
 
-    public function incomingRequestMissingProvider()
-    {
-        return [
-            [null, null, null],
-            [null, null, 1234],
-            [null, 'hmac', 1234],
-            ['my_shop', 'hmac', null],
-            ['my_shop', null, null],
-            [null, 'hmac', null]
-        ];
-    }
-
-    /**
-     * @dataProvider incomingRequestMissingProvider
-     */
-    public function testThrowExceptionWhenAuthenticationIsMissing($shop, $hmac, $timestamp)
-    {
-        $this->setExpectedException(MissingSignatureException::class);
-
-        $queryParams = [
-            'shop'      => $shop,
-            'hmac'      => $hmac,
-            'timestamp' => $timestamp
-        ];
-
-        $request = $this->getMock(ServerRequestInterface::class);
-        $request->expects($this->once())->method('getQueryParams')->willReturn($queryParams);
-
-        $this->client->validateRequest($request);
-    }
-
     public function shopHostnameProvider()
     {
         return [
@@ -150,19 +118,20 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException(InvalidRequestException::class);
         }
 
-        $reflMethod->invoke($this->client, $shop);
+        $reflMethod->invoke($this->client, ['shop' => $shop]);
     }
 
     public function shopHmacProvider()
     {
-        $key       = strtr('shop=mystore.myshopify.com&timestamp=123', ['&' => '%26', '%' => '%25', '=' => '%3D']);
+        $key       = 'shop=mystore.myshopify.com&timestamp=123';
         $validHmac = hash_hmac('sha256', $key, 'secret');
 
         return [
             ['Everything is okay'       => 'mystore.myshopify.com', 123, $validHmac, 'secret', true],
             ['Secret was not same'      => 'mystore.myshopify.com', 123, $validHmac, 'another_secret', false],
             ['Timestamp does not match' => 'mystore.myshopify.com', 1234, $validHmac, 'secret', false],
-            ['Store does not match'     => 'my_store.myshopify.com', 1234, $validHmac, 'secret', false],
+            ['Hmac is wrong'            => 'mystore.myshopify.com', 123, $validHmac . '_foo', 'secret', false],
+            ['Shop does not match'      => 'my_store.myshopify.com', 1234, $validHmac, 'secret', false],
         ];
     }
 
@@ -182,7 +151,31 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
             $this->setExpectedException(InvalidRequestException::class);
         }
 
-        $reflMethod->invoke($client, $shop, $timestamp, $hmac);
+        // We try in different order to make sure it does not change anything as the signature must be insensitive
+
+        $reflMethod->invoke($client, [
+            'shop'      => $shop,
+            'timestamp' => $timestamp,
+            'hmac'      => $hmac
+        ]);
+
+        $reflMethod->invoke($client, [
+            'timestamp' => $timestamp,
+            'shop'      => $shop,
+            'hmac'      => $hmac
+        ]);
+
+        $reflMethod->invoke($client, [
+            'hmac'      => $hmac,
+            'shop'      => $shop,
+            'timestamp' => $timestamp
+        ]);
+
+        $reflMethod->invoke($client, [
+            'timestamp' => $timestamp,
+            'hmac'      => $hmac,
+            'shop'      => $shop
+        ]);
     }
 
     public function testThrowExceptionIfWebhookHeaderIsNotPresent()
