@@ -170,10 +170,11 @@ class ShopifyClient extends Client
      * @param  string $shop
      * @param  array  $scopes
      * @param  string $redirectionUri
+     * @param  string $nonce
      * @return ResponseInterface
      * @throws Exception\MissingApiKeyException
      */
-    public function createAuthorizationResponse($shop, $scopes, $redirectionUri)
+    public function createAuthorizationResponse($shop, $scopes, $redirectionUri, $nonce)
     {
         $uri = sprintf(
             'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
@@ -181,7 +182,7 @@ class ShopifyClient extends Client
             $this->options['api_key'],
             implode(',', $scopes),
             $redirectionUri,
-            str_replace('.', '', uniqid('', true))
+            $nonce
         );
 
         return new RedirectResponse($uri);

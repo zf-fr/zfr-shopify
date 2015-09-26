@@ -190,7 +190,7 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
 
     public function testCanCreateAuthorizationReponse()
     {
-        $response = $this->client->createAuthorizationResponse('mystore', ['read_content', 'write_content'], 'https://www.mysite.com');
+        $response = $this->client->createAuthorizationResponse('mystore', ['read_content', 'write_content'], 'https://www.mysite.com', 'nonce');
         $location = $response->getHeaderLine('Location');
 
         $this->assertEquals(302, $response->getStatusCode());
