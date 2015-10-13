@@ -71,9 +71,11 @@ class ShopifyClient extends Client
      * @param  string $shop
      * @return void
      */
-    public function setShop($shop)
+    public function setShopDomain($shop)
     {
-        $this->options['shop'] = (string) $shop;
+        // The user may either pass the subdomain (myshop) or the complete domain (myshop.myshopify.com), but
+        // we normalize it to always have the subdomain
+        $this->options['shop'] = (string) str_replace('.myshopify.com', '', $shop);
     }
 
     /**

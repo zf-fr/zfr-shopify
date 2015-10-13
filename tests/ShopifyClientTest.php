@@ -94,6 +94,18 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $client->authorizeRequest($event);
     }
 
+    public function testNormalizeShopDomain()
+    {
+        $reflProperty = new \ReflectionProperty($this->client, 'options');
+        $reflProperty->setAccessible(true);
+
+        $this->client->setShopDomain('myshop.myshopify.com');
+        $this->assertEquals('myshop', $reflProperty->getValue($this->client)['shop']);
+
+        $this->client->setShopDomain('myshop');
+        $this->assertEquals('myshop', $reflProperty->getValue($this->client)['shop']);
+    }
+
     public function shopHostnameProvider()
     {
         return [

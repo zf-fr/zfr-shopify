@@ -107,6 +107,40 @@ return [
             'uri'              => 'shop.json',
             'summary'          => 'Get data about a single shop',
             'parameters'       => []
-        ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * OAUTH RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/authentication/oauth#confirming-installation
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetAccessToken' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'oauth/access_token',
+            'summary'          => 'Get data about a single shop',
+            'parameters'       => [
+                'client_id' => [
+                    'description' => 'API key of the app',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'client_secret' => [
+                    'description' => 'Shared secret of the app',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'code' => [
+                    'description' => 'Authorization code',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true
+                ]
+            ]
+        ],
     ]
 ];
