@@ -75,7 +75,7 @@ class ShopifyClient extends Client
     {
         // The user may either pass the subdomain (myshop) or the complete domain (myshop.myshopify.com), but
         // we normalize it to always have the subdomain
-        $this->options['shop'] = (string) str_replace('.myshopify.com', '', $shop);
+        $this->options['shop'] = str_replace('.myshopify.com', '', $shop);
     }
 
     /**
@@ -169,18 +169,18 @@ class ShopifyClient extends Client
      * Please note that this method will automatically generate a nonce value. You are responsible to
      * persist it in database, and validate it during the OAuth dance
      *
-     * @param  string $shop
+     * @param  string $shopDomain
      * @param  array  $scopes
      * @param  string $redirectionUri
      * @param  string $nonce
      * @return ResponseInterface
      * @throws Exception\MissingApiKeyException
      */
-    public function createAuthorizationResponse($shop, $scopes, $redirectionUri, $nonce)
+    public function createAuthorizationResponse($shopDomain, $scopes, $redirectionUri, $nonce)
     {
         $uri = sprintf(
             'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
-            $shop,
+            str_replace('.myshopify.com', '', $shopDomain),
             $this->options['api_key'],
             implode(',', $scopes),
             $redirectionUri,

@@ -200,9 +200,20 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $this->client->validateWebhook($request);
     }
 
-    public function testCanCreateAuthorizationReponse()
+    public function shopAuthorizationProvider()
     {
-        $response = $this->client->createAuthorizationResponse('mystore', ['read_content', 'write_content'], 'https://www.mysite.com', 'nonce');
+        return [
+            ['mystore'],
+            ['mystore.myshopify.com']
+        ];
+    }
+
+    /**
+     * @dataProvider shopAuthorizationProvider
+     */
+    public function testCanCreateAuthorizationReponse($shop)
+    {
+        $response = $this->client->createAuthorizationResponse($shop, ['read_content', 'write_content'], 'https://www.mysite.com', 'nonce');
         $location = $response->getHeaderLine('Location');
 
         $this->assertEquals(302, $response->getStatusCode());
