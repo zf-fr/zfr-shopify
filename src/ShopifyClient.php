@@ -68,6 +68,16 @@ class ShopifyClient extends Client
     }
 
     /**
+     * Get the options relative to Shopify
+     *
+     * @return array
+     */
+    public function getShopifyOptions()
+    {
+        return $this->options;
+    }
+
+    /**
      * @param  string $shop
      * @return void
      */
