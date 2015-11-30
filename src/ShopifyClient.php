@@ -42,6 +42,10 @@ use ZfrShopify\Exception;
  * SHOP RELATED METHODS:
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}
+ *
+ * OAUTH RELATED METHODS:
+ *
+ * @method array getAccessToken(array $args = []) {@command Shopify GetAccessToken}
  */
 class ShopifyClient extends Client
 {
