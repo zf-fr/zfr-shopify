@@ -30,7 +30,7 @@ use ZfrShopify\ShopifyClient;
  *
  * <code>
  *     'zfr_shopify' => [
- *         'shop'          => '', // a shop name, WITHOUT the ".myshopify.com" part
+ *         'shop'          => '', // a shop name, WITHOUT the ".myshopify.com" part (only required for private apps)
  *         'api_key'       => '', // an API key, always required
  *         'shared_secret' => '', // your shared secret, used to validate any request (only required for public apps)
  *         'access_token'  => '', // an access token that you got from the OAuth dance (only required for public apps)
@@ -53,8 +53,14 @@ class ShopifyClientFactory
 
         $config = $config['zfr_shopify'];
 
-        if (!isset($config['shop']) || !isset($config['private_app']) || !isset($config['api_key'])) {
-            throw new RuntimeException('Options "shop", "api_key" and "private_app" are mandatory when creating Shopify client');
+        if ($config['private_app']) {
+            if (!isset($config['shop']) || !isset($config['api_key']) || !isset($config['password'])) {
+                throw new RuntimeException('Options "shop", "api_key" and "password" are mandatory when creating Shopify client for a private app');
+            }
+        } else {
+            if (!isset($config['api_key']) || !isset($config['shared_secret'])) {
+                throw new RuntimeException('Options "api_key" and "shared_secret" are mandatory when creating Shopify client for a public app');
+            }
         }
 
         return new ShopifyClient($config);
