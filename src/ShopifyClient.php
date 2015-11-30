@@ -127,7 +127,13 @@ class ShopifyClient extends Client
         if ($this->options['private_app']) {
             $request->setAuth($this->options['api_key'], $this->options['password']);
         } else {
-            $request->setHeader('X-Shopify-Access-Token', $this->options['access_token']);
+            // There is a special case for the "GetAccessToken" where we authorize the request differently
+            if ($command->getName() === 'GetAccessToken') {
+                $command['client_id']     = $this->options['api_key'];
+                $command['client_secret'] = $this->options['shared_secret'];
+            } else {
+                $request->setHeader('X-Shopify-Access-Token', $this->options['access_token']);
+            }
         }
 
         // In both cases, we need to set the "shop" options for the request
