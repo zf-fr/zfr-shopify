@@ -18,7 +18,7 @@
     "require": {
         "php": ">=5.6",
         "guzzle/guzzle": "~3.6",
-        "zendframework/zend-diactoros": "~1.1.0",
+        "zendframework/zend-diactoros": "~1.1",
         "container-interop/container-interop": "^1.1"
     },
     "require-dev": {
