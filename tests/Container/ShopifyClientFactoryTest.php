@@ -47,7 +47,9 @@ class ShopifyClientFactoryTest extends \PHPUnit_Framework_TestCase
         $container = $this->getMock(ContainerInterface::class);
         $container->expects($this->once())->method('has')->with('config')->willReturn(true);
         $container->expects($this->once())->method('get')->with('config')->willReturn([
-            'zfr_shopify' => []
+            'zfr_shopify' => [
+                'private_app' => true
+            ]
         ]);
 
         $factory = new ShopifyClientFactory();
@@ -60,9 +62,9 @@ class ShopifyClientFactoryTest extends \PHPUnit_Framework_TestCase
         $container->expects($this->once())->method('has')->with('config')->willReturn(true);
         $container->expects($this->once())->method('get')->with('config')->willReturn([
             'zfr_shopify' => [
-                'shop'        => 'my_shop',
-                'api_key'     => 'bar',
-                'private_app' => true
+                'shared_secret' => 'foo',
+                'api_key'       => 'bar',
+                'private_app'   => false
             ]
         ]);
 
