@@ -111,6 +111,208 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * WEBHOOK RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/webhook
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetWebhooks' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'webhooks.json',
+            'summary'          => 'Retrieve a list of webhooks',
+            'parameters'       => [
+                'address' => [
+                    'description' => 'Specific URL for the webhook',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_max' => [
+                    'description' => 'Max creation date of the webhook',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the webhook',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the webhook',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the webhook',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'topic' => [
+                    'description' => 'List of webhook topic',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => [
+                        'orders/create', 'orders/delete', 'orders/updated', 'orders/paid', 'orders/cancelled', 'orders/fulfilled', 'orders/partially_fulfilled',
+                        'order_transactions/create', 'carts/create', 'carts/update', 'checkouts/create', 'checkouts/update', 'checkouts/delete', 'refunds/create',
+                        'products/create', 'products/update', 'products/delete', 'collections/create', 'collections/update', 'collections/delete',
+                        'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
+                        'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'shop/update', 'disputes/create', 'disputes/update',
+                        'app/uninstalled'
+                    ]
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetWebhook' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'webhooks/{id}.json',
+            'summary'          => 'Retrieve a list of webhooks',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific webhook ID',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateWebhook' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'webhooks.json',
+            'summary'          => 'Create a new webhook',
+            'parameters'       => [
+                'format' => [
+                    'description' => 'Type of data to return',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['json', 'xml']
+                ],
+                'address' => [
+                    'description' => 'Specific URL for the webhook',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'topic' => [
+                    'description' => 'List of webhook topic',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => [
+                        'orders/create', 'orders/delete', 'orders/updated', 'orders/paid', 'orders/cancelled', 'orders/fulfilled', 'orders/partially_fulfilled',
+                        'order_transactions/create', 'carts/create', 'carts/update', 'checkouts/create', 'checkouts/update', 'checkouts/delete', 'refunds/create',
+                        'products/create', 'products/update', 'products/delete', 'collections/create', 'collections/update', 'collections/delete',
+                        'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
+                        'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'shop/update', 'disputes/create', 'disputes/update',
+                        'app/uninstalled'
+                    ]
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdateWebhook' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'webhooks/{id}.json',
+            'summary'          => 'Update an existing webhook',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific webhook ID',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'address' => [
+                    'description' => 'Specific URL for the webhook',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'topic' => [
+                    'description' => 'List of webhook topic',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => [
+                        'orders/create', 'orders/delete', 'orders/updated', 'orders/paid', 'orders/cancelled', 'orders/fulfilled', 'orders/partially_fulfilled',
+                        'order_transactions/create', 'carts/create', 'carts/update', 'checkouts/create', 'checkouts/update', 'checkouts/delete', 'refunds/create',
+                        'products/create', 'products/update', 'products/delete', 'collections/create', 'collections/update', 'collections/delete',
+                        'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
+                        'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'shop/update', 'disputes/create', 'disputes/update',
+                        'app/uninstalled'
+                    ]
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'DeleteWebhook' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'webhooks/{id}.json',
+            'summary'          => 'Delete an existing webhook',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific webhook ID',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * OAUTH RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/authentication/oauth#confirming-installation

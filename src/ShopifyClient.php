@@ -43,6 +43,14 @@ use ZfrShopify\Exception;
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}
  *
+ * WEBHOOK RELATED METHODS:
+ *
+ * @method array getWebhooks(array $args = []) {@command Shopify GetWebhooks}
+ * @method array getWebhook(array $args = []) {@command Shopify GetWebhook}
+ * @method array createWebhook(array $args = []) {@command Shopify CreateWebhook}
+ * @method array updateWebhook(array $args = []) {@command Shopify UpdateWebhook}
+ * @method array deleteWebhook(array $args = []) {@command Shopify DeleteWebhook}
+ *
  * OAUTH RELATED METHODS:
  *
  * @method array getAccessToken(array $args = []) {@command Shopify GetAccessToken}
