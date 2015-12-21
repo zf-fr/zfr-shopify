@@ -39,9 +39,13 @@ use ZfrShopify\Exception;
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}
  *
- * SHOP RELATED METHODS:
+ * PAGE RELATED METHODS:
  *
- * @method array getShop(array $args = []) {@command Shopify GetShop}
+ * @method array getPages(array $args = []) {@command Shopify GetPages}
+ * @method array getPage(array $args = []) {@command Shopify GetPage}
+ * @method array createPage(array $args = []) {@command Shopify CreatePage}
+ * @method array updatePage(array $args = []) {@command Shopify UpdatePage}
+ * @method array deletePage(array $args = []) {@command Shopify DeletePage}
  *
  * PRODUCT IMAGE RELATED METHODS:
  *
@@ -50,6 +54,10 @@ use ZfrShopify\Exception;
  * @method array createProductImage(array $args = []) {@command Shopify CreateProductImage}
  * @method array updateProductImage(array $args = []) {@command Shopify UpdateProductImage}
  * @method array deleteProductImage(array $args = []) {@command Shopify DeleteProductImage}
+ *
+ * SHOP RELATED METHODS:
+ *
+ * @method array getShop(array $args = []) {@command Shopify GetShop}
  *
  * WEBHOOK RELATED METHODS:
  *

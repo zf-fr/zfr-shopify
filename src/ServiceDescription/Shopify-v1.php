@@ -96,17 +96,210 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
-         * SHOP RELATED METHODS
+         * PAGE RELATED METHODS
          *
-         * DOC: https://docs.shopify.com/api/shop
+         * DOC: https://docs.shopify.com/api/page
          * --------------------------------------------------------------------------------
          */
 
-        'GetShop' => [
+        'GetPages' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'shop.json',
-            'summary'          => 'Get data about a single shop',
-            'parameters'       => []
+            'uri'              => 'pages.json',
+            'summary'          => 'Retrieve a list of pages',
+            'parameters'       => [
+                'created_at_max' => [
+                    'description' => 'Max creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_max' => [
+                    'description' => 'Max publication date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_min' => [
+                    'description' => 'Min publication date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'title' => [
+                    'description' => 'Filter by page title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Filter by page handle',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_status' => [
+                    'description' => 'Current status of the page',
+                    'location'    => 'query',
+                    'type'        => 'enum',
+                    'required'    => false,
+                    'enum'        => ['published', 'unpublished', 'any']
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetPage' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'pages/{id}.json',
+            'summary'          => 'Retrieve specific page',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Page ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreatePage' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'pages.json',
+            'summary'          => 'Create a new page',
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Page title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'body_html' => [
+                    'description' => 'HTML content for the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'handle' => [
+                    'description' => 'Handle for the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdatePage' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'pages/{id}.json',
+            'summary'          => 'Update an existing page',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Page ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'title' => [
+                    'description' => 'Page title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Handle for the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'body_html' => [
+                    'description' => 'HTML content for the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published' => [
+                    'description' => 'Set the publication status',
+                    'location'    => 'query',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'DeletePage' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'pages/{id}.json',
+            'summary'          => 'Delete an existing page',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Page ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
         ],
 
         /**
@@ -293,6 +486,21 @@ return [
                     'required'    => true
                 ]
             ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * SHOP RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/shop
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetShop' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'shop.json',
+            'summary'          => 'Get data about a single shop',
+            'parameters'       => []
         ],
 
         /**
