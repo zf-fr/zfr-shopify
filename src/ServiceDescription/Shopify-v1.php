@@ -18,7 +18,7 @@
 
 return [
     'name'        => 'Shopify',
-    'baseUrl'     => 'https://{shop}.myshopify.com/admin',
+    //'baseUrl'     => 'https://{shop}.myshopify.com/admin',
     'description' => 'Shopify is an awesome e-commerce platform',
     'operations'  => [
         /**
@@ -221,31 +221,35 @@ return [
                     'description' => 'Page title',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => true,
+                    'sentAs'      => 'page[title]'
                 ],
                 'body_html' => [
                     'description' => 'HTML content for the page',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => true,
+                    'sentAs'      => 'page[body_html]'
                 ],
                 'handle' => [
                     'description' => 'Handle for the page',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'page[handle]'
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
                     'location'    => 'query',
                     'type'        => 'array',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'page[metafields]'
                 ]
             ]
         ],
 
         'UpdatePage' => [
-            'httpMethod'       => 'POST',
+            'httpMethod'       => 'PUT',
             'uri'              => 'pages/{id}.json',
             'summary'          => 'Update an existing page',
             'parameters'       => [
@@ -259,31 +263,36 @@ return [
                     'description' => 'Page title',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'page[title]'
                 ],
                 'handle' => [
                     'description' => 'Handle for the page',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'page[handle]'
                 ],
                 'body_html' => [
                     'description' => 'HTML content for the page',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'page[body_html]'
                 ],
                 'published' => [
                     'description' => 'Set the publication status',
                     'location'    => 'query',
                     'type'        => 'boolean',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'page[published]'
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
                     'location'    => 'query',
                     'type'        => 'array',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'page[metafields]'
                 ]
             ]
         ],
@@ -377,43 +386,49 @@ return [
                     'description' => 'Variant ids attached to this image',
                     'location'    => 'query',
                     'type'        => 'array',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[variant_ids]'
                 ],
                 'attachment' => [
                     'description' => 'Base 64 encoded of the image',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[attachment]'
                 ],
                 'src' => [
                     'description' => 'Source URL that will be downloaded by Shopify',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[src]'
                 ],
                 'filename' => [
                     'description' => 'Name of the file to upload',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[filename]'
                 ],
                 'position' => [
                     'description' => 'Position of the image for the product',
                     'location'    => 'query',
                     'type'        => 'integer',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[position]'
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
                     'location'    => 'query',
                     'type'        => 'array',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[metafields]'
                 ]
             ]
         ],
 
         'UpdateProductImage' => [
-            'httpMethod'       => 'POST',
+            'httpMethod'       => 'PUT',
             'uri'              => 'products/{product_id}/images/{id}.json',
             'summary'          => 'Update an existing product image',
             'parameters'       => [
@@ -433,37 +448,43 @@ return [
                     'description' => 'Variant ids attached to this image',
                     'location'    => 'query',
                     'type'        => 'array',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[variant_ids]'
                 ],
                 'attachment' => [
                     'description' => 'Base 64 encoded of the image',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[attachment]'
                 ],
                 'src' => [
                     'description' => 'Source URL that will be downloaded by Shopify',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[src]'
                 ],
                 'filename' => [
                     'description' => 'Name of the file to upload',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[filename]'
                 ],
                 'position' => [
                     'description' => 'Position of the image for the product',
                     'location'    => 'query',
                     'type'        => 'integer',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[position]'
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
                     'location'    => 'query',
                     'type'        => 'array',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'image[metafields]'
                 ]
             ]
         ],
@@ -620,13 +641,15 @@ return [
                     'location'    => 'query',
                     'type'        => 'string',
                     'required'    => true,
-                    'enum'        => ['json', 'xml']
+                    'enum'        => ['json', 'xml'],
+                    'sentAs'      => 'webhook[format]'
                 ],
                 'address' => [
                     'description' => 'Specific URL for the webhook',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => true,
+                    'sentAs'      => 'webhook[address]'
                 ],
                 'topic' => [
                     'description' => 'List of webhook topic',
@@ -640,13 +663,15 @@ return [
                         'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
                         'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'shop/update', 'disputes/create', 'disputes/update',
                         'app/uninstalled'
-                    ]
+                    ],
+                    'sentAs'      => 'webhook[topic]'
                 ],
                 'fields' => [
                     'description' => 'Comma separated list of fields to retrieve',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'webhook[fields]'
                 ]
             ]
         ],
@@ -666,7 +691,8 @@ return [
                     'description' => 'Specific URL for the webhook',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'webhook[address]'
                 ],
                 'topic' => [
                     'description' => 'List of webhook topic',
@@ -680,13 +706,15 @@ return [
                         'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
                         'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'shop/update', 'disputes/create', 'disputes/update',
                         'app/uninstalled'
-                    ]
+                    ],
+                    'sentAs'      => 'webhook[topic]'
                 ],
                 'fields' => [
                     'description' => 'Comma separated list of fields to retrieve',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => false,
+                    'sentAs'      => 'webhook[fields]'
                 ]
             ]
         ],

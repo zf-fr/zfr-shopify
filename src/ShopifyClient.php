@@ -92,6 +92,7 @@ class ShopifyClient extends Client
 
         // Add an event to set the Authorization param
         $dispatcher = $this->getEventDispatcher();
+        $dispatcher->addListener('client.command.create', [$this, 'setShopBaseUrl']);
         $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
     }
 
@@ -111,9 +112,7 @@ class ShopifyClient extends Client
      */
     public function setShopDomain($shop)
     {
-        // The user may either pass the subdomain (myshop) or the complete domain (myshop.myshopify.com), but
-        // we normalize it to always have the subdomain
-        $this->options['shop'] = str_replace('.myshopify.com', '', $shop);
+        $this->options['shop'] = (string) $shop;
     }
 
     /**
@@ -131,6 +130,23 @@ class ShopifyClient extends Client
     public function __call($method, $args = [])
     {
         return parent::__call(ucfirst($method), $args);
+    }
+
+    /**
+     * Set the base URL
+     *
+     * @internal
+     * @param Event $event
+     */
+    public function setShopBaseUrl(Event $event)
+    {
+        /** @var Client $client */
+        $client = $event['client'];
+
+        // In both cases, we need to set the "shop" options for the request. Note the user may either pass the
+        // subdomain (myshop) or the complete domain (myshop.myshopify.com), but we normalize it to always have the subdomain
+        $shop = str_replace('.myshopify.com', '', $this->options['shop']);
+        $client->setBaseUrl("https://$shop.myshopify.com/admin");
     }
 
     /**
@@ -159,9 +175,6 @@ class ShopifyClient extends Client
                 $request->setHeader('X-Shopify-Access-Token', $this->options['access_token']);
             }
         }
-
-        // In both cases, we need to set the "shop" options for the request
-        $command['shop'] = $this->options['shop'];
     }
 
     /**
