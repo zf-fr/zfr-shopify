@@ -43,6 +43,14 @@ use ZfrShopify\Exception;
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}
  *
+ * PRODUCT IMAGE RELATED METHODS:
+ *
+ * @method array getProductImages(array $args = []) {@command Shopify GetProductImages}
+ * @method array getProductImage(array $args = []) {@command Shopify GetProductImage}
+ * @method array createProductImage(array $args = []) {@command Shopify CreateProductImage}
+ * @method array updateProductImage(array $args = []) {@command Shopify UpdateProductImage}
+ * @method array deleteProductImage(array $args = []) {@command Shopify DeleteProductImage}
+ *
  * WEBHOOK RELATED METHODS:
  *
  * @method array getWebhooks(array $args = []) {@command Shopify GetWebhooks}

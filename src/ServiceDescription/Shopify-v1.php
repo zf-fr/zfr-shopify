@@ -111,6 +111,192 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * PRODUCT IMAGES RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/product_image
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetProductImages' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'products/{product_id}/images.json',
+            'summary'          => 'Retrieve a list of product images',
+            'parameters'       => [
+                'product_id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetProductImage' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'products/{product_id}/images/{id}.json',
+            'summary'          => 'Retrieve specific product image',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Product image ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'product_id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateProductImage' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'products/{product_id}/images.json',
+            'summary'          => 'Create a new product image',
+            'parameters'       => [
+                'product_id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'variant_ids' => [
+                    'description' => 'Variant ids attached to this image',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'attachment' => [
+                    'description' => 'Base 64 encoded of the image',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'src' => [
+                    'description' => 'Source URL that will be downloaded by Shopify',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'filename' => [
+                    'description' => 'Name of the file to upload',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'position' => [
+                    'description' => 'Position of the image for the product',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdateProductImage' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'products/{product_id}/images/{id}.json',
+            'summary'          => 'Update an existing product image',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Product image ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'product_id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'variant_ids' => [
+                    'description' => 'Variant ids attached to this image',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'attachment' => [
+                    'description' => 'Base 64 encoded of the image',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'src' => [
+                    'description' => 'Source URL that will be downloaded by Shopify',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'filename' => [
+                    'description' => 'Name of the file to upload',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'position' => [
+                    'description' => 'Position of the image for the product',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'DeleteProductImage' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'products/{product_id}/images/{id}.json',
+            'summary'          => 'Delete an existing product image',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Product image ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'product_id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * WEBHOOK RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/webhook
@@ -199,12 +385,12 @@ return [
         'GetWebhook' => [
             'httpMethod'       => 'GET',
             'uri'              => 'webhooks/{id}.json',
-            'summary'          => 'Retrieve a list of webhooks',
+            'summary'          => 'Retrieve a specific webhook',
             'parameters'       => [
                 'id' => [
                     'description' => 'Specific webhook ID',
                     'location'    => 'uri',
-                    'type'        => 'string',
+                    'type'        => 'integer',
                     'required'    => true
                 ],
                 'fields' => [
@@ -265,7 +451,7 @@ return [
                 'id' => [
                     'description' => 'Specific webhook ID',
                     'location'    => 'uri',
-                    'type'        => 'string',
+                    'type'        => 'integer',
                     'required'    => true
                 ],
                 'address' => [
@@ -305,7 +491,7 @@ return [
                 'id' => [
                     'description' => 'Specific webhook ID',
                     'location'    => 'uri',
-                    'type'        => 'string',
+                    'type'        => 'integer',
                     'required'    => true
                 ]
             ]
