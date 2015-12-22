@@ -35,6 +35,14 @@ use ZfrShopify\Exception;
  *
  * @author Michaël Gallego
  *
+ * ARTICLE RELATED METHODS:
+ *
+ * @method array getArticles(array $args = []) {@command Shopify GetArticles}
+ * @method array getArticle(array $args = []) {@command Shopify GetArticle}
+ * @method array createArticle(array $args = []) {@command Shopify CreateArticle}
+ * @method array updateArticle(array $args = []) {@command Shopify UpdateArticle}
+ * @method array deleteArticle(array $args = []) {@command Shopify DeleteArticle}
+ *
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}

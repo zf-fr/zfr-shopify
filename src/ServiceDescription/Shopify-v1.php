@@ -18,9 +18,332 @@
 
 return [
     'name'        => 'Shopify',
-    //'baseUrl'     => 'https://{shop}.myshopify.com/admin',
     'description' => 'Shopify is an awesome e-commerce platform',
     'operations'  => [
+        /**
+         * --------------------------------------------------------------------------------
+         * ARTICLE RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/article
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetPages' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'blogs/{blog_id}/articles.json',
+            'summary'          => 'Retrieve a list of articles for a given blog',
+            'parameters'       => [
+                'blog_id' => [
+                    'description' => 'Blog from which we need to extract articles',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'created_at_max' => [
+                    'description' => 'Max creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_max' => [
+                    'description' => 'Max publication date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_min' => [
+                    'description' => 'Min publication date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'title' => [
+                    'description' => 'Filter by page title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Filter by page handle',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_status' => [
+                    'description' => 'Current status of the page',
+                    'location'    => 'query',
+                    'type'        => 'enum',
+                    'required'    => false,
+                    'enum'        => ['published', 'unpublished', 'any']
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetArticle' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'blogs/{blog_id}/articles/{id}.json',
+            'summary'          => 'Retrieve specific article',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Article ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'blog_id' => [
+                    'description' => 'Blog from which we need to extract articles',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateArticle' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'blogs/{blog_id}/articles.json',
+            'summary'          => 'Create a new article',
+            'parameters'       => [
+                'blog_id' => [
+                    'description' => 'Blog from which we need to extract articles',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'title' => [
+                    'description' => 'Article title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'article[title]'
+                ],
+                'author' => [
+                    'description' => 'Author for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'article[author]'
+                ],
+                'tags' => [
+                    'description' => 'Tags for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'article[tags]'
+                ],
+                'body_html' => [
+                    'description' => 'HTML content for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'article[body_html]'
+                ],
+                'summary_html' => [
+                    'description' => 'HTML content for the article\'s summary',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'article[summary_html]'
+                ],
+                'handle' => [
+                    'description' => 'Handle for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'article[handle]'
+                ],
+                'published' => [
+                    'description' => 'Set the publication status',
+                    'location'    => 'query',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                    'sentAs'      => 'article[published]'
+                ],
+                'published_at' => [
+                    'description' => 'Publication date for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'article[published_at]'
+                ],
+                'image' => [
+                    'description' => 'Set the image (either through a base 64 attachment or URL)',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'article[image]'
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'article[metafields]'
+                ]
+            ]
+        ],
+
+        'UpdateArticle' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'blogs/{blog_id}/articles/{id}.json',
+            'summary'          => 'Update an existing article',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Article ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'blog_id' => [
+                    'description' => 'Blog from which we need to extract articles',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'title' => [
+                    'description' => 'Article title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'article[title]'
+                ],
+                'author' => [
+                    'description' => 'Author for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'article[author]'
+                ],
+                'tags' => [
+                    'description' => 'Tags for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'article[tags]'
+                ],
+                'body_html' => [
+                    'description' => 'HTML content for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'article[body_html]'
+                ],
+                'summary_html' => [
+                    'description' => 'HTML content for the article\'s summary',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'article[summary_html]'
+                ],
+                'handle' => [
+                    'description' => 'Handle for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'article[handle]'
+                ],
+                'published' => [
+                    'description' => 'Set the publication status',
+                    'location'    => 'query',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                    'sentAs'      => 'article[published]'
+                ],
+                'published_at' => [
+                    'description' => 'Publication date for the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'article[published_at]'
+                ],
+                'image' => [
+                    'description' => 'Set the image (either through a base 64 attachment or URL)',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'article[image]'
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'article[metafields]'
+                ]
+            ]
+        ],
+
+        'DeleteArticle' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'blogs/{blog_id}/articles/{id}.json',
+            'summary'          => 'Delete an existing article',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Page ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'blog_id' => [
+                    'description' => 'Blog from which we need to extract articles',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
         /**
          * --------------------------------------------------------------------------------
          * ORDER RELATED METHODS
