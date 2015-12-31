@@ -1064,10 +1064,10 @@ return [
          * --------------------------------------------------------------------------------
          */
 
-        'GetAccessToken' => [
+        'ExchangeCodeForToken' => [
             'httpMethod'       => 'POST',
             'uri'              => 'oauth/access_token',
-            'summary'          => 'Get data about a single shop',
+            'summary'          => 'Code an OAuth code to a long-lived access token',
             'parameters'       => [
                 'client_id' => [
                     'description' => 'API key of the app',

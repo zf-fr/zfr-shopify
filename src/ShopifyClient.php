@@ -77,7 +77,7 @@ use ZfrShopify\Exception;
  *
  * OAUTH RELATED METHODS:
  *
- * @method array getAccessToken(array $args = []) {@command Shopify GetAccessToken}
+ * @method array exchangeCodeForToken(array $args = []) {@command Shopify ExchangeCodeForToken}
  */
 class ShopifyClient extends Client
 {
@@ -175,8 +175,8 @@ class ShopifyClient extends Client
         if ($this->options['private_app']) {
             $request->setAuth($this->options['api_key'], $this->options['password']);
         } else {
-            // There is a special case for the "GetAccessToken" where we authorize the request differently
-            if ($command->getName() === 'GetAccessToken') {
+            // There is a special case for the "ExchangeCodeForToken" where we authorize the request differently
+            if ($command->getName() === 'ExchangeCodeForToken') {
                 $command['client_id']     = $this->options['api_key'];
                 $command['client_secret'] = $this->options['shared_secret'];
             } else {
