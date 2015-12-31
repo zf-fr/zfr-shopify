@@ -94,13 +94,27 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $client->authorizeRequest($event);
     }
 
-    public function testNormalizeShopDomain()
+    public function shopDomainProvider()
     {
-        $this->client->setShopDomain('myshop.myshopify.com');
-        $this->assertEquals('myshop', $this->client->getShopifyOptions()['shop']);
+        return [
+            ['myshop.myshopify.com'],
+            ['myshop']
+        ];
+    }
 
-        $this->client->setShopDomain('myshop');
-        $this->assertEquals('myshop', $this->client->getShopifyOptions()['shop']);
+    /**
+     * @dataProvider shopDomainProvider
+     */
+    public function testNormalizeShopDomain($domain)
+    {
+        $this->client->setShopDomain($domain);
+
+        $event = new Event([
+            'client' => $this->client
+        ]);
+
+        $this->client->prepareShopBaseUrl($event);
+        $this->assertEquals('https://myshop.myshopify.com/admin', $this->client->getBaseUrl());
     }
 
     public function shopHostnameProvider()

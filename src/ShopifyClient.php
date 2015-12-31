@@ -100,7 +100,7 @@ class ShopifyClient extends Client
 
         // Add an event to set the Authorization param
         $dispatcher = $this->getEventDispatcher();
-        $dispatcher->addListener('client.command.create', [$this, 'setShopBaseUrl']);
+        $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
         $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
     }
 
@@ -141,12 +141,12 @@ class ShopifyClient extends Client
     }
 
     /**
-     * Set the base URL
+     * Prepare the base URL
      *
      * @internal
      * @param Event $event
      */
-    public function setShopBaseUrl(Event $event)
+    public function prepareShopBaseUrl(Event $event)
     {
         /** @var Client $client */
         $client = $event['client'];
