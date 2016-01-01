@@ -65,6 +65,14 @@ use ZfrShopify\Exception;
  * @method array updateProductImage(array $args = []) {@command Shopify UpdateProductImage}
  * @method array deleteProductImage(array $args = []) {@command Shopify DeleteProductImage}
  *
+ * RECURRING APPLICATION CHARGE RELATED METHODS:
+ *
+ * @method array getRecurringApplicationCharges(array $args = []) {@command Shopify GetRecurringApplicationCharges}
+ * @method array getRecurringApplicationCharge(array $args = []) {@command Shopify GetRecurringApplicationCharge}
+ * @method array createRecurringApplicationCharge(array $args = []) {@command Shopify CreateRecurringApplicationCharge}
+ * @method array activateRecurringApplicationCharge(array $args = []) {@command Shopify ActivateRecurringApplicationCharge}
+ * @method array deleteRecurringApplicationCharge(array $args = []) {@command Shopify DeleteRecurringApplicationCharge}
+ *
  * SHOP RELATED METHODS:
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}

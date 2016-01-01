@@ -868,6 +868,125 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * RECURRING APPLICATION CHARGES RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/recurringapplicationcharge
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetRecurringApplicationCharges' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'recurring_application_charges.json',
+            'summary'          => 'Retrieve a list of recurring application charges',
+            'parameters'       => [
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetRecurringApplicationCharge' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'recurring_application_charges/{id}.json',
+            'summary'          => 'Retrieve a specific recurring application charge',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific recurring application charge ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateRecurringApplicationCharge' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'recurring_application_charges.json',
+            'summary'          => 'Create a new recurring application charge',
+            'parameters'       => [
+                'name' => [
+                    'description' => 'Plan name',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'recurring_application_charge[name]'
+                ],
+                'price' => [
+                    'description' => 'Price to charge',
+                    'location'    => 'query',
+                    'type'        => 'number',
+                    'required'    => true,
+                    'sentAs'      => 'recurring_application_charge[price]'
+                ],
+                'return_url' => [
+                    'description' => 'URL where Shopify must return once the charge has been accepted',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'recurring_application_charge[return_url]'
+                ],
+                'test' => [
+                    'description' => 'Test mode for the charge',
+                    'location'    => 'query',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                    'sentAs'      => 'recurring_application_charge[test]'
+                ],
+                'trial_days' => [
+                    'description' => 'Number of days for allowing trial',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false,
+                    'sentAs'      => 'recurring_application_charge[trial_days]'
+                ]
+            ]
+        ],
+
+        'ActivateRecurringApplicationCharge' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'recurring_application_charges/{id}/activate.json',
+            'summary'          => 'Activate a previously accepted recurring application charge',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific recurring application charge ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        'DeleteRecurringApplicationCharge' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'recurring_application_charges/{id}.json',
+            'summary'          => 'Delete an existing recurring application charge',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific recurring application charge ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * SHOP RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/shop
