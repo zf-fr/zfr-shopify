@@ -28,7 +28,7 @@ return [
          * --------------------------------------------------------------------------------
          */
 
-        'GetPages' => [
+        'GetArticles' => [
             'httpMethod'       => 'GET',
             'uri'              => 'blogs/{blog_id}/articles.json',
             'summary'          => 'Retrieve a list of articles for a given blog',
@@ -88,7 +88,7 @@ return [
                     'required'    => false
                 ],
                 'published_status' => [
-                    'description' => 'Current status of the page',
+                    'description' => 'Current status of the article',
                     'location'    => 'query',
                     'type'        => 'enum',
                     'required'    => false,
@@ -145,6 +145,40 @@ return [
                     'description' => 'Comma separated list of fields to retrieve',
                     'location'    => 'query',
                     'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetArticlesAuthors' => [
+            'httpMethod' => 'GET',
+            'uri'        => 'articles/authors.json',
+            'summary'    => 'Retrieve list of all article authors'
+        ],
+
+        'GetArticlesTags' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'blogs/{blog_id}/articles/tags.json',
+            'summary'          => 'Retrieve all tags for a given blog',
+            'parameters'       => [
+                'blog_id' => [
+                    'description' => 'Blog from which we need to extract articles',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'popular' => [
+                    'description' => 'A flag to inidicate only to a certain number of the most popular tags',
+                    'location'    => 'query',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
                     'required'    => false
                 ]
             ]
@@ -990,9 +1024,9 @@ return [
                     'sentAs'      => 'webhook[topic]'
                 ],
                 'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
+                    'description' => 'List of fields return by the webhooks',
                     'location'    => 'query',
-                    'type'        => 'string',
+                    'type'        => 'array',
                     'required'    => false,
                     'sentAs'      => 'webhook[fields]'
                 ]
