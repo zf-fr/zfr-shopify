@@ -129,9 +129,9 @@ $response = $shopifyClient->createAuthorizationResponse($shopDomain, $scopes, $r
 While the `nonce` parameter is required, ZfrShopify does not make any assumption about how to save the nonce and check it when
 Shopify redirects to your server. You are responsible to safely saving the nonce.
 
-### Exploiting answer
+### Exploiting responses
 
-ZfrShopify returns Shopify answer directly. However, by default, Shopify wrap the responses by a top-key. For instance, if
+ZfrShopify returns Shopify response directly. However, by default, Shopify wrap the responses by a top-key. For instance, if
 you want to retrieve shop information, Shopify will return this payload:
 
 ```json
@@ -210,3 +210,7 @@ Here is a list of supported endpoints (more to come in the future):
 * createWebhook(array $args = [])
 * updateWebhook(array $args = [])
 * deleteWebhook(array $args = [])
+
+**OAUTH RELATED METHODS:**
+
+* exchangeCodeForToken(array $args = [])
