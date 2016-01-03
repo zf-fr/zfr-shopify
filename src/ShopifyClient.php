@@ -147,7 +147,18 @@ class ShopifyClient extends Client
      */
     public function __call($method, $args = [])
     {
-        return parent::__call(ucfirst($method), $args);
+        // In Shopify, all API responses wrap the data by the resource name. For instance, using the "/shop" endpoint will wrap
+        // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the
+        // result. The only exception if the "ExchangeCodeForToken" command that works a bit differently
+
+        $command = ucfirst($method);
+        $data    = parent::__call($command, $args);
+
+        if ($command === 'ExchangeCodeForToken') {
+            return $data;
+        } else {
+            return current($data);
+        }
     }
 
     /**
