@@ -32,6 +32,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'blogs/{blog_id}/articles.json',
             'summary'          => 'Retrieve a list of articles for a given blog',
+            'data'             => ['root_key' => 'articles'],
             'parameters'       => [
                 'blog_id' => [
                     'description' => 'Blog from which we need to extract articles',
@@ -128,6 +129,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'blogs/{blog_id}/articles/{id}.json',
             'summary'          => 'Retrieve specific article',
+            'data'             => ['root_key' => 'article'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Article ID',
@@ -153,13 +155,15 @@ return [
         'GetArticlesAuthors' => [
             'httpMethod' => 'GET',
             'uri'        => 'articles/authors.json',
-            'summary'    => 'Retrieve list of all article authors'
+            'summary'    => 'Retrieve list of all article authors',
+            'data'       => ['root_key' => 'authors'],
         ],
 
         'GetArticlesTags' => [
             'httpMethod'       => 'GET',
             'uri'              => 'blogs/{blog_id}/articles/tags.json',
             'summary'          => 'Retrieve all tags for a given blog',
+            'data'             => ['root_key' => 'tags'],
             'parameters'       => [
                 'blog_id' => [
                     'description' => 'Blog from which we need to extract articles',
@@ -188,6 +192,7 @@ return [
             'httpMethod'       => 'POST',
             'uri'              => 'blogs/{blog_id}/articles.json',
             'summary'          => 'Create a new article',
+            'data'             => ['root_key' => 'article'],
             'parameters'       => [
                 'blog_id' => [
                     'description' => 'Blog from which we need to extract articles',
@@ -197,73 +202,63 @@ return [
                 ],
                 'title' => [
                     'description' => 'Article title',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'article[title]'
+                    'required'    => true
                 ],
                 'author' => [
                     'description' => 'Author for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'article[author]'
+                    'required'    => false
                 ],
                 'tags' => [
                     'description' => 'Tags for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'article[tags]'
+                    'required'    => false
                 ],
                 'body_html' => [
                     'description' => 'HTML content for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'article[body_html]'
+                    'required'    => true
                 ],
                 'summary_html' => [
                     'description' => 'HTML content for the article\'s summary',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'article[summary_html]'
+                    'required'    => true
                 ],
                 'handle' => [
                     'description' => 'Handle for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'article[handle]'
+                    'required'    => false
                 ],
                 'published' => [
                     'description' => 'Set the publication status',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'boolean',
-                    'required'    => false,
-                    'sentAs'      => 'article[published]'
+                    'required'    => false
                 ],
                 'published_at' => [
                     'description' => 'Publication date for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'article[published_at]'
+                    'required'    => false
                 ],
                 'image' => [
                     'description' => 'Set the image (either through a base 64 attachment or URL)',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'article[image]'
+                    'required'    => false
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'article[metafields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -272,6 +267,7 @@ return [
             'httpMethod'       => 'PUT',
             'uri'              => 'blogs/{blog_id}/articles/{id}.json',
             'summary'          => 'Update an existing article',
+            'data'             => ['root_key' => 'article'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Article ID',
@@ -287,73 +283,63 @@ return [
                 ],
                 'title' => [
                     'description' => 'Article title',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'article[title]'
+                    'required'    => true
                 ],
                 'author' => [
                     'description' => 'Author for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'article[author]'
+                    'required'    => false
                 ],
                 'tags' => [
                     'description' => 'Tags for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'article[tags]'
+                    'required'    => false
                 ],
                 'body_html' => [
                     'description' => 'HTML content for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'article[body_html]'
+                    'required'    => true
                 ],
                 'summary_html' => [
                     'description' => 'HTML content for the article\'s summary',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'article[summary_html]'
+                    'required'    => true
                 ],
                 'handle' => [
                     'description' => 'Handle for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'article[handle]'
+                    'required'    => false
                 ],
                 'published' => [
                     'description' => 'Set the publication status',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'boolean',
-                    'required'    => false,
-                    'sentAs'      => 'article[published]'
+                    'required'    => false
                 ],
                 'published_at' => [
                     'description' => 'Publication date for the article',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'article[published_at]'
+                    'required'    => false
                 ],
                 'image' => [
                     'description' => 'Set the image (either through a base 64 attachment or URL)',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'article[image]'
+                    'required'    => false
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'article[metafields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -390,6 +376,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'custom_collections.json',
             'summary'          => 'Retrieve a list of custom collections',
+            'data'             => ['root_key' => 'custom_collections'],
             'parameters'       => [
                 'title' => [
                     'description' => 'Only show custom collections with given title',
@@ -486,6 +473,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'custom_collections/{id}.json',
             'summary'          => 'Retrieve specific custom collection',
+            'data'             => ['root_key' => 'custom_collection'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Custom collection ID',
@@ -506,48 +494,43 @@ return [
             'httpMethod'       => 'POST',
             'uri'              => 'custom_collections.json',
             'summary'          => 'Create a custom collection',
+            'data'             => ['root_key' => 'custom_collection'],
             'parameters'       => [
                 'title' => [
                     'description' => 'Custom collection title',
                     'location'    => 'query',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[title]'
+                    'required'    => false
                 ],
                 'body_html' => [
                     'description' => 'Collection description',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[body_html]'
+                    'required'    => false
                 ],
                 'published' => [
                     'description' => 'Status for the custom collection',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'boolean',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[published]'
+                    'required'    => false
                 ],
                 'image' => [
                     'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[image]'
+                    'required'    => false
                 ],
                 'collects' => [
                     'description' => 'Collect with list of product',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[collects]'
+                    'required'    => false
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[metafields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -556,6 +539,7 @@ return [
             'httpMethod'       => 'PUT',
             'uri'              => 'custom_collections/{id}.json',
             'summary'          => 'Update a custom collection',
+            'data'             => ['root_key' => 'custom_collection'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Custom collection ID',
@@ -565,45 +549,39 @@ return [
                 ],
                 'title' => [
                     'description' => 'Custom collection title',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[title]'
+                    'required'    => false
                 ],
                 'body_html' => [
                     'description' => 'Collection description',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[body_html]'
+                    'required'    => false
                 ],
                 'published' => [
                     'description' => 'Status for the custom collection',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'boolean',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[published]'
+                    'required'    => false
                 ],
                 'image' => [
                     'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[image]'
+                    'required'    => false
                 ],
                 'collects' => [
                     'description' => 'Collect with list of product',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[collects]'
+                    'required'    => false
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'custom_collection[metafields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -634,6 +612,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'events.json',
             'summary'          => 'Retrieve a list of events',
+            'data'             => ['root_key' => 'events'],
             'parameters'       => [
                 'filter' => [
                     'description' => 'Only show events specified in filter',
@@ -693,6 +672,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'events/{id}.json',
             'summary'          => 'Retrieve specific event',
+            'data'             => ['root_key' => 'event'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Page ID',
@@ -721,6 +701,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'orders.json',
             'summary'          => 'Retrieve a list of orders',
+            'data'             => ['root_key' => 'orders'],
             'parameters'       => [
                 'ids' => [
                     'description' => 'Comma separated list of orders',
@@ -794,6 +775,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'pages.json',
             'summary'          => 'Retrieve a list of pages',
+            'data'             => ['root_key' => 'pages'],
             'parameters'       => [
                 'created_at_max' => [
                     'description' => 'Max creation date of the page',
@@ -884,6 +866,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'pages/{id}.json',
             'summary'          => 'Retrieve specific page',
+            'data'             => ['root_key' => 'page'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Page ID',
@@ -904,34 +887,31 @@ return [
             'httpMethod'       => 'POST',
             'uri'              => 'pages.json',
             'summary'          => 'Create a new page',
+            'data'             => ['root_key' => 'page'],
             'parameters'       => [
                 'title' => [
                     'description' => 'Page title',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'page[title]'
+                    'required'    => true
                 ],
                 'body_html' => [
                     'description' => 'HTML content for the page',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'page[body_html]'
+                    'required'    => true
                 ],
                 'handle' => [
                     'description' => 'Handle for the page',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'page[handle]'
+                    'required'    => false
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'page[metafields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -940,6 +920,7 @@ return [
             'httpMethod'       => 'PUT',
             'uri'              => 'pages/{id}.json',
             'summary'          => 'Update an existing page',
+            'data'             => ['root_key' => 'page'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Page ID',
@@ -949,38 +930,33 @@ return [
                 ],
                 'title' => [
                     'description' => 'Page title',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'page[title]'
+                    'required'    => false
                 ],
                 'handle' => [
                     'description' => 'Handle for the page',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'page[handle]'
+                    'required'    => false
                 ],
                 'body_html' => [
                     'description' => 'HTML content for the page',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'page[body_html]'
+                    'required'    => false
                 ],
                 'published' => [
                     'description' => 'Set the publication status',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'boolean',
-                    'required'    => false,
-                    'sentAs'      => 'page[published]'
+                    'required'    => false
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'page[metafields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -1011,6 +987,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'products/{product_id}/images.json',
             'summary'          => 'Retrieve a list of product images',
+            'data'             => ['root_key' => 'images'],
             'parameters'       => [
                 'product_id' => [
                     'description' => 'Product ID',
@@ -1037,6 +1014,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'products/{product_id}/images/{id}.json',
             'summary'          => 'Retrieve specific product image',
+            'data'             => ['root_key' => 'image'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Product image ID',
@@ -1063,6 +1041,7 @@ return [
             'httpMethod'       => 'POST',
             'uri'              => 'products/{product_id}/images.json',
             'summary'          => 'Create a new product image',
+            'data'             => ['root_key' => 'image'],
             'parameters'       => [
                 'product_id' => [
                     'description' => 'Product ID',
@@ -1072,45 +1051,39 @@ return [
                 ],
                 'variant_ids' => [
                     'description' => 'Variant ids attached to this image',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'image[variant_ids]'
+                    'required'    => false
                 ],
                 'attachment' => [
                     'description' => 'Base 64 encoded of the image',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'image[attachment]'
+                    'required'    => false
                 ],
                 'src' => [
                     'description' => 'Source URL that will be downloaded by Shopify',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'image[src]'
+                    'required'    => false
                 ],
                 'filename' => [
                     'description' => 'Name of the file to upload',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'image[filename]'
+                    'required'    => false
                 ],
                 'position' => [
                     'description' => 'Position of the image for the product',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'integer',
-                    'required'    => false,
-                    'sentAs'      => 'image[position]'
+                    'required'    => false
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'image[metafields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -1119,6 +1092,7 @@ return [
             'httpMethod'       => 'PUT',
             'uri'              => 'products/{product_id}/images/{id}.json',
             'summary'          => 'Update an existing product image',
+            'data'             => ['root_key' => 'image'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Product image ID',
@@ -1134,45 +1108,39 @@ return [
                 ],
                 'variant_ids' => [
                     'description' => 'Variant ids attached to this image',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'image[variant_ids]'
+                    'required'    => false
                 ],
                 'attachment' => [
                     'description' => 'Base 64 encoded of the image',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'image[attachment]'
+                    'required'    => false
                 ],
                 'src' => [
                     'description' => 'Source URL that will be downloaded by Shopify',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'image[src]'
+                    'required'    => false
                 ],
                 'filename' => [
                     'description' => 'Name of the file to upload',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'image[filename]'
+                    'required'    => false
                 ],
                 'position' => [
                     'description' => 'Position of the image for the product',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'integer',
-                    'required'    => false,
-                    'sentAs'      => 'image[position]'
+                    'required'    => false
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'image[metafields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -1209,6 +1177,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'recurring_application_charges.json',
             'summary'          => 'Retrieve a list of recurring application charges',
+            'data'             => ['root_key' => 'recurring_application_charges'],
             'parameters'       => [
                 'since_id' => [
                     'description' => 'Restrict results after the specified id',
@@ -1229,6 +1198,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'recurring_application_charges/{id}.json',
             'summary'          => 'Retrieve a specific recurring application charge',
+            'data'             => ['root_key' => 'recurring_application_charge'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Specific recurring application charge ID',
@@ -1249,41 +1219,37 @@ return [
             'httpMethod'       => 'POST',
             'uri'              => 'recurring_application_charges.json',
             'summary'          => 'Create a new recurring application charge',
+            'data'             => ['root_key' => 'recurring_application_charge'],
             'parameters'       => [
                 'name' => [
                     'description' => 'Plan name',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'recurring_application_charge[name]'
+                    'required'    => true
                 ],
                 'price' => [
                     'description' => 'Price to charge',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'number',
-                    'required'    => true,
-                    'sentAs'      => 'recurring_application_charge[price]'
+                    'required'    => true
                 ],
                 'return_url' => [
                     'description' => 'URL where Shopify must return once the charge has been accepted',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'recurring_application_charge[return_url]'
+                    'required'    => true
                 ],
                 'test' => [
                     'description' => 'Test mode for the charge',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'boolean',
-                    'required'    => false,
-                    'sentAs'      => 'recurring_application_charge[test]'
+                    'required'    => false
                 ],
                 'trial_days' => [
                     'description' => 'Number of days for allowing trial',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'integer',
-                    'required'    => false,
-                    'sentAs'      => 'recurring_application_charge[trial_days]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -1292,6 +1258,7 @@ return [
             'httpMethod'       => 'POST',
             'uri'              => 'recurring_application_charges/{id}/activate.json',
             'summary'          => 'Activate a previously accepted recurring application charge',
+            'data'             => ['root_key' => 'recurring_application_charge'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Specific recurring application charge ID',
@@ -1328,6 +1295,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'shop.json',
             'summary'          => 'Get data about a single shop',
+            'data'             => ['root_key' => 'shop'],
             'parameters'       => []
         ],
 
@@ -1343,6 +1311,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'webhooks.json',
             'summary'          => 'Retrieve a list of webhooks',
+            'data'             => ['root_key' => 'webhooks'],
             'parameters'       => [
                 'address' => [
                     'description' => 'Specific URL for the webhook',
@@ -1422,6 +1391,7 @@ return [
             'httpMethod'       => 'GET',
             'uri'              => 'webhooks/{id}.json',
             'summary'          => 'Retrieve a specific webhook',
+            'data'             => ['root_key' => 'webhook'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Specific webhook ID',
@@ -1442,25 +1412,24 @@ return [
             'httpMethod'       => 'POST',
             'uri'              => 'webhooks.json',
             'summary'          => 'Create a new webhook',
+            'data'             => ['root_key' => 'webhook'],
             'parameters'       => [
                 'format' => [
                     'description' => 'Type of data to return',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
                     'required'    => true,
-                    'enum'        => ['json', 'xml'],
-                    'sentAs'      => 'webhook[format]'
+                    'enum'        => ['json', 'xml']
                 ],
                 'address' => [
                     'description' => 'Specific URL for the webhook',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
-                    'sentAs'      => 'webhook[address]'
+                    'required'    => true
                 ],
                 'topic' => [
                     'description' => 'List of webhook topic',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
                     'required'    => true,
                     'enum'        => [
@@ -1470,15 +1439,13 @@ return [
                         'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
                         'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'shop/update', 'disputes/create', 'disputes/update',
                         'app/uninstalled'
-                    ],
-                    'sentAs'      => 'webhook[topic]'
+                    ]
                 ],
                 'fields' => [
                     'description' => 'List of fields return by the webhooks',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'array',
-                    'required'    => false,
-                    'sentAs'      => 'webhook[fields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -1487,6 +1454,7 @@ return [
             'httpMethod'       => 'PUT',
             'uri'              => 'webhooks/{id}.json',
             'summary'          => 'Update an existing webhook',
+            'data'             => ['root_key' => 'webhook'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Specific webhook ID',
@@ -1496,14 +1464,13 @@ return [
                 ],
                 'address' => [
                     'description' => 'Specific URL for the webhook',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'webhook[address]'
+                    'required'    => false
                 ],
                 'topic' => [
                     'description' => 'List of webhook topic',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
                     'required'    => false,
                     'enum'        => [
@@ -1513,15 +1480,13 @@ return [
                         'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
                         'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'shop/update', 'disputes/create', 'disputes/update',
                         'app/uninstalled'
-                    ],
-                    'sentAs'      => 'webhook[topic]'
+                    ]
                 ],
                 'fields' => [
                     'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
-                    'sentAs'      => 'webhook[fields]'
+                    'required'    => false
                 ]
             ]
         ],
@@ -1555,19 +1520,19 @@ return [
             'parameters'       => [
                 'client_id' => [
                     'description' => 'API key of the app',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
                     'required'    => true
                 ],
                 'client_secret' => [
                     'description' => 'Shared secret of the app',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
                     'required'    => true
                 ],
                 'code' => [
                     'description' => 'Authorization code',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
                     'required'    => true
                 ]

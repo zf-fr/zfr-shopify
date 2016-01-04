@@ -124,6 +124,7 @@ class ShopifyClient extends Client
         // Add an event to set the Authorization param
         $dispatcher = $this->getEventDispatcher();
         $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
+        $dispatcher->addListener('command.after_prepare', [$this, 'wrapRequestData']);
         $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
     }
 
@@ -164,14 +165,11 @@ class ShopifyClient extends Client
         // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the
         // result. The only exception if the "ExchangeCodeForToken" command that works a bit differently
 
-        $command = ucfirst($method);
-        $data    = parent::__call($command, $args);
+        $command = $this->getCommand(ucfirst($method), isset($args[0]) ? $args[0] : array());//->getResult();
+        $data    = $command->getResult();
+        $rootKey = $command->getOperation()->getData('root_key');
 
-        if ($command === 'ExchangeCodeForToken') {
-            return $data;
-        } else {
-            return current($data);
-        }
+        return (null === $rootKey) ? $data : $data[$rootKey];
     }
 
     /**
@@ -189,6 +187,37 @@ class ShopifyClient extends Client
         // subdomain (myshop) or the complete domain (myshop.myshopify.com), but we normalize it to always have the subdomain
         $shop = str_replace('.myshopify.com', '', $this->options['shop']);
         $client->setBaseUrl("https://$shop.myshopify.com/admin");
+    }
+
+    /**
+     * Wrap request data around a top-key (only for POST and PUT requests)
+     *
+     * @param  Event $event
+     * @return void
+     */
+    public function wrapRequestData(Event $event)
+    {
+        /* @var \Guzzle\Service\Command\CommandInterface $command */
+        $command = $event['command'];
+        $request = $command->getRequest();
+        $method  = strtolower($request->getMethod());
+
+        if (!($method === 'post' || $method === 'put')) {
+            return;
+        }
+
+        $rootKey = $command->getOperation()->getData('root_key');
+
+        if (null === $rootKey) {
+            return;
+        }
+
+        // It's a bit inefficient because we have to decode what has been previously coded... but I didn't find any way to
+        // interact before the code
+        $data = json_decode($request->getBody(), true);
+        $data = [$rootKey => $data];
+
+        $request->setBody(json_encode($data));
     }
 
     /**
