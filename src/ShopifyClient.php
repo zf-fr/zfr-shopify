@@ -45,6 +45,19 @@ use ZfrShopify\Exception;
  * @method array updateArticle(array $args = []) {@command Shopify UpdateArticle}
  * @method array deleteArticle(array $args = []) {@command Shopify DeleteArticle}
  *
+ * CUSTOM COLLECTION RELATED METHODS:
+ *
+ * @method array getCustomCollections(array $args = []) {@command Shopify GetCustomCollections}
+ * @method array getCustomCollection(array $args = []) {@command Shopify GetCustomCollection}
+ * @method array createCustomCollection(array $args = []) {@command Shopify CreateCustomCollection}
+ * @method array updateCustomCollection(array $args = []) {@command Shopify UpdateCustomCollection}
+ * @method array deleteCustomCollection(array $args = []) {@command Shopify DeleteCustomCollection}
+ *
+ * EVENTS RELATED METHODS:
+ *
+ * @method array getEvents(array $args = []) {@command Shopify GetEvents}
+ * @method array getEvent(array $args = []) {@command Shopify GetEvent}
+ *
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}

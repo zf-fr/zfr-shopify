@@ -380,6 +380,337 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * CUSTOM COLLECTION RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/customcollection
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetCustomCollections' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'custom_collections.json',
+            'summary'          => 'Retrieve a list of custom collections',
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Only show custom collections with given title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Filter by collection handle',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'product_id' => [
+                    'description' => 'Show custom collections that includes given product',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'created_at_max' => [
+                    'description' => 'Max creation date of the custom collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the custom collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the custom collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the custom collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_max' => [
+                    'description' => 'Max publication date of the custom collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_min' => [
+                    'description' => 'Min publication date of the custom collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_status' => [
+                    'description' => 'Current status of the page',
+                    'location'    => 'query',
+                    'type'        => 'enum',
+                    'required'    => false,
+                    'enum'        => ['published', 'unpublished', 'any']
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetCustomCollection' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'custom_collections/{id}.json',
+            'summary'          => 'Retrieve specific custom collection',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Custom collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateCustomCollection' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'custom_collections.json',
+            'summary'          => 'Create a custom collection',
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Custom collection title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[title]'
+                ],
+                'body_html' => [
+                    'description' => 'Collection description',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[body_html]'
+                ],
+                'published' => [
+                    'description' => 'Status for the custom collection',
+                    'location'    => 'query',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[published]'
+                ],
+                'image' => [
+                    'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[image]'
+                ],
+                'collects' => [
+                    'description' => 'Collect with list of product',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[collects]'
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[metafields]'
+                ]
+            ]
+        ],
+
+        'UpdateCustomCollection' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'custom_collections/{id}.json',
+            'summary'          => 'Update a custom collection',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Custom collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'title' => [
+                    'description' => 'Custom collection title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[title]'
+                ],
+                'body_html' => [
+                    'description' => 'Collection description',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[body_html]'
+                ],
+                'published' => [
+                    'description' => 'Status for the custom collection',
+                    'location'    => 'query',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[published]'
+                ],
+                'image' => [
+                    'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[image]'
+                ],
+                'collects' => [
+                    'description' => 'Collect with list of product',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[collects]'
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false,
+                    'sentAs'      => 'custom_collection[metafields]'
+                ]
+            ]
+        ],
+
+        'DeleteCustomCollection' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'custom_collections/{id}.json',
+            'summary'          => 'Delete a custom collection',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Custom collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * EVENTS RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/events
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetEvents' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'events.json',
+            'summary'          => 'Retrieve a list of events',
+            'parameters'       => [
+                'filter' => [
+                    'description' => 'Only show events specified in filter',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'verb' => [
+                    'description' => 'Only show events specified of a certain kind',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_max' => [
+                    'description' => 'Max creation date of the event',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the event',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetEvent' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'events/{id}.json',
+            'summary'          => 'Retrieve specific event',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Page ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * ORDER RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/order

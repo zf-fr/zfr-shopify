@@ -171,6 +171,19 @@ Here is a list of supported endpoints (more to come in the future):
 * updateArticle(array $args = [])
 * deleteArticle(array $args = [])
 
+**CUSTOM COLLECTION RELATED METHODS:**
+
+* getCustomCollections(array $args = [])
+* getCustomCollection(array $args = [])
+* createCustomCollection(array $args = [])
+* updateCustomCollection(array $args = [])
+* deleteCustomCollection(array $args = [])
+
+**EVENT RELATED METHODS:**
+
+* getEvents(array $args = [])
+* getEvent(array $args = [])
+
 **ORDER RELATED METHODS:**
 
 * array getOrders(array $args = [])
