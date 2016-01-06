@@ -1678,13 +1678,13 @@ return [
                     'description' => 'API key of the app',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => false
                 ],
                 'client_secret' => [
                     'description' => 'Shared secret of the app',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => false
                 ],
                 'code' => [
                     'description' => 'Authorization code',
