@@ -150,45 +150,45 @@ class ShopifyClient extends Client
      * @param string $apiKey
      * @return void
      */
-    public function setApiKey(string $apiKey)
+    public function setApiKey($apiKey)
     {
-        $this->options['api_key'] = $apiKey;
+        $this->options['api_key'] = (string) $apiKey;
     }
 
     /**
      * @param string $sharedSecret
      * @return void
      */
-    public function setSharedSecret(string $sharedSecret)
+    public function setSharedSecret($sharedSecret)
     {
-        $this->options['shared_secret'] = $sharedSecret;
+        $this->options['shared_secret'] = (string) $sharedSecret;
     }
 
     /**
      * @param  string $password
      * @return void
      */
-    public function setPassword(string $password)
+    public function setPassword($password)
     {
-        $this->options['password'] = $password;
+        $this->options['password'] = (string) $password;
     }
 
     /**
      * @param  string $shop
      * @return void
      */
-    public function setShopDomain(string $shop)
+    public function setShopDomain($shop)
     {
-        $this->options['shop'] = $shop;
+        $this->options['shop'] = (string) $shop;
     }
 
     /**
      * @param  string $accessToken
      * @return void
      */
-    public function setAccessToken(string $accessToken)
+    public function setAccessToken($accessToken)
     {
-        $this->options['access_token'] = $accessToken;
+        $this->options['access_token'] = (string) $accessToken;
     }
 
     /**
@@ -339,7 +339,7 @@ class ShopifyClient extends Client
      * @return ResponseInterface
      * @throws Exception\MissingApiKeyException
      */
-    public function createAuthorizationResponse($shopDomain, $scopes, $redirectionUri, $nonce)
+    public function createAuthorizationResponse($shopDomain, array $scopes, $redirectionUri, $nonce)
     {
         $uri = sprintf(
             'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
