@@ -171,6 +171,14 @@ Here is a list of supported endpoints (more to come in the future):
 * updateArticle(array $args = [])
 * deleteArticle(array $args = [])
 
+**ASSET RELATED METHODS:**
+
+* getAssets(array $args = [])
+* getAsset(array $args = [])
+* createAsset(array $args = [])
+* updateAsset(array $args = [])
+* deleteAsset(array $args = [])
+
 **CUSTOM COLLECTION RELATED METHODS:**
 
 * getCustomCollections(array $args = [])

@@ -366,6 +366,162 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * ASSETS RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/asset
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetAssets' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'themes/{theme_id}/assets.json',
+            'summary'          => 'Retrieve a list of assets for a given theme',
+            'data'             => ['root_key' => 'assets'],
+            'parameters'       => [
+                'theme_id' => [
+                    'description' => 'Theme from which we need to extract assets',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetAsset' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'themes/{theme_id}/assets.json',
+            'summary'          => 'Retrieve a single asset',
+            'data'             => ['root_key' => 'asset'],
+            'parameters'       => [
+                'theme_id' => [
+                    'description' => 'Theme from which we need to extract assets',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'key' => [
+                    'description' => 'Complete key of the asset file',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'asset[key]'
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateAsset' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'themes/{theme_id}/assets.json',
+            'summary'          => 'Create a new asset in the given theme',
+            'data'             => ['root_key' => 'asset'],
+            'parameters'       => [
+                'theme_id' => [
+                    'description' => 'Theme from which we need to extract assets',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'key' => [
+                    'description' => 'Complete key of the asset file',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'attachement' => [
+                    'description' => 'Image through a base 64 encoded',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'src' => [
+                    'description' => 'Image through an origin URL',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'value' => [
+                    'description' => 'Set a Liquid file\'s value',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdateAsset' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'themes/{theme_id}/assets.json',
+            'summary'          => 'Create a new asset in the given theme',
+            'data'             => ['root_key' => 'asset'],
+            'parameters'       => [
+                'theme_id' => [
+                    'description' => 'Theme from which we need to extract assets',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'key' => [
+                    'description' => 'Complete key of the asset file',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'attachement' => [
+                    'description' => 'Image through a base 64 encoded',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'src' => [
+                    'description' => 'Image through an origin URL',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'value' => [
+                    'description' => 'Set a Liquid file\'s value',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'DeleteAsset' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'themes/{theme_id}/assets.json',
+            'summary'          => 'Delete an existing asset',
+            'parameters'       => [
+                'theme_id' => [
+                    'description' => 'Theme from which we need to extract assets',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'key' => [
+                    'description' => 'Complete key of the asset file',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'sentAs'      => 'asset[key]'
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * CUSTOM COLLECTION RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/customcollection

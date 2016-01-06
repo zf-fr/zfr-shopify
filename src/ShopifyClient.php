@@ -45,6 +45,14 @@ use ZfrShopify\Exception;
  * @method array updateArticle(array $args = []) {@command Shopify UpdateArticle}
  * @method array deleteArticle(array $args = []) {@command Shopify DeleteArticle}
  *
+ * ASSET RELATED METHODS:
+ *
+ * @method array getAssets(array $args = []) {@command Shopify GetAssets}
+ * @method array getAsset(array $args = []) {@command Shopify GetAsset}
+ * @method array createAsset(array $args = []) {@command Shopify CreateAsset}
+ * @method array updateAsset(array $args = []) {@command Shopify UpdateAsset}
+ * @method array deleteAsset(array $args = []) {@command Shopify DeleteAsset}
+ *
  * CUSTOM COLLECTION RELATED METHODS:
  *
  * @method array getCustomCollections(array $args = []) {@command Shopify GetCustomCollections}
