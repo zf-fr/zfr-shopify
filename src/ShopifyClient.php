@@ -132,6 +132,7 @@ class ShopifyClient extends Client
         // Add an event to set the Authorization param
         $dispatcher = $this->getEventDispatcher();
         $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
+        $dispatcher->addListener('command.before_prepare', [$this, 'prepareAdditionalData']);
         $dispatcher->addListener('command.after_prepare', [$this, 'wrapRequestData']);
         $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
     }
@@ -225,6 +226,23 @@ class ShopifyClient extends Client
     }
 
     /**
+     * Some endpoints (especially the "exchangeCodeForToken") requires additional processing
+     *
+     * @internal
+     * @param Event $event
+     */
+    public function prepareAdditionalData(Event $event)
+    {
+        /* @var \Guzzle\Service\Command\CommandInterface $command */
+        $command = $event['command'];
+
+        if ($command->getName() === 'ExchangeCodeForToken') {
+            $command['client_id']     = $this->options['api_key'];
+            $command['client_secret'] = $this->options['shared_secret'];
+        }
+    }
+
+    /**
      * Wrap request data around a top-key (only for POST and PUT requests)
      *
      * @param  Event $event
@@ -274,10 +292,7 @@ class ShopifyClient extends Client
             $request->setAuth($this->options['api_key'], $this->options['password']);
         } else {
             // There is a special case for the "ExchangeCodeForToken" where we authorize the request differently
-            if ($command->getName() === 'ExchangeCodeForToken') {
-                $command['client_id']     = $this->options['api_key'];
-                $command['client_secret'] = $this->options['shared_secret'];
-            } else {
+            if ($command->getName() !== 'ExchangeCodeForToken') {
                 $request->setHeader('X-Shopify-Access-Token', $this->options['access_token']);
             }
         }
