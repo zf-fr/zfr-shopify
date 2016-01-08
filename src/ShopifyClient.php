@@ -78,6 +78,14 @@ use ZfrShopify\Exception;
  * @method array updatePage(array $args = []) {@command Shopify UpdatePage}
  * @method array deletePage(array $args = []) {@command Shopify DeletePage}
  *
+ * PRODUCT RELATED METHODS:
+ *
+ * @method array getProducts(array $args = []) {@command Shopify GetProducts}
+ * @method array getProduct(array $args = []) {@command Shopify GetProduct}
+ * @method array createProduct(array $args = []) {@command Shopify CreateProduct}
+ * @method array updateProduct(array $args = []) {@command Shopify UpdateProduct}
+ * @method array deleteProduct(array $args = []) {@command Shopify DeleteProduct}
+ *
  * PRODUCT IMAGE RELATED METHODS:
  *
  * @method array getProductImages(array $args = []) {@command Shopify GetProductImages}

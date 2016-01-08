@@ -204,6 +204,14 @@ Here is a list of supported endpoints (more to come in the future):
 * updatePage(array $args = [])
 * deletePage(array $args = [])
 
+**PRODUCT RELATED METHODS:**
+
+* getProducts(array $args = [])
+* getProduct(array $args = [])
+* createProduct(array $args = [])
+* updateProduct(array $args = [])
+* deleteProduct(array $args = [])
+
 **PRODUCT IMAGE RELATED METHODS:**
 
 * getProductImages(array $args = [])

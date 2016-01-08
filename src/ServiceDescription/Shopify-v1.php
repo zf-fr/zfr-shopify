@@ -1133,6 +1133,290 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * PRODUCT RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/product
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetProducts' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'products.json',
+            'summary'          => 'Retrieve a list of products',
+            'data'             => ['root_key' => 'products'],
+            'parameters'       => [
+                'ids' => [
+                    'description' => 'A comma separated ids',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_max' => [
+                    'description' => 'Max creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_max' => [
+                    'description' => 'Max publication date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_min' => [
+                    'description' => 'Min publication date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'title' => [
+                    'description' => 'Filter by product title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'vendor' => [
+                    'description' => 'Filter by product vendor',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Filter by product handle',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'collection_id' => [
+                    'description' => 'Filter by collection id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'published_status' => [
+                    'description' => 'Current status of the product',
+                    'location'    => 'query',
+                    'type'        => 'enum',
+                    'required'    => false,
+                    'enum'        => ['published', 'unpublished', 'any']
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetProduct' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'products/{id}.json',
+            'summary'          => 'Retrieve specific product',
+            'data'             => ['root_key' => 'product'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateProduct' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'products.json',
+            'summary'          => 'Create a new product',
+            'data'             => ['root_key' => 'product'],
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Product title',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'body_html' => [
+                    'description' => 'Product description',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'vendor' => [
+                    'description' => 'Product vendor',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'product_type' => [
+                    'description' => 'Product type',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'images' => [
+                    'description' => 'List of images. Each element can either contain all the attributes accepted by a product image',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'tags' => [
+                    'description' => 'List of tags separated by comma',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'variants' => [
+                    'description' => 'List of variants. Each element can either contain all the attributes accepted by a product variant',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'published' => [
+                    'description' => 'Set the publication status',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdateProduct' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'products/{id}.json',
+            'summary'          => 'Update an existing product',
+            'data'             => ['root_key' => 'product'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'title' => [
+                    'description' => 'Product title',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'body_html' => [
+                    'description' => 'Product description',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'vendor' => [
+                    'description' => 'Product vendor',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'product_type' => [
+                    'description' => 'Product type',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'images' => [
+                    'description' => 'List of images. Each element can either contain all the attributes accepted by a product image',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'tags' => [
+                    'description' => 'List of tags separated by comma',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'variants' => [
+                    'description' => 'List of variants. Each element can either contain all the attributes accepted by a product variant',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'published' => [
+                    'description' => 'Set the publication status',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'DeleteProduct' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'products/{id}.json',
+            'summary'          => 'Delete an existing product',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * PRODUCT IMAGES RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/product_image
