@@ -1465,7 +1465,7 @@ return [
 
         'GetThemes' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/themes.json',
+            'uri'              => 'themes.json',
             'summary'          => 'Retrieve a list of themes',
             'data'             => ['root_key' => 'themes'],
             'parameters'       => [
