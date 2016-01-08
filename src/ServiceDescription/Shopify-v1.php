@@ -1457,6 +1457,120 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * THEME RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/theme
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetThemes' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/themes.json',
+            'summary'          => 'Retrieve a list of themes',
+            'data'             => ['root_key' => 'themes'],
+            'parameters'       => [
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetTheme' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'themes/{id}.json',
+            'summary'          => 'Retrieve a specific theme',
+            'data'             => ['root_key' => 'theme'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific webhook ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateTheme' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'themes.json',
+            'summary'          => 'Create a new theme',
+            'data'             => ['root_key' => 'theme'],
+            'parameters'       => [
+                'name' => [
+                    'description' => 'Name of the theme',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'src' => [
+                    'description' => 'Zip source for the theme',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'role' => [
+                    'description' => 'Theme role name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['main', 'mobile', 'unpublished']
+                ]
+            ]
+        ],
+
+        'UpdateTheme' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'webhooks/{id}.json',
+            'summary'          => 'Update an existing theme',
+            'data'             => ['root_key' => 'theme'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific theme ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'name' => [
+                    'description' => 'Name of the theme',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'role' => [
+                    'description' => 'Theme role name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['main', 'mobile', 'unpublished']
+                ]
+            ]
+        ],
+
+        'DeleteTheme' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'themes/{id}.json',
+            'summary'          => 'Delete an existing theme',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific theme ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * WEBHOOK RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/webhook

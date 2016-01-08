@@ -224,6 +224,14 @@ Here is a list of supported endpoints (more to come in the future):
 
 * getShop(array $args = [])
 
+**THEME RELATED METHODS:**
+
+* getThemes(array $args = [])
+* getTheme(array $args = [])
+* createTheme(array $args = [])
+* updateTheme(array $args = [])
+* deleteTheme(array $args = [])
+
 **WEBHOOK RELATED METHODS:**
 
 * getWebhooks(array $args = [])

@@ -98,6 +98,14 @@ use ZfrShopify\Exception;
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}
  *
+ * THEME RELATED METHODS:
+ *
+ * @method array getThemes(array $args = []) {@command Shopify GetThemes}
+ * @method array getTheme(array $args = []) {@command Shopify GetTheme}
+ * @method array createTheme(array $args = []) {@command Shopify CreateTheme}
+ * @method array updateTheme(array $args = []) {@command Shopify UpdateTheme}
+ * @method array deleteTheme(array $args = []) {@command Shopify DeleteTheme}
+ *
  * WEBHOOK RELATED METHODS:
  *
  * @method array getWebhooks(array $args = []) {@command Shopify GetWebhooks}
