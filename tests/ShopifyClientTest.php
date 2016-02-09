@@ -41,7 +41,6 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
             'shop'          => 'my_shop',
             'api_key'       => 'abc',
             'access_token'  => 'token',
-            'shared_secret' => 'secret',
             'private_app'   => false
         ]);
     }
@@ -55,17 +54,17 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
             'private_app' => true
         ]);
 
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->prophesize(RequestInterface::class);
 
-        $command = $this->getMock(CommandInterface::class);
-        $command->expects($this->once())->method('getRequest')->willReturn($request);
+        $command = $this->prophesize(CommandInterface::class);
+        $command->getRequest()->shouldBeCalled()->willReturn($request->reveal());
 
         $event = new Event([
-            'command' => $command
+            'command' => $command->reveal()
         ]);
 
-        $request->expects($this->never())->method('setHeader');
-        $request->expects($this->once())->method('setAuth')->with('abc', 'secret');
+        $request->setHeader()->shouldNotBeCalled();
+        $request->setAuth('abc', 'secret')->shouldBeCalled();
 
         $client->authorizeRequest($event);
     }
@@ -79,159 +78,18 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
             'private_app'  => false
         ]);
 
-        $request = $this->getMock(RequestInterface::class);
+        $request = $this->prophesize(RequestInterface::class);
 
-        $command = $this->getMock(CommandInterface::class);
-        $command->expects($this->once())->method('getRequest')->willReturn($request);
+        $command = $this->prophesize(CommandInterface::class);
+        $command->getRequest()->shouldBeCalled()->willReturn($request->reveal());
 
         $event = new Event([
-            'command' => $command
+            'command' => $command->reveal()
         ]);
 
-        $request->expects($this->never())->method('setAuth');
-        $request->expects($this->once())->method('setHeader')->with('X-Shopify-Access-Token', 'secret');
+        $request->setAuth()->shouldNotBeCalled();
+        $request->setHeader('X-Shopify-Access-Token', 'secret')->shouldBeCalled();
 
         $client->authorizeRequest($event);
-    }
-
-    public function shopDomainProvider()
-    {
-        return [
-            ['myshop.myshopify.com'],
-            ['myshop']
-        ];
-    }
-
-    /**
-     * @dataProvider shopDomainProvider
-     */
-    public function testNormalizeShopDomain($domain)
-    {
-        $this->client->setShopDomain($domain);
-
-        $event = new Event([
-            'client' => $this->client
-        ]);
-
-        $this->client->prepareShopBaseUrl($event);
-        $this->assertEquals('https://myshop.myshopify.com/admin', $this->client->getBaseUrl());
-    }
-
-    public function shopHostnameProvider()
-    {
-        return [
-            ['mystore.myshopify.com', true],
-            ['my-store.myshopify.com', true],
-            ['my-store45.myshopify.com', true],
-            ['mystore.myshopify.net', false],
-            ['mystore.ourshopify.com', false],
-            ['my_store.myshopify.net', false],
-        ];
-    }
-
-    /**
-     * @dataProvider shopHostnameProvider
-     */
-    public function testValidateShopHostname($shop, $isValid)
-    {
-        $reflMethod = new \ReflectionMethod($this->client, 'validateShopHostname');
-        $reflMethod->setAccessible(true);
-
-        if (!$isValid) {
-            $this->setExpectedException(InvalidRequestException::class);
-        }
-
-        $reflMethod->invoke($this->client, ['shop' => $shop]);
-    }
-
-    public function shopHmacProvider()
-    {
-        $key       = 'shop=mystore.myshopify.com&timestamp=123';
-        $validHmac = hash_hmac('sha256', $key, 'secret');
-
-        return [
-            ['Everything is okay'       => 'mystore.myshopify.com', 123, $validHmac, 'secret', true],
-            ['Secret was not same'      => 'mystore.myshopify.com', 123, $validHmac, 'another_secret', false],
-            ['Timestamp does not match' => 'mystore.myshopify.com', 1234, $validHmac, 'secret', false],
-            ['Hmac is wrong'            => 'mystore.myshopify.com', 123, $validHmac . '_foo', 'secret', false],
-            ['Shop does not match'      => 'my_store.myshopify.com', 1234, $validHmac, 'secret', false],
-        ];
-    }
-
-    /**
-     * @dataProvider shopHmacProvider
-     */
-    public function testValidateHmac($shop, $timestamp, $hmac, $secret, $isValid)
-    {
-        $client = new ShopifyClient([
-            'shared_secret' => $secret,
-        ]);
-
-        $reflMethod = new \ReflectionMethod($client, 'validateHmac');
-        $reflMethod->setAccessible(true);
-
-        if (!$isValid) {
-            $this->setExpectedException(InvalidRequestException::class);
-        }
-
-        // We try in different order to make sure it does not change anything as the signature must be insensitive
-
-        $reflMethod->invoke($client, [
-            'shop'      => $shop,
-            'timestamp' => $timestamp,
-            'hmac'      => $hmac
-        ]);
-
-        $reflMethod->invoke($client, [
-            'timestamp' => $timestamp,
-            'shop'      => $shop,
-            'hmac'      => $hmac
-        ]);
-
-        $reflMethod->invoke($client, [
-            'hmac'      => $hmac,
-            'shop'      => $shop,
-            'timestamp' => $timestamp
-        ]);
-
-        $reflMethod->invoke($client, [
-            'timestamp' => $timestamp,
-            'hmac'      => $hmac,
-            'shop'      => $shop
-        ]);
-    }
-
-    public function testThrowExceptionIfWebhookHeaderIsNotPresent()
-    {
-        $this->setExpectedException(InvalidRequestException::class);
-
-        $request = $this->getMock(ServerRequestInterface::class);
-        $request->expects($this->once())->method('getHeaderLine')->with('X-Shopify-Hmac-SHA256')->willReturn('');
-
-        $this->client->validateWebhook($request);
-    }
-
-    public function shopAuthorizationProvider()
-    {
-        return [
-            ['mystore'],
-            ['mystore.myshopify.com']
-        ];
-    }
-
-    /**
-     * @dataProvider shopAuthorizationProvider
-     */
-    public function testCanCreateAuthorizationReponse($shop)
-    {
-        $response = $this->client->createAuthorizationResponse($shop, ['read_content', 'write_content'], 'https://www.mysite.com', 'nonce');
-        $location = $response->getHeaderLine('Location');
-
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertContains('https://mystore.myshopify.com/admin/oauth/authorize', $location);
-        $this->assertContains('client_id=abc', $location);
-        $this->assertContains('scope=read_content,write_content', $location);
-        $this->assertContains('redirect_uri=https://www.mysite.com', $location);
-        $this->assertContains('state=', $location);
     }
 }

@@ -21,7 +21,6 @@ namespace ZfrShopifyTest\Container;
 use Interop\Container\ContainerInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\Container\ShopifyClientFactory;
-use ZfrShopify\ShopifyClient;
 
 /**
  * @author Michaël Gallego
@@ -30,47 +29,44 @@ class ShopifyClientFactoryTest extends \PHPUnit_Framework_TestCase
 {
     public function testThrowExceptionIfNoConfig()
     {
-        $this->setExpectedException(RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
-        $container = $this->getMock(ContainerInterface::class);
-        $container->expects($this->once())->method('has')->with('config')->willReturn(true);
-        $container->expects($this->once())->method('get')->with('config')->willReturn([]);
+        $container = $this->prophesize(ContainerInterface::class);
+        $container->has('config')->shouldBeCalled()->willReturn(true);
+        $container->get('config')->shouldBeCalled()->willReturn([]);
 
         $factory = new ShopifyClientFactory();
-        $factory->__invoke($container);
+        $factory->__invoke($container->reveal());
     }
 
     public function testThrowExceptionIfMandatoryParametersAreMissing()
     {
-        $this->setExpectedException(RuntimeException::class);
+        $this->expectException(RuntimeException::class);
 
-        $container = $this->getMock(ContainerInterface::class);
-        $container->expects($this->once())->method('has')->with('config')->willReturn(true);
-        $container->expects($this->once())->method('get')->with('config')->willReturn([
+        $container = $this->prophesize(ContainerInterface::class);
+        $container->has('config')->shouldBeCalled()->willReturn(true);
+        $container->get('config')->shouldBeCalled()->willReturn([
             'zfr_shopify' => [
                 'private_app' => true
             ]
         ]);
 
         $factory = new ShopifyClientFactory();
-        $factory->__invoke($container);
+        $factory->__invoke($container->reveal());
     }
 
     public function testCanCreateService()
     {
-        $container = $this->getMock(ContainerInterface::class);
-        $container->expects($this->once())->method('has')->with('config')->willReturn(true);
-        $container->expects($this->once())->method('get')->with('config')->willReturn([
+        $container = $this->prophesize(ContainerInterface::class);
+        $container->has('config')->shouldBeCalled()->willReturn(true);
+        $container->get('config')->shouldBeCalled()->willReturn([
             'zfr_shopify' => [
-                'shared_secret' => 'foo',
                 'api_key'       => 'bar',
                 'private_app'   => false
             ]
         ]);
 
         $factory = new ShopifyClientFactory();
-        $client  = $factory->__invoke($container);
-
-        $this->assertInstanceOf(ShopifyClient::class, $client);
+        $factory->__invoke($container->reveal());
     }
 }
