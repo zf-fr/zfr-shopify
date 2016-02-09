@@ -144,7 +144,6 @@ class ShopifyClient extends Client
         // Add an event to set the Authorization param
         $dispatcher = $this->getEventDispatcher();
         $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
-        $dispatcher->addListener('command.before_prepare', [$this, 'prepareAdditionalData']);
         $dispatcher->addListener('command.after_prepare', [$this, 'wrapRequestData']);
         $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
     }
@@ -226,23 +225,6 @@ class ShopifyClient extends Client
         // subdomain (myshop) or the complete domain (myshop.myshopify.com), but we normalize it to always have the subdomain
         $shop = str_replace('.myshopify.com', '', $this->options['shop']);
         $client->setBaseUrl("https://$shop.myshopify.com/admin");
-    }
-
-    /**
-     * Some endpoints (especially the "exchangeCodeForToken") requires additional processing
-     *
-     * @internal
-     * @param Event $event
-     */
-    public function prepareAdditionalData(Event $event)
-    {
-        /* @var \Guzzle\Service\Command\CommandInterface $command */
-        $command = $event['command'];
-
-        if ($command->getName() === 'ExchangeCodeForToken') {
-            $command['client_id']     = $this->options['api_key'];
-            $command['client_secret'] = $this->options['shared_secret'];
-        }
     }
 
     /**
