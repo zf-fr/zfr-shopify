@@ -162,36 +162,36 @@ class ShopifyClient extends Client
      * @param string $apiKey
      * @return void
      */
-    public function setApiKey($apiKey)
+    public function setApiKey(string $apiKey)
     {
-        $this->options['api_key'] = (string) $apiKey;
+        $this->options['api_key'] = $apiKey;
     }
 
     /**
      * @param  string $password
      * @return void
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
-        $this->options['password'] = (string) $password;
+        $this->options['password'] = $password;
     }
 
     /**
      * @param  string $shop
      * @return void
      */
-    public function setShopDomain($shop)
+    public function setShopDomain(string $shop)
     {
-        $this->options['shop'] = (string) $shop;
+        $this->options['shop'] = $shop;
     }
 
     /**
      * @param  string $accessToken
      * @return void
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken)
     {
-        $this->options['access_token'] = (string) $accessToken;
+        $this->options['access_token'] = $accessToken;
     }
 
     /**
