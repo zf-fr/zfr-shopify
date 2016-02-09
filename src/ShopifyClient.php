@@ -19,9 +19,11 @@
 namespace ZfrShopify;
 
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\ServiceClientInterface;
+use GuzzleHttp\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\RedirectResponse;
 use ZfrShopify\Exception;
@@ -222,7 +224,12 @@ class ShopifyClient
         // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the
         // result. The only exception if the "ExchangeCodeForToken" command that works a bit differently
 
-        $command = $this->client->getCommand($method, $args[0] ?? []);
+        $command      = $this->client->getCommand($method, $args[0] ?? []);
+        $stackHandler = $command->getHandlerStack();
+        $stackHandler->push(function(CommandInterface $command) {
+
+        });
+
         $result  = $this->client->execute($command);
 
 

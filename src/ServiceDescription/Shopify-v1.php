@@ -19,7 +19,6 @@
 return [
     'name'        => 'Shopify',
     'description' => 'Shopify is an awesome e-commerce platform',
-    'baseUrl'     => 'https://{shop}/admin',
     'operations'  => [
         /**
          * --------------------------------------------------------------------------------
