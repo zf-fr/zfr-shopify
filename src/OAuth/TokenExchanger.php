@@ -2,19 +2,27 @@
 
 namespace ZfrShopify\OAuth;
 
-use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\ClientInterface;
 use ZfrShopify\Exception;
 
 /**
- * Simplify the OAuth dance of Shopify
- *
- * Especially, this class can be used to create an authorization response, and exchanging a temporary code
- * against a long-lived access token
- *
  * @author Michaël Gallego
  */
-class Authorizer
+class TokenExchanger
 {
+    /**
+     * @var ClientInterface
+     */
+    private $httpClient;
+
+    /**
+     * @param ClientInterface $httpClient
+     */
+    public function __construct(ClientInterface $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
+
     /**
      * Exchange a temporary token for a long lived access token
      *
@@ -31,8 +39,7 @@ class Authorizer
             trim($shopDomain, '/')
         );
 
-        $client = new HttpClient();
-        $result = $client->post($url, [
+        $result = $this->httpClient->request('POST', $url, [
             'json' => [
                 'client_id'     => $apiKey,
                 'client_secret' => $sharedSecret,

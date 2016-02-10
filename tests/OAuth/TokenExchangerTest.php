@@ -18,34 +18,46 @@
 
 namespace ZfrShopifyTest\OAuth;
 
-use ZfrShopify\OAuth\AuthorizationResponse;
+use GuzzleHttp\ClientInterface;
+use Psr\Http\Message\ResponseInterface;
+use ZfrShopify\OAuth\TokenExchanger;
 
 /**
  * @author Michaël Gallego
  */
-class AuthorizationResponseTest extends \PHPUnit_Framework_TestCase
+class TokenExchangerTest extends \PHPUnit_Framework_TestCase
 {
     public function shopDomainProvider()
     {
         return [
-            ['mystore'],
-            ['mystore.myshopify.com']
+            ['test.myshopify.com/'],
+            ['test.myshopify.com']
         ];
     }
 
     /**
      * @dataProvider shopDomainProvider
      */
-    public function testCanCreateAuthorizationReponse($shop)
+    public function testCanSendRequest()
     {
-        $response = new AuthorizationResponse('app_123', $shop, ['read_content', 'write_content'], 'https://www.mysite.com', 'nonce');
-        $location = $response->getHeaderLine('Location');
+        $client         = $this->prophesize(ClientInterface::class);
+        $tokenExchanger = new TokenExchanger($client->reveal());
 
-        $this->assertEquals(302, $response->getStatusCode());
-        $this->assertContains('https://mystore.myshopify.com/admin/oauth/authorize', $location);
-        $this->assertContains('client_id=app_123', $location);
-        $this->assertContains('scope=read_content,write_content', $location);
-        $this->assertContains('redirect_uri=https://www.mysite.com', $location);
-        $this->assertContains('state=', $location);
+        $response = $this->prophesize(ResponseInterface::class);
+        $response->getBody()->shouldBeCalled()->willReturn('{"access_token": "tok_123"}');
+
+        $url = 'https://test.myshopify.com/admin/oauth/access_token';
+
+        $client->request('POST', $url, [
+            'json' => [
+                'client_id'     => 'app_123',
+                'client_secret' => 'secret',
+                'code'          => 'code_123'
+            ]
+        ])->shouldBeCalled()->willReturn($response->reveal());
+
+        $code = $tokenExchanger->exchangeCodeForToken('app_123', 'secret', 'test.myshopify.com', 'code_123');
+
+        $this->assertEquals('tok_123', $code);
     }
 }
