@@ -3,7 +3,6 @@
 namespace ZfrShopify\Validator;
 
 use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\PhpInputStream;
 use ZfrShopify\Exception;
 
 /**
@@ -26,8 +25,7 @@ class WebhookValidator
             throw new Exception\InvalidRequestException('Incoming Shopify webhook could not be validated');
         }
 
-        $data           = new PhpInputStream();
-        $calculatedHmac = base64_encode(hash_hmac('sha256', $data->getContents(), $sharedSecret, true));
+        $calculatedHmac = base64_encode(hash_hmac('sha256', $request->getBody()->getContents(), $sharedSecret, true));
 
         if (hash_equals($hmac, $calculatedHmac)) {
             return;

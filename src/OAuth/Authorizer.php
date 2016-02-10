@@ -3,8 +3,6 @@
 namespace ZfrShopify\OAuth;
 
 use GuzzleHttp\Client as HttpClient;
-use Psr\Http\Message\ResponseInterface;
-use Zend\Diactoros\Response\RedirectResponse;
 use ZfrShopify\Exception;
 
 /**
