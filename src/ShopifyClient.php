@@ -21,10 +21,6 @@ namespace ZfrShopify;
 use Guzzle\Common\Event;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\PhpInputStream;
-use Zend\Diactoros\Response\RedirectResponse;
 use ZfrShopify\Exception;
 
 /**

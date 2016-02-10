@@ -39,22 +39,6 @@ class ShopifyClientFactoryTest extends \PHPUnit_Framework_TestCase
         $factory->__invoke($container->reveal());
     }
 
-    public function testThrowExceptionIfMandatoryParametersAreMissing()
-    {
-        $this->expectException(RuntimeException::class);
-
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has('config')->shouldBeCalled()->willReturn(true);
-        $container->get('config')->shouldBeCalled()->willReturn([
-            'zfr_shopify' => [
-                'private_app' => true
-            ]
-        ]);
-
-        $factory = new ShopifyClientFactory();
-        $factory->__invoke($container->reveal());
-    }
-
     public function testCanCreateService()
     {
         $container = $this->prophesize(ContainerInterface::class);
