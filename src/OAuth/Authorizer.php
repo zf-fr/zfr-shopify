@@ -18,34 +18,6 @@ use ZfrShopify\Exception;
 class Authorizer
 {
     /**
-     * Create an authorization redirection request for a given app
-     *
-     * Please note that this method will automatically generate a nonce value. You are responsible to
-     * persist it in database, and validate it during the OAuth dance
-     *
-     * @param  string $apiKey
-     * @param  string $shopDomain
-     * @param  array  $scopes
-     * @param  string $redirectionUri
-     * @param  string $nonce
-     * @return ResponseInterface
-     * @throws Exception\MissingApiKeyException
-     */
-    public function createAuthorizationResponse(string $apiKey, string $shopDomain, array $scopes, string $redirectionUri, string $nonce)
-    {
-        $uri = sprintf(
-            'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
-            str_replace('.myshopify.com', '', $shopDomain),
-            $apiKey,
-            implode(',', $scopes),
-            $redirectionUri,
-            $nonce
-        );
-
-        return new RedirectResponse($uri);
-    }
-
-    /**
      * Exchange a temporary token for a long lived access token
      *
      * @param  string $apiKey

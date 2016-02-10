@@ -18,12 +18,12 @@
 
 namespace ZfrShopifyTest\OAuth;
 
-use ZfrShopify\OAuth\Authorizer;
+use ZfrShopify\OAuth\AuthorizationResponse;
 
 /**
  * @author Michaël Gallego
  */
-class AuthorizerTest extends \PHPUnit_Framework_TestCase
+class AuthorizationResponseTest extends \PHPUnit_Framework_TestCase
 {
     public function shopAuthorizationProvider()
     {
@@ -38,9 +38,7 @@ class AuthorizerTest extends \PHPUnit_Framework_TestCase
      */
     public function testCanCreateAuthorizationReponse($shop)
     {
-        $authorizer = new Authorizer();
-
-        $response = $authorizer->createAuthorizationResponse('app_123', $shop, ['read_content', 'write_content'], 'https://www.mysite.com', 'nonce');
+        $response = new AuthorizationResponse('app_123', $shop, ['read_content', 'write_content'], 'https://www.mysite.com', 'nonce');
         $location = $response->getHeaderLine('Location');
 
         $this->assertEquals(302, $response->getStatusCode());
