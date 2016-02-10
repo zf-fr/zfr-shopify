@@ -18,12 +18,13 @@
 
 namespace ZfrShopify;
 
-use Guzzle\Common\Event;
-use Guzzle\Service\Client;
-use Guzzle\Service\Description\ServiceDescription;
+use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Command\CommandInterface;
+use GuzzleHttp\Command\Guzzle\Description;
+use GuzzleHttp\Command\Guzzle\GuzzleClient;
+use GuzzleHttp\Command\ServiceClientInterface;
+use GuzzleHttp\Middleware;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Zend\Diactoros\PhpInputStream;
 use Zend\Diactoros\Response\RedirectResponse;
 use ZfrShopify\Exception;
 
@@ -121,91 +122,97 @@ use ZfrShopify\Exception;
  * @method array createWebhook(array $args = []) {@command Shopify CreateWebhook}
  * @method array updateWebhook(array $args = []) {@command Shopify UpdateWebhook}
  * @method array deleteWebhook(array $args = []) {@command Shopify DeleteWebhook}
- *
- * OAUTH RELATED METHODS:
- *
- * @method array exchangeCodeForToken(array $args = []) {@command Shopify ExchangeCodeForToken}
  */
-class ShopifyClient extends Client
+class ShopifyClient
 {
+    /**
+     * @var ServiceClientInterface
+     */
+    private $client;
+
     /**
      * @var array
      */
     private $options;
 
     /**
+     * Constructor
+     *
+     * Supported options are:
+     *     - private_app: indicate to the client if the Shopify app is private or not
+     *     - shop: the domain of the Shopify shop (eg.: test.myshopify.com)
+     *     - api_key: the API key of the given app (public or private), also known as app ID in public apps
+     *     - password: app password (only for private apps)
+     *     - access_token: access token for the given store retrieved through OAuth process (only for public apps)
+     *
      * @param array $options
      */
     public function __construct(array $options)
     {
-        parent::__construct();
+        $description  = new Description(include_once __DIR__ . '/ServiceDescription/Shopify-v1.php');
+        $this->client = new GuzzleClient(new HttpClient(), $description);
 
-        $this->options = $options;
-
-        $this->setUserAgent('zfr-shopify-php', true);
-        $this->setDescription(ServiceDescription::factory(__DIR__ . '/ServiceDescription/Shopify-v1.php'));
+        $this->setOptions($options);
 
         // Add an event to set the Authorization param
-        $dispatcher = $this->getEventDispatcher();
+        /*$dispatcher = $this->getEventDispatcher();
         $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
         $dispatcher->addListener('command.before_prepare', [$this, 'prepareAdditionalData']);
         $dispatcher->addListener('command.after_prepare', [$this, 'wrapRequestData']);
-        $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
+        $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);*/
     }
 
     /**
-     * Get the options relative to Shopify
-     *
-     * @return array
+     * @param array $options
      */
-    public function getShopifyOptions()
+    public function setOptions(array $options)
     {
-        return $this->options;
+        $this->options = $options;
     }
 
     /**
      * @param string $apiKey
      * @return void
      */
-    public function setApiKey($apiKey)
+    public function setApiKey(string $apiKey)
     {
-        $this->options['api_key'] = (string) $apiKey;
+        $this->options['api_key'] = $apiKey;
     }
 
     /**
      * @param string $sharedSecret
      * @return void
      */
-    public function setSharedSecret($sharedSecret)
+    public function setSharedSecret(string $sharedSecret)
     {
-        $this->options['shared_secret'] = (string) $sharedSecret;
+        $this->options['shared_secret'] = $sharedSecret;
     }
 
     /**
      * @param  string $password
      * @return void
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
-        $this->options['password'] = (string) $password;
+        $this->options['password'] = $password;
     }
 
     /**
      * @param  string $shop
      * @return void
      */
-    public function setShopDomain($shop)
+    public function setShopDomain(string $shop)
     {
-        $this->options['shop'] = (string) $shop;
+        $this->options['shop'] = $shop;
     }
 
     /**
      * @param  string $accessToken
      * @return void
      */
-    public function setAccessToken($accessToken)
+    public function setAccessToken(string $accessToken)
     {
-        $this->options['access_token'] = (string) $accessToken;
+        $this->options['access_token'] = $accessToken;
     }
 
     /**
@@ -217,11 +224,20 @@ class ShopifyClient extends Client
         // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the
         // result. The only exception if the "ExchangeCodeForToken" command that works a bit differently
 
-        $command = $this->getCommand(ucfirst($method), isset($args[0]) ? $args[0] : array());
+        $command      = $this->client->getCommand($method, $args[0] ?? []);
+        $stackHandler = $command->getHandlerStack();
+        $stackHandler->push(function(CommandInterface $command) {
+
+        });
+
+        $result  = $this->client->execute($command);
+
+
+        /*$command = $this->getCommand(ucfirst($method), isset($args[0]) ? $args[0] : array());
         $data    = $command->getResult();
         $rootKey = $command->getOperation()->getData('root_key');
 
-        return (null === $rootKey) ? $data : $data[$rootKey];
+        return (null === $rootKey) ? $data : $data[$rootKey];*/
     }
 
     /**
@@ -312,131 +328,5 @@ class ShopifyClient extends Client
                 $request->setHeader('X-Shopify-Access-Token', $this->options['access_token']);
             }
         }
-    }
-
-    /**
-     * Validate the incoming request and check if it is valid
-     *
-     * @link   https://docs.shopify.com/api/authentication/oauth#verification
-     * @param  ServerRequestInterface $request
-     * @return void
-     * @throws Exception\InvalidRequestException
-     */
-    public function validateRequest(ServerRequestInterface $request)
-    {
-        // First step: extract the query params
-        $queryParams = $request->getQueryParams();
-
-        $this->validateShopHostname($queryParams);
-        $this->validateHmac($queryParams);
-    }
-
-    /**
-     * Validate the webhook coming from Shopify
-     *
-     * @link   https://docs.shopify.com/api/webhooks/using-webhooks#verify-webhook
-     * @param  ServerRequestInterface $request
-     * @return void
-     * @throws Exception\InvalidWebhookException
-     */
-    public function validateWebhook(ServerRequestInterface $request)
-    {
-        $hmac = $request->getHeaderLine('X-Shopify-Hmac-SHA256');
-
-        if (empty($hmac)) {
-            throw new Exception\InvalidRequestException('Incoming Shopify webhook could not be validated');
-        }
-
-        $data           = new PhpInputStream();
-        $calculatedHmac = base64_encode(hash_hmac('sha256', $data->getContents(), $this->options['shared_secret'], true));
-
-        if (hash_equals($hmac, $calculatedHmac)) {
-            return;
-        }
-
-        throw new Exception\InvalidRequestException('Incoming Shopify webhook could not be validated');
-    }
-
-    /**
-     * Create an authorization redirection request
-     *
-     * Please note that this method will automatically generate a nonce value. You are responsible to
-     * persist it in database, and validate it during the OAuth dance
-     *
-     * @param  string $shopDomain
-     * @param  array  $scopes
-     * @param  string $redirectionUri
-     * @param  string $nonce
-     * @return ResponseInterface
-     * @throws Exception\MissingApiKeyException
-     */
-    public function createAuthorizationResponse($shopDomain, array $scopes, $redirectionUri, $nonce)
-    {
-        $uri = sprintf(
-            'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
-            str_replace('.myshopify.com', '', $shopDomain),
-            $this->options['api_key'],
-            implode(',', $scopes),
-            $redirectionUri,
-            $nonce
-        );
-
-        return new RedirectResponse($uri);
-    }
-
-    /**
-     * According to Shopify, a shop hostname must ends by "myshopify.com", and must only contains
-     * letters, numbers, dots and hyphens
-     *
-     * @param  array $queryParams
-     * @return void
-     * @throws Exception\InvalidRequestException
-     */
-    private function validateShopHostname(array $queryParams)
-    {
-        $shop = isset($queryParams['shop']) ? $queryParams['shop'] : '';
-
-        if (preg_match('/^[a-zA-Z0-9.-]*(myshopify.com)$/', $shop) === 1) {
-            return;
-        }
-
-        throw new Exception\InvalidRequestException('Incoming request from Shopify could not be validated');
-    }
-
-    /**
-     * Validate the given HMAC
-     *
-     * @param  array  $queryParams
-     * @return void
-     * @throws Exception\InvalidRequestException
-     */
-    private function validateHmac(array $queryParams)
-    {
-        $expectedHmac = isset($queryParams['hmac']) ? $queryParams['hmac'] : '';
-
-        // First step: remove HMAC and signature keys
-        unset($queryParams['hmac'], $queryParams['signature']);
-
-        // Second step: keys are sorted lexicographically
-        ksort($queryParams);
-
-        $pairs = [];
-
-        foreach ($queryParams as $key => $value) {
-            // Third step: "&" and "%" are replaced by "%26" and "%25" in keys and values, and in addition
-            // "=" is replaced by "%3D" in keys
-            $key   = strtr($key, ['&' => '%26', '%' => '%25', '=' => '%3D']);
-            $value = strtr($value, ['&' => '%26', '%' => '%25']);
-
-            $pairs[] = $key . '=' . $value;
-        }
-
-        $key = implode('&', $pairs);
-
-        if (hash_equals($expectedHmac, hash_hmac('sha256', $key, $this->options['shared_secret']))) {
-            return;
-        };
-
-        throw new Exception\InvalidRequestException('Incoming request from Shopify could not be validated');
     }
 }

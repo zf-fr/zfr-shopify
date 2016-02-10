@@ -2058,39 +2058,5 @@ return [
                 ]
             ]
         ],
-
-        /**
-         * --------------------------------------------------------------------------------
-         * OAUTH RELATED METHODS
-         *
-         * DOC: https://docs.shopify.com/api/authentication/oauth#confirming-installation
-         * --------------------------------------------------------------------------------
-         */
-
-        'ExchangeCodeForToken' => [
-            'httpMethod'       => 'POST',
-            'uri'              => 'oauth/access_token',
-            'summary'          => 'Code an OAuth code to a long-lived access token',
-            'parameters'       => [
-                'client_id' => [
-                    'description' => 'API key of the app',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => true
-                ],
-                'client_secret' => [
-                    'description' => 'Shared secret of the app',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => true
-                ],
-                'code' => [
-                    'description' => 'Authorization code',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => true
-                ]
-            ]
-        ],
     ]
 ];
