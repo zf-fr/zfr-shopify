@@ -8,7 +8,7 @@ ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.sho
 
 ## Dependencies
 
-* PHP 5.6+
+* PHP 7
 * [Guzzle](http://www.guzzlephp.org): >= 3.6
 * [Zend Diactoros](https://github.com/zendframework/zend-diactoros): >=1.1
 
@@ -45,14 +45,10 @@ When using a public app, you instantiate the client a bit differently:
 $shopifyClient = new ShopifyClient([
     'private_app'   => false,
     'api_key'       => 'YOUR_API_KEY', // In public app, this is the app ID
-    'shared_secret' => 'YOUR_SHARED_SECRET',
     'access_token'  => 'MERCHANT_TOKEN',
     'shop'          => 'merchant.myshopify.com'
 ]);
 ```
-
-The `shared_secret` is needed so you can exchange an authorization code for an access token during the OAuth dance, while the
-`access_token` is the long lived token you receive.
 
 Most of the time, you will need to alter the client once you have retrieved the shop info. To that extent, the client offers
 two public methods:
@@ -75,7 +71,6 @@ return [
         'zfr_shopify' => [
             'private_app'   => false,
             'api_key'       => 'YOUR_API_KEY', // In public app, this is the app ID
-            'shared_secret' => 'YOUR_SHARED_SECRET',
             'access_token'  => 'MERCHANT_TOKEN',
             'shop'          => 'merchant.myshopify.com'
         ]
@@ -85,14 +80,17 @@ return [
 
 ### Validating a request
 
-ZfrShopify client provides an easy way to validate an incoming request to make sure it provides from Shopify. It accepts a
-PSR-7 request:
+ZfrShopify client provides an easy way to validate an incoming request to make sure it provides from Shopify through the `RequestValidator`
+object. It requires a PSR7 requests and a shared secret:
 
 ```php
 use ZfrShopify\Exception\InvalidRequestException;
+use ZfrShopify\Validator\RequestValidator;
+
+$validator = new RequestValidator();
 
 try {
-    $shopifyClient->validateRequest($psr7Request);
+    $validator->validateRequest($psr7Request, 'shared_secret');
 } catch (InvalidRequestException $exception) {
     // Request is not valid
 }
@@ -100,13 +98,16 @@ try {
 
 ### Validating a webhook
 
-Similarily, the client provides an easy way to validate an incoming request for webhooks:
+Similarily, you can use the `WebhookValidator` to validate your webhook:
 
 ```php
 use ZfrShopify\Exception\InvalidWebhookException;
+use ZfrShopify\Validator\WebhookValidator;
+
+$validator = new WebhookValidator();
 
 try {
-    $shopifyClient->validateWebhook($psr7Request);
+    $validator->validateWebhook($psr7Request, 'shared_secret');
 } catch (InvalidWebhookException $exception) {
     // Request is not valid
 }
@@ -114,20 +115,42 @@ try {
 
 ### Create an authorization response
 
-Under the hood, ZfrShopify uses [Zend\Diactoros](https://github.com/zendframework/zend-diactoros) as a PSR7 implementation. It can
-creates a response properly filled for creating an authorization response during the OAuth dance:
+ZfrShopify provides an easy way to create a PSR7 compliant `ResponseInterface` to create an authorization response: 
 
 ```php
+use ZfrShopify\OAuth\AuthorizationResponse;
+
+$apiKey         = 'app_123';
 $shopDomain     = 'shop_to_authorize.myshopify.com';
 $scopes         = ['read_orders', 'read_products'];
 $redirectionUri = 'https://myapp.test.com/oauth/redirect';
 $nonce          = 'strong_nonce';
 
-$response = $shopifyClient->createAuthorizationResponse($shopDomain, $scopes, $redirectionUri, $nonce);
+$response = new AuthorizationResponse($apiKey, $shopDomain, $scopes, $redirectionUri, $nonce);
 ```
 
 While the `nonce` parameter is required, ZfrShopify does not make any assumption about how to save the nonce and check it when
 Shopify redirects to your server. You are responsible to safely saving the nonce.
+
+### Exchanging a code against an access token
+
+You can use the `TokenExchanger` class to exchange a code to a long-lived access token:
+
+```php
+use GuzzleHttp\Client;
+use ZfrShopify\OAuth\TokenExchanger;
+
+$apiKey         = 'app_123';
+$sharedSecret   = 'secret_123';
+$shopDomain     = 'shop_to_authorize.myshopify.com';
+$code           = 'code_123';
+
+$tokenExchanger = new TokenExchanger(new Client());
+$accessToken    = $tokenExchanger->exchangeCodeForToken($apiKey, $sharedSecret, $shopDomain, $code);
+```
+
+ZfrShopify also provides a simple factory compliant with `ContainerInterop` that you can register to the container of your choice, with
+the `ZfrShopify\Container\TokenExchangerFactory`.
 
 ### Exploiting responses
 
@@ -247,7 +270,3 @@ Here is a list of supported endpoints (more to come in the future):
 * createWebhook(array $args = [])
 * updateWebhook(array $args = [])
 * deleteWebhook(array $args = [])
-
-**OAUTH RELATED METHODS:**
-
-* exchangeCodeForToken(array $args = [])

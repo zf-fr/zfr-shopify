@@ -42,7 +42,11 @@ use ZfrShopify\ShopifyClient;
  */
 class ShopifyClientFactory
 {
-    public function __invoke(ContainerInterface $container)
+    /**
+     * @param  ContainerInterface $container
+     * @return ShopifyClient
+     */
+    public function __invoke(ContainerInterface $container): ShopifyClient
     {
         $config = $container->has('config') ? $container->get('config') : [];
 
