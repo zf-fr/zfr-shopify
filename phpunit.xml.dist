@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <phpunit bootstrap="./vendor/autoload.php" colors="true">
     <testsuite name="ZfrShopify tests">
-        <directory>./tests</directory>
+        <directory>./test</directory>
     </testsuite>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
