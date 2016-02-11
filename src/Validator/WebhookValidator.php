@@ -22,7 +22,7 @@ class WebhookValidator
         $hmac = $request->getHeaderLine('X-Shopify-Hmac-Sha256');
 
         if (empty($hmac)) {
-            throw new Exception\InvalidRequestException('Incoming Shopify webhook could not be validated');
+            throw new Exception\InvalidWebhookException('Incoming Shopify webhook could not be validated');
         }
 
         $calculatedHmac = base64_encode(hash_hmac('sha256', (string) $request->getBody(), $sharedSecret, true));
@@ -31,6 +31,6 @@ class WebhookValidator
             return;
         }
 
-        throw new Exception\InvalidRequestException('Incoming Shopify webhook could not be validated');
+        throw new Exception\InvalidWebhookException('Incoming Shopify webhook could not be validated');
     }
 }
