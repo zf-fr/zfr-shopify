@@ -18,11 +18,11 @@
 
 namespace ZfrShopify\Exception;
 
+use InvalidArgumentException as BaseInvalidArgumentException;
+
 /**
- * This exception is thrown when a request is considered as invalid (not signed correctly)
- *
  * @author Michaël Gallego
  */
-class InvalidRequestException extends RuntimeException implements ExceptionInterface
+class InvalidArgumentException extends BaseInvalidArgumentException implements ExceptionInterface
 {
 }

@@ -31,8 +31,7 @@ use ZfrShopify\ShopifyClient;
  * <code>
  *     'zfr_shopify' => [
  *         'shop'          => '', // a shop name, WITHOUT the ".myshopify.com" part (only required for private apps)
- *         'api_key'       => '', // an API key, always required
- *         'shared_secret' => '', // your shared secret, used to validate any request (only required for public apps)
+ *         'api_key'       => '', // an API key (only required for private apps)
  *         'access_token'  => '', // an access token that you got from the OAuth dance (only required for public apps)
  *         'password'      => '', // a password retrieved from private app (only required for private apps)
  *         'private_app'   => true, // true for private app, false for apps on App Store
@@ -43,7 +42,11 @@ use ZfrShopify\ShopifyClient;
  */
 class ShopifyClientFactory
 {
-    public function __invoke(ContainerInterface $container)
+    /**
+     * @param  ContainerInterface $container
+     * @return ShopifyClient
+     */
+    public function __invoke(ContainerInterface $container): ShopifyClient
     {
         $config = $container->has('config') ? $container->get('config') : [];
 
@@ -51,18 +54,6 @@ class ShopifyClientFactory
             throw new RuntimeException('Container config does not have a "zfr_shopify" key');
         }
 
-        $config = $config['zfr_shopify'];
-
-        if ($config['private_app']) {
-            if (!isset($config['shop']) || !isset($config['api_key']) || !isset($config['password'])) {
-                throw new RuntimeException('Options "shop", "api_key" and "password" are mandatory when creating Shopify client for a private app');
-            }
-        } else {
-            if (!isset($config['api_key']) || !isset($config['shared_secret'])) {
-                throw new RuntimeException('Options "api_key" and "shared_secret" are mandatory when creating Shopify client for a public app');
-            }
-        }
-
-        return new ShopifyClient($config);
+        return new ShopifyClient($config['zfr_shopify']);
     }
 }

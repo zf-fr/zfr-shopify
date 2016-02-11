@@ -16,13 +16,23 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZfrShopify\Exception;
+namespace ZfrShopify\Container;
+
+use GuzzleHttp\Client as HttpClient;
+use Interop\Container\ContainerInterface;
+use ZfrShopify\OAuth\TokenExchanger;
 
 /**
- * This exception is thrown when a request is considered as invalid (not signed correctly)
- *
  * @author Michaël Gallego
  */
-class InvalidRequestException extends RuntimeException implements ExceptionInterface
+class TokenExchangerFactory
 {
+    /**
+     * @param  ContainerInterface $container
+     * @return TokenExchanger
+     */
+    public function __invoke(ContainerInterface $container): TokenExchanger
+    {
+        return new TokenExchanger(new HttpClient());
+    }
 }

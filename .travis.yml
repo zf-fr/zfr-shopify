@@ -10,7 +10,6 @@ cache:
 matrix:
   fast_finish: true
   include:
-    - php: 5.6
     - php: 7
   allow_failures:
     - php: hhvm
@@ -19,5 +18,9 @@ before_install:
   - composer self-update
 
 install:
-  - travis_retry composer install --no-interaction --ignore-platform-reqs --prefer-source
+  - travis_retry composer install --no-interaction
   - composer info -i
+
+script:
+  - composer test
+  - composer cs

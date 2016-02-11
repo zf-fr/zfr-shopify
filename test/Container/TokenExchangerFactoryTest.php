@@ -16,13 +16,21 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZfrShopify\Exception;
+namespace ZfrShopifyTest\Container;
+
+use Interop\Container\ContainerInterface;
+use ZfrShopify\Container\TokenExchangerFactory;
 
 /**
- * This exception is thrown when a request is considered as invalid (not signed correctly)
- *
  * @author Michaël Gallego
  */
-class InvalidRequestException extends RuntimeException implements ExceptionInterface
+class TokenExchangerFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    public function testFactory()
+    {
+        $container = $this->prophesize(ContainerInterface::class);
+
+        $factory = new TokenExchangerFactory();
+        $factory->__invoke($container->reveal());
+    }
 }

@@ -16,13 +16,25 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZfrShopify\Exception;
+namespace ZfrShopifyTest\Validator;
+
+use Psr\Http\Message\ServerRequestInterface;
+use ZfrShopify\Exception\InvalidRequestException;
+use ZfrShopify\Validator\WebhookValidator;
 
 /**
- * This exception is thrown when a request is considered as invalid (not signed correctly)
- *
  * @author Michaël Gallego
  */
-class InvalidRequestException extends RuntimeException implements ExceptionInterface
+class WebhookValidatorTest extends \PHPUnit_Framework_TestCase
 {
+    public function testThrowExceptionIfWebhookHeaderIsNotPresent()
+    {
+        $this->expectException(InvalidRequestException::class);
+
+        $request = $this->prophesize(ServerRequestInterface::class);
+        $request->getHeaderLine('X-Shopify-Hmac-Sha256')->shouldBeCalled()->willReturn('');
+
+        $validator = new WebhookValidator();
+        $validator->validate($request->reveal(), 'secret');
+    }
 }
