@@ -4,6 +4,7 @@ namespace ZfrShopify\Validator;
 
 use Psr\Http\Message\ServerRequestInterface;
 use ZfrShopify\Exception;
+use ZfrShopify\Model\ShopDomain;
 
 /**
  * Validate an incoming request coming from Shopify
@@ -28,22 +29,17 @@ class RequestValidator
     }
 
     /**
-     * According to Shopify, a shop hostname must ends by "myshopify.com", and must only contains
-     * letters, numbers, dots and hyphens
-     *
      * @param  array $queryParams
      * @return void
      * @throws Exception\InvalidRequestException
      */
     private function validateShopHostname(array $queryParams)
     {
-        $shop = isset($queryParams['shop']) ? $queryParams['shop'] : '';
-
-        if (preg_match('/^[a-zA-Z0-9.-]*(myshopify.com)$/', $shop) === 1) {
-            return;
+        try {
+            new ShopDomain($queryParams['shop'] ?? '');
+        } catch (Exception\RuntimeException $exception) {
+            throw new Exception\InvalidRequestException('Incoming request from Shopify could not be validated');
         }
-
-        throw new Exception\InvalidRequestException('Incoming request from Shopify could not be validated');
     }
 
     /**
@@ -56,7 +52,7 @@ class RequestValidator
      */
     private function validateHmac(array $queryParams, string $sharedSecret)
     {
-        $expectedHmac = isset($queryParams['hmac']) ? $queryParams['hmac'] : '';
+        $expectedHmac = $queryParams['hmac'] ?? '';
 
         // First step: remove HMAC and signature keys
         unset($queryParams['hmac'], $queryParams['signature']);
