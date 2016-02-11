@@ -23,6 +23,6 @@ namespace ZfrShopify\Exception;
  *
  * @author Michaël Gallego
  */
-class InvalidWebhookException extends RuntimeException implements ExceptionInterface
+class InvalidWebhookException extends InvalidRequestException implements ExceptionInterface
 {
 }
