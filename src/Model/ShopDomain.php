@@ -23,7 +23,7 @@ class ShopDomain
     public function __construct(string $shopDomain)
     {
         if (!preg_match('/^[a-zA-Z0-9.-]*(myshopify.com)$/', $shopDomain)) {
-            throw new Exception\RuntimeException('Shop domain is invalid');
+            throw new Exception\InvalidArgumentException('Shop domain is invalid');
         }
 
         $this->shopDomain = $shopDomain;

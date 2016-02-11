@@ -37,7 +37,7 @@ class RequestValidator
     {
         try {
             new ShopDomain($queryParams['shop'] ?? '');
-        } catch (Exception\RuntimeException $exception) {
+        } catch (Exception\InvalidArgumentException $exception) {
             throw new Exception\InvalidRequestException('Incoming request from Shopify could not be validated');
         }
     }
