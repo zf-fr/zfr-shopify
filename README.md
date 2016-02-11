@@ -118,7 +118,7 @@ try {
 ZfrShopify provides an easy way to create a PSR7 compliant `ResponseInterface` to create an authorization response: 
 
 ```php
-use ZfrShopify\OAuth\AuthorizationResponse;
+use ZfrShopify\OAuth\AuthorizationRedirectResponse;
 
 $apiKey         = 'app_123';
 $shopDomain     = 'shop_to_authorize.myshopify.com';
@@ -126,7 +126,7 @@ $scopes         = ['read_orders', 'read_products'];
 $redirectionUri = 'https://myapp.test.com/oauth/redirect';
 $nonce          = 'strong_nonce';
 
-$response = new AuthorizationResponse($apiKey, $shopDomain, $scopes, $redirectionUri, $nonce);
+$response = new AuthorizationRedirectResponse($apiKey, $shopDomain, $scopes, $redirectionUri, $nonce);
 ```
 
 While the `nonce` parameter is required, ZfrShopify does not make any assumption about how to save the nonce and check it when

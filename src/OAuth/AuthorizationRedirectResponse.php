@@ -9,23 +9,23 @@ use Zend\Diactoros\Response\RedirectResponse;
  *
  * @author Michaël Gallego
  */
-class AuthorizationResponse extends RedirectResponse
+class AuthorizationRedirectResponse extends RedirectResponse
 {
     /**
      * @param string $apiKey
      * @param string $shopDomain
      * @param array  $scopes
-     * @param string $redirectionUri
+     * @param string $redirectUri
      * @param string $nonce
      */
-    public function __construct(string $apiKey, string $shopDomain, array $scopes, string $redirectionUri, string $nonce)
+    public function __construct(string $apiKey, string $shopDomain, array $scopes, string $redirectUri, string $nonce)
     {
         $uri = sprintf(
             'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
             str_replace('.myshopify.com', '', $shopDomain),
             $apiKey,
             implode(',', $scopes),
-            $redirectionUri,
+            $redirectUri,
             $nonce
         );
 

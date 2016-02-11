@@ -18,46 +18,35 @@
 
 namespace ZfrShopifyTest\OAuth;
 
-use GuzzleHttp\ClientInterface;
-use Psr\Http\Message\ResponseInterface;
-use ZfrShopify\OAuth\TokenExchanger;
+use ZfrShopify\OAuth\AuthorizationRedirectResponse;
 
 /**
  * @author Michaël Gallego
  */
-class TokenExchangerTest extends \PHPUnit_Framework_TestCase
+class AuthorizationRedirectResponseTest extends \PHPUnit_Framework_TestCase
 {
     public function shopDomainProvider()
     {
         return [
-            ['test.myshopify.com/'],
-            ['test.myshopify.com']
+            ['mystore'],
+            ['mystore.myshopify.com']
         ];
     }
 
     /**
      * @dataProvider shopDomainProvider
      */
-    public function testCanSendRequest()
+    public function testCanCreateAuthorizationReponse($shop)
     {
-        $client         = $this->prophesize(ClientInterface::class);
-        $tokenExchanger = new TokenExchanger($client->reveal());
+        $scopes   = ['read_content', 'write_content'];
+        $response = new AuthorizationRedirectResponse('app_123', $shop, $scopes, 'https://www.mysite.com', 'nonce');
+        $location = $response->getHeaderLine('Location');
 
-        $response = $this->prophesize(ResponseInterface::class);
-        $response->getBody()->shouldBeCalled()->willReturn('{"access_token": "tok_123"}');
-
-        $url = 'https://test.myshopify.com/admin/oauth/access_token';
-
-        $client->request('POST', $url, [
-            'json' => [
-                'client_id'     => 'app_123',
-                'client_secret' => 'secret',
-                'code'          => 'code_123'
-            ]
-        ])->shouldBeCalled()->willReturn($response->reveal());
-
-        $code = $tokenExchanger->exchangeCodeForToken('app_123', 'secret', 'test.myshopify.com', 'code_123');
-
-        $this->assertEquals('tok_123', $code);
+        $this->assertEquals(302, $response->getStatusCode());
+        $this->assertContains('https://mystore.myshopify.com/admin/oauth/authorize', $location);
+        $this->assertContains('client_id=app_123', $location);
+        $this->assertContains('scope=read_content,write_content', $location);
+        $this->assertContains('redirect_uri=https://www.mysite.com', $location);
+        $this->assertContains('state=', $location);
     }
 }

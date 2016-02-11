@@ -199,7 +199,7 @@ class ShopifyClient extends Client
         // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the
         // result. The only exception if the "ExchangeCodeForToken" command that works a bit differently
 
-        $command = $this->getCommand(ucfirst($method), isset($args[0]) ? $args[0] : array());
+        $command = $this->getCommand(ucfirst($method), isset($args[0]) ? $args[0] : []);
         $data    = $command->getResult();
         $rootKey = $command->getOperation()->getData('root_key');
 

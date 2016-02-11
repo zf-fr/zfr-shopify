@@ -5,8 +5,8 @@ namespace ZfrShopify\Model;
 use ZfrShopify\Exception;
 
 /**
- * Simple value object that can be re-used whenever you need to interact with a shop domain, by making sure the shop domain
- * is valid
+ * Simple value object that can be re-used whenever you need to interact with a shop domain, by making sure the
+ * shop domain is valid
  *
  * @author Michaël Gallego
  */

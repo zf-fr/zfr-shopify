@@ -19,38 +19,18 @@
 namespace ZfrShopifyTest\Container;
 
 use Interop\Container\ContainerInterface;
-use ZfrShopify\Exception\RuntimeException;
-use ZfrShopify\Container\ShopifyClientFactory;
+use ZfrShopify\Container\TokenExchangerFactory;
 
 /**
  * @author Michaël Gallego
  */
-class ShopifyClientFactoryTest extends \PHPUnit_Framework_TestCase
+class TokenExchangerFactoryTest extends \PHPUnit_Framework_TestCase
 {
-    public function testThrowExceptionIfNoConfig()
-    {
-        $this->expectException(RuntimeException::class);
-
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->has('config')->shouldBeCalled()->willReturn(true);
-        $container->get('config')->shouldBeCalled()->willReturn([]);
-
-        $factory = new ShopifyClientFactory();
-        $factory->__invoke($container->reveal());
-    }
-
-    public function testCanCreateService()
+    public function testFactory()
     {
         $container = $this->prophesize(ContainerInterface::class);
-        $container->has('config')->shouldBeCalled()->willReturn(true);
-        $container->get('config')->shouldBeCalled()->willReturn([
-            'zfr_shopify' => [
-                'api_key'       => 'bar',
-                'private_app'   => false
-            ]
-        ]);
 
-        $factory = new ShopifyClientFactory();
+        $factory = new TokenExchangerFactory();
         $factory->__invoke($container->reveal());
     }
 }
