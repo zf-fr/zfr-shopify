@@ -35,6 +35,6 @@ class WebhookValidatorTest extends \PHPUnit_Framework_TestCase
         $request->getHeaderLine('X-Shopify-Hmac-Sha256')->shouldBeCalled()->willReturn('');
 
         $validator = new WebhookValidator();
-        $validator->validate($request->reveal(), 'secret');
+        $validator->validateWebhook($request->reveal(), 'secret');
     }
 }

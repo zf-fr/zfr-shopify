@@ -17,7 +17,7 @@ class WebhookValidator
      * @param ServerRequestInterface $request
      * @param string                 $sharedSecret Application shared secret to validate against
      */
-    public function validate(ServerRequestInterface $request, string $sharedSecret)
+    public function validateWebhook(ServerRequestInterface $request, string $sharedSecret)
     {
         $hmac = $request->getHeaderLine('X-Shopify-Hmac-Sha256');
 
