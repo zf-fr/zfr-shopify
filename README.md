@@ -60,23 +60,29 @@ $shopifyClient->setAccessToken('your_access_token');
 
 ### Using a container
 
-ZfrShopify also provides a built-in `InteropContainer` factory that you can use. You must make sure to provide a config with
-a top key `config` and sub-key `zfr_shopify`:
+ZfrShopify also provides built-in [container-interop](https://github.com/container-interop/container-interop) factories
+that you can use. You must make sure that your container contains a service called "config" that is an array with a key
+`zfr_shopify` containing the required config:
 
 ```php
 // myconfig.php
 
 return [
-    'config' => [
-        'zfr_shopify' => [
-            'private_app'   => false,
-            'api_key'       => 'YOUR_API_KEY', // In public app, this is the app ID
-            'access_token'  => 'MERCHANT_TOKEN',
-            'shop'          => 'merchant.myshopify.com'
-        ]
-    ]
+    'zfr_shopify' => [
+        'private_app'   => false,
+        'api_key'       => 'YOUR_API_KEY', // In public app, this is the app ID
+        'access_token'  => 'MERCHANT_TOKEN',
+        'shop'          => 'merchant.myshopify.com',
+    ],
 ];
 ```
+
+If you're using Zend\Expressive with Zend\ServiceManager 3, you can use `ZfrShopify\ModuleConfig` to register our
+factories into Zend\ServiceManager automatically.
+More info [here](http://zendframework.github.io/zend-expressive/cookbook/modular-layout/)
+
+However if you're using other framework or other container, you can still manually register our factories, they are
+under [src/Container](/src/Container) folder.
 
 ### Validating a request
 
@@ -149,8 +155,8 @@ $tokenExchanger = new TokenExchanger(new Client());
 $accessToken    = $tokenExchanger->exchangeCodeForToken($apiKey, $sharedSecret, $shopDomain, $code);
 ```
 
-ZfrShopify also provides a simple factory compliant with `ContainerInterop` that you can register to the container of your choice, with
-the `ZfrShopify\Container\TokenExchangerFactory`.
+ZfrShopify also provides a simple factory compliant with [container-interop](https://github.com/container-interop/container-interop)
+that you can register to the container of your choice, with the `ZfrShopify\Container\TokenExchangerFactory`.
 
 ### Exploiting responses
 
