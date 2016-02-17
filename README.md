@@ -218,6 +218,10 @@ Here is a list of supported endpoints (more to come in the future):
 **ORDER RELATED METHODS:**
 
 * array getOrders(array $args = [])
+* array getOrder(array $args = [])
+* array closeOrder(array $args = [])
+* array openOrder(array $args = [])
+* array cancelOrder(array $args = [])
 
 **PAGE RELATED METHODS:**
 

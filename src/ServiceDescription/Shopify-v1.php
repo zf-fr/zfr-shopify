@@ -91,7 +91,7 @@ return [
                 'published_status' => [
                     'description' => 'Current status of the article',
                     'location'    => 'query',
-                    'type'        => 'enum',
+                    'type'        => 'string',
                     'required'    => false,
                     'enum'        => ['published', 'unpublished', 'any']
                 ],
@@ -591,7 +591,7 @@ return [
                 'published_status' => [
                     'description' => 'Current status of the page',
                     'location'    => 'query',
-                    'type'        => 'enum',
+                    'type'        => 'string',
                     'required'    => false,
                     'enum'        => ['published', 'unpublished', 'any']
                 ],
@@ -919,6 +919,91 @@ return [
             ]
         ],
 
+        'GetOrder' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'orders/{id}.json',
+            'summary'          => 'Retrieve specific order',
+            'data'             => ['root_key' => 'order'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CloseOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'orders/{id}/close.json',
+            'summary'          => 'Close a specific order',
+            'data'             => ['root_key' => 'order'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        'OpenOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'orders/{id}/open.json',
+            'summary'          => 'Re-open a closed order',
+            'data'             => ['root_key' => 'order'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        'CancelOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'orders/{id}/cancel.json',
+            'summary'          => 'Cancel a given order',
+            'data'             => ['root_key' => 'order'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'restock' => [
+                    'description' => 'Restock the items for this order back to your store',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'reason' => [
+                    'description' => 'The reason for the order cancellation',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['customer', 'fraud', 'inventory', 'other']
+                ],
+                'email' => [
+                    'description' => 'Send an email to the customer notifying them of the cancellation',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
         /**
          * --------------------------------------------------------------------------------
          * PAGE RELATED METHODS
@@ -984,7 +1069,7 @@ return [
                 'published_status' => [
                     'description' => 'Current status of the page',
                     'location'    => 'query',
-                    'type'        => 'enum',
+                    'type'        => 'string',
                     'required'    => false,
                     'enum'        => ['published', 'unpublished', 'any']
                 ],
@@ -1214,7 +1299,7 @@ return [
                 'published_status' => [
                     'description' => 'Current status of the product',
                     'location'    => 'query',
-                    'type'        => 'enum',
+                    'type'        => 'string',
                     'required'    => false,
                     'enum'        => ['published', 'unpublished', 'any']
                 ],

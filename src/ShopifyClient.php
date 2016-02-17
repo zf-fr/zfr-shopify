@@ -65,6 +65,10 @@ use ZfrShopify\Exception;
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}
+ * @method array getOrder(array $args = []) {@command Shopify GetOrder}
+ * @method array closeOrder(array $args = []) {@command Shopify CloseOrder}
+ * @method array openOrder(array $args = []) {@command Shopify OpenOrder}
+ * @method array cancelOrder(array $args = []) {@command Shopify CancelOrder}
  *
  * PAGE RELATED METHODS:
  *
