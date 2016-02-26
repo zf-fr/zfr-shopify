@@ -62,6 +62,15 @@ use ZfrShopify\Exception;
  * @method array getEvents(array $args = []) {@command Shopify GetEvents}
  * @method array getEvent(array $args = []) {@command Shopify GetEvent}
  *
+ * FULFILLMENTS RELATED METHODS:
+ *
+ * @method array getFulfillments(array $args = []) {@command Shopify GetFulfillments}
+ * @method array getFulfillment(array $args = []) {@command Shopify GetFulfillment}
+ * @method array createFulfillment(array $args = []) {@command Shopify CreateFulfillment}
+ * @method array updateFilfillment(array $args = []) {@command Shopify UpdateFulfillment}
+ * @method array completeFulfillment(array $args = []) {@command Shopify CompleteFulfillment}
+ * @method array cancelFulfillment(array $args = []) {@command Shopify CancelFulfillment}
+ *
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}

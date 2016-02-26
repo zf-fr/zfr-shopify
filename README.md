@@ -221,6 +221,15 @@ Here is a list of supported endpoints (more to come in the future):
 * getEvents(array $args = [])
 * getEvent(array $args = [])
 
+**FULFILLMENTS RELATED METHODS:**
+
+* getFulfillments(array $args = [])
+* getFulfillment(array $args = [])
+* createFulfillment(array $args = [])
+* updateFilfillment(array $args = [])
+* completeFulfillment(array $args = [])
+* cancelFulfillment(array $args = []) 
+
 **ORDER RELATED METHODS:**
 
 * array getOrders(array $args = [])

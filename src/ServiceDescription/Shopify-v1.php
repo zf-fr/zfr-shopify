@@ -847,6 +847,227 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * FULFILLMENT RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/reference/fulfillment
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetFulfillments' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'orders/{order_id}/fulfillments.json',
+            'summary'          => 'Retrieve a list of fulfillments for a given order',
+            'data'             => ['root_key' => 'fulfillments'],
+            'parameters'       => [
+                'order_id' => [
+                    'description' => 'Order from which we need to extract fulfillments',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'created_at_max' => [
+                    'description' => 'Max creation date of the fulfillment',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the fulfillment',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the fulfillment',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the fulfillment',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetFulfillment' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'orders/{order_id}/fulfillments/{id}.json',
+            'summary'          => 'Retrieve specific order',
+            'data'             => ['root_key' => 'fulfillment'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Fulfillment ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'order_id' => [
+                    'description' => 'Order from which we need to extract fulfillments',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateFulfillment' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'orders/{order_id}/fulfillments.json',
+            'summary'          => 'Create a fulfillment for a given order',
+            'data'             => ['root_key' => 'fulfillment'],
+            'parameters'       => [
+                'order_id' => [
+                    'description' => 'Order from which we need to extract fulfillments',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'line_items' => [
+                    'description' => 'An array of line items. Each line item can have ID and quantity',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'tracking_number' => [
+                    'description' => 'Tracking number to use',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'tracking_numbers' => [
+                    'description' => 'Tracking numbers to use',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'tracking_url' => [
+                    'description' => 'Tracking URL to use',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'tracking_company' => [
+                    'description' => 'Tracking company to use',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'notify_customer' => [
+                    'description' => 'If set to true, an email is sent to the customer',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+            ]
+        ],
+
+        'UpdateFulfillment' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'orders/{order_id}/fulfillments/{id}.json',
+            'summary'          => 'Update a fulfillment for a given order',
+            'data'             => ['root_key' => 'fulfillment'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Fulfillment ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'order_id' => [
+                    'description' => 'Order from which we need to extract fulfillments',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'tracking_number' => [
+                    'description' => 'Tracking number to use',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+            ]
+        ],
+
+        'CompleteFulfillment' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'orders/{order_id}/fulfillments/{id}/complete.json',
+            'summary'          => 'Complete a pending fulfillment',
+            'data'             => ['root_key' => 'fulfillment'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Fulfillment ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'order_id' => [
+                    'description' => 'Order from which we need to extract fulfillments',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        'CancelFulfillment' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'orders/{order_id}/fulfillments/{id}/cancel.json',
+            'summary'          => 'Cancel a pending fulfillment',
+            'data'             => ['root_key' => 'fulfillment'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Fulfillment ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'order_id' => [
+                    'description' => 'Order from which we need to extract fulfillments',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * ORDER RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/order
