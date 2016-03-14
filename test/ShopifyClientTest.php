@@ -92,4 +92,15 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
 
         $client->authorizeRequest($event);
     }
+
+    public function testCanClone()
+    {
+        $client             = new ShopifyClient([]);
+        $originalDispatcher = $client->getEventDispatcher();
+
+        $clonedClient     = clone $client;
+        $clonedDispatcher = $clonedClient->getEventDispatcher();
+
+        $this->assertNotSame($originalDispatcher, $clonedDispatcher);
+    }
 }
