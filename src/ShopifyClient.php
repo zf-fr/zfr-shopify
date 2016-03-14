@@ -21,6 +21,7 @@ namespace ZfrShopify;
 use Guzzle\Common\Event;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use ZfrShopify\Exception;
 
 /**
@@ -155,6 +156,19 @@ class ShopifyClient extends Client
         $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
         $dispatcher->addListener('command.after_prepare', [$this, 'wrapRequestData']);
         $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
+    }
+
+    /**
+     * Do a deep clone
+     */
+    public function __clone()
+    {
+        $dispatcher = new EventDispatcher();
+        $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
+        $dispatcher->addListener('command.after_prepare', [$this, 'wrapRequestData']);
+        $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
+
+        $this->setEventDispatcher($dispatcher);
     }
 
     /**
