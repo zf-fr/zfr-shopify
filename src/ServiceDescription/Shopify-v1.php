@@ -285,7 +285,7 @@ return [
                     'description' => 'Article title',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => false
                 ],
                 'author' => [
                     'description' => 'Author for the article',
@@ -303,13 +303,13 @@ return [
                     'description' => 'HTML content for the article',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => false
                 ],
                 'summary_html' => [
                     'description' => 'HTML content for the article\'s summary',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => false
                 ],
                 'handle' => [
                     'description' => 'Handle for the article',
@@ -1063,6 +1063,202 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * METAFIELDS RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/metafield
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetMetafields' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'metafields.json',
+            'summary'          => 'Retrieve a list of metafields',
+            'data'             => ['root_key' => 'metafields'],
+            'parameters'       => [
+                'created_at_max' => [
+                    'description' => 'Max creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'namespace' => [
+                    'description' => 'Filter metafields by namespace',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'key' => [
+                    'description' => 'Filter metafields by key',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'value_type' => [
+                    'description' => 'Filter metafields by value type',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['string', 'integer']
+                ],
+                'metafield' => [
+                    'description' => 'Filter metafields by resource type and ID (accepts sub-fields "owner_id" and "owner_resource")',
+                    'location'    => 'query',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetMetafield' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'metafields/{id}.json',
+            'summary'          => 'Retrieve specific metafield',
+            'data'             => ['root_key' => 'metafield'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Metafield ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateMetafield' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'metafields.json',
+            'summary'          => 'Create a new metafield',
+            'data'             => ['root_key' => 'metafield'],
+            'parameters'       => [
+                'namespace' => [
+                    'description' => 'Namespace to use',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'key' => [
+                    'description' => 'Key to use',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'value' => [
+                    'description' => 'Value type',
+                    'location'    => 'json',
+                    'type'        => ['string', 'integer'],
+                    'required'    => true
+                ],
+                'value_type' => [
+                    'description' => 'Metafield value type',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['string', 'integer']
+                ],
+                'description' => [
+                    'description' => 'Optional description to use',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdateMetafield' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'metafields/{id}.json',
+            'summary'          => 'Update a specific metafield',
+            'data'             => ['root_key' => 'metafield'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Metafield ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'value' => [
+                    'description' => 'Value type',
+                    'location'    => 'json',
+                    'type'        => ['string', 'integer'],
+                    'required'    => true
+                ],
+                'value_type' => [
+                    'description' => 'Metafield value type',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['string', 'integer']
+                ]
+            ]
+        ],
+
+        'DeleteMetafield' => [
+            'httpMethod' => 'DELETE',
+            'uri'        => 'metafields/{id}.json',
+            'summary'    => 'Delete specific metafield',
+            'parameters' => [
+                'id' => [
+                    'description' => 'Metafield ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
             ]
         ],
 

@@ -230,6 +230,14 @@ Here is a list of supported endpoints (more to come in the future):
 * completeFulfillment(array $args = [])
 * cancelFulfillment(array $args = []) 
 
+**METAFIELDS RELATED METHODS:**
+
+* array getMetafields(array $args = [])
+* array getMetafield(array $args = [])
+* array createMetafield(array $args = [])
+* array updateMetafield(array $args = [])
+* array deleteMetafield(array $args = [])
+
 **ORDER RELATED METHODS:**
 
 * array getOrders(array $args = [])

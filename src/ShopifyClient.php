@@ -72,6 +72,14 @@ use ZfrShopify\Exception;
  * @method array completeFulfillment(array $args = []) {@command Shopify CompleteFulfillment}
  * @method array cancelFulfillment(array $args = []) {@command Shopify CancelFulfillment}
  *
+ * METAFIELDS RELATED METHODS:
+ * 
+ * @method array getMetafields(array $args = []) {@command Shopify GetMetafields}
+ * @method array getMetafield(array $args = []) {@command Shopify GetMetafield}
+ * @method array createMetafield(array $args = []) {@command Shopify CreateMetafield}
+ * @method array updateMetafield(array $args = []) {@command Shopify UpdateMetafield}
+ * @method array deleteMetafield(array $args = []) {@command Shopify DeleteMetafield}
+ * 
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}
