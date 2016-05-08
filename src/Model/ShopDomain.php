@@ -36,4 +36,14 @@ class ShopDomain
     {
         return $this->shopDomain;
     }
+
+    /**
+     * Retrieve the sub-domain only (eg: if domain is "test.myshopify.com", sub-domain will be "test" only)
+     *
+     * @return string
+     */
+    public function getSubDomain(): string
+    {
+        return current(explode('.', $this->shopDomain, 2));
+    }
 }

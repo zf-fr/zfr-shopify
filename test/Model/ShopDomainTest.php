@@ -40,4 +40,11 @@ class ShopDomainTest extends \PHPUnit_Framework_TestCase
 
         new ShopDomain($domain);
     }
+
+    public function testRetrieveSubDomain()
+    {
+        $shopDomain = new ShopDomain('test.myshopify.com');
+
+        $this->assertEquals('test', $shopDomain->getSubDomain());
+    }
 }
