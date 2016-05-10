@@ -2238,7 +2238,14 @@ return [
             'uri'              => 'shop.json',
             'summary'          => 'Get data about a single shop',
             'data'             => ['root_key' => 'shop'],
-            'parameters'       => []
+            'parameters'       => [
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
         ],
 
         /**
