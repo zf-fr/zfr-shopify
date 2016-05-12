@@ -193,7 +193,9 @@ Here is a list of supported endpoints (more to come in the future):
 **ARTICLE RELATED METHODS:**
 
 * getArticles(array $args = [])
+* getBlogArticles(array $args = [])
 * getArticle(array $args = [])
+* getBlogArticle(array $args = [])
 * getArticlesAuthors(array $args = [])
 * getArticlesTags(array $args = [])
 * createArticle(array $args = [])

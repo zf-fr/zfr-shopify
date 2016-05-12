@@ -30,6 +30,97 @@ return [
 
         'GetArticles' => [
             'httpMethod'       => 'GET',
+            'uri'              => 'articles.json',
+            'summary'          => 'Retrieve a list of articles',
+            'data'             => ['root_key' => 'articles'],
+            'parameters'       => [
+                'created_at_max' => [
+                    'description' => 'Max creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_max' => [
+                    'description' => 'Max publication date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_min' => [
+                    'description' => 'Min publication date of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'title' => [
+                    'description' => 'Filter by page title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Filter by page handle',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_status' => [
+                    'description' => 'Current status of the article',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['published', 'unpublished', 'any']
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+        
+        'GetBlogArticles' => [
+            'httpMethod'       => 'GET',
             'uri'              => 'blogs/{blog_id}/articles.json',
             'summary'          => 'Retrieve a list of articles for a given blog',
             'data'             => ['root_key' => 'articles'],
@@ -127,8 +218,29 @@ return [
 
         'GetArticle' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'blogs/{blog_id}/articles/{id}.json',
+            'uri'              => 'articles/{id}.json',
             'summary'          => 'Retrieve specific article',
+            'data'             => ['root_key' => 'article'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Article ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+        
+        'GetBlogArticle' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'blogs/{blog_id}/articles/{id}.json',
+            'summary'          => 'Retrieve specific article from a given blog',
             'data'             => ['root_key' => 'article'],
             'parameters'       => [
                 'id' => [

@@ -35,7 +35,9 @@ use ZfrShopify\Exception;
  * ARTICLE RELATED METHODS:
  *
  * @method array getArticles(array $args = []) {@command Shopify GetArticles}
+ * @method array getBlogArticles(array $args = []) {@command Shopify GetBlogArticles}
  * @method array getArticle(array $args = []) {@command Shopify GetArticle}
+ * @method array getBlogArticle(array $args = []) {@command Shopify GetBlogArticle}
  * @method array getArticlesAuthors(array $args = []) {@command Shopify GetArticlesAuthors}
  * @method array getArticlesTags(array $args = []) {@command Shopify GetArticlesTags}
  * @method array createArticle(array $args = []) {@command Shopify CreateArticle}
