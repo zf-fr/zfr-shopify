@@ -292,6 +292,14 @@ Here is a list of supported endpoints (more to come in the future):
 * updateTheme(array $args = [])
 * deleteTheme(array $args = [])
 
+**PRODUCT VARIANT RELATED METHODS:**
+
+* getProductVariants(array $args = [])
+* getProductVariant(array $args = [])
+* createProductVariant(array $args = [])
+* updateProductVariant(array $args = [])
+* deleteProductVariant(array $args = [])
+
 **WEBHOOK RELATED METHODS:**
 
 * getWebhooks(array $args = [])

@@ -134,6 +134,14 @@ use ZfrShopify\Exception;
  * @method array updateTheme(array $args = []) {@command Shopify UpdateTheme}
  * @method array deleteTheme(array $args = []) {@command Shopify DeleteTheme}
  *
+ * VARIANT RELATED METHODS:
+ *
+ * @method array getProductVariants(array $args = []) {@command Shopify GetProductVariants}
+ * @method array getProductVariant(array $args = []) {@command Shopify GetProductVariant}
+ * @method array createProductVariant(array $args = []) {@command Shopify CreateProductVariant}
+ * @method array updateProductVariant(array $args = []) {@command Shopify UpdateProductVariant}
+ * @method array deleteProductVariant(array $args = []) {@command Shopify DeleteProductVariant}
+ * 
  * WEBHOOK RELATED METHODS:
  *
  * @method array getWebhooks(array $args = []) {@command Shopify GetWebhooks}

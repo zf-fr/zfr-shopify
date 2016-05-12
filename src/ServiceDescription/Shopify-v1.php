@@ -2476,6 +2476,241 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * ASSETS RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/product_variant
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetProductVariants' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'products/{product_id}/variants.json',
+            'summary'          => 'Get all variants for the given product',
+            'data'             => ['root_key' => 'variants'],
+            'parameters'       => [
+                'product_id' => [
+                    'description' => 'Specific product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetProductVariant' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'variants/{id}.json',
+            'summary'          => 'Retrieve a specific variant',
+            'data'             => ['root_key' => 'variant'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific variant ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateProductVariant' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'products/{product_id}/variants.json',
+            'summary'          => 'Create a new variant',
+            'data'             => ['root_key' => 'variant'],
+            'parameters'       => [
+                'product_id' => [
+                    'description' => 'Specific product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'option1' => [
+                    'description' => 'Option 1',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'option2' => [
+                    'description' => 'Option 2',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'option3' => [
+                    'description' => 'Option 3',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'price' => [
+                    'description' => 'Price for the variant',
+                    'location'    => 'json',
+                    'type'        => 'number',
+                    'required'    => false
+                ],
+                'inventory_quantity' => [
+                    'description' => 'Current inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'old_inventory_quantity' => [
+                    'description' => 'Old inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'inventory_quantity_adjustment' => [
+                    'description' => 'Modify inventory by the given amount',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'image_id' => [
+                    'description' => 'Image to attach for the variant',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdateProductVariant' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'products/{product_id}/variants/{id}.json',
+            'summary'          => 'Update an existing variant',
+            'data'             => ['root_key' => 'variant'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific variant ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'product_id' => [
+                    'description' => 'Specific product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'option1' => [
+                    'description' => 'Option 1',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'option2' => [
+                    'description' => 'Option 2',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'option3' => [
+                    'description' => 'Option 3',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'price' => [
+                    'description' => 'Price for the variant',
+                    'location'    => 'json',
+                    'type'        => 'number',
+                    'required'    => false
+                ],
+                'inventory_quantity' => [
+                    'description' => 'Current inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'old_inventory_quantity' => [
+                    'description' => 'Old inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'inventory_quantity_adjustment' => [
+                    'description' => 'Modify inventory by the given amount',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'image_id' => [
+                    'description' => 'Image to attach for the variant',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'DeleteProductVariant' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'products/{product_id}/variants/{id}.json',
+            'summary'          => 'Delete an existing variant for the given product',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific variant ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'product_id' => [
+                    'description' => 'Specific product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * WEBHOOK RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/webhook
