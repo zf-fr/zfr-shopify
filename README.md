@@ -284,6 +284,14 @@ Here is a list of supported endpoints (more to come in the future):
 
 * getShop(array $args = [])
 
+**SMART COLLECTION RELATED METHODS:**
+
+* getSmartCollections(array $args = [])
+* getSmartCollection(array $args = [])
+* createSmartCollection(array $args = [])
+* updateSmartCollection(array $args = [])
+* deleteSmartCollection(array $args = [])
+
 **THEME RELATED METHODS:**
 
 * getThemes(array $args = [])

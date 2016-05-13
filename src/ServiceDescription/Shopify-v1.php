@@ -2362,6 +2362,242 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * SMART COLLECTION RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/smartcollection
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetSmartCollections' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'smart_collections.json',
+            'summary'          => 'Retrieve a list of smart collections',
+            'data'             => ['root_key' => 'smart_collections'],
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Only show smart collections with given title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Filter by collection handle',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'product_id' => [
+                    'description' => 'Show smart collections that includes given product',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'created_at_max' => [
+                    'description' => 'Max creation date of the smart collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the smart collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the smart collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the smart collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_max' => [
+                    'description' => 'Max publication date of the smart collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_at_min' => [
+                    'description' => 'Min publication date of the smart collection',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published_status' => [
+                    'description' => 'Current status of the page',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['published', 'unpublished', 'any']
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetSmartCollection' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'smart_collections/{id}.json',
+            'summary'          => 'Retrieve specific smart collection',
+            'data'             => ['root_key' => 'smart_collection'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Smart collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateSmartCollection' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'smart_collections.json',
+            'summary'          => 'Create a smart collection',
+            'data'             => ['root_key' => 'smart_collection'],
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Smart collection title',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'body_html' => [
+                    'description' => 'Collection description',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published' => [
+                    'description' => 'Status for the smart collection',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'image' => [
+                    'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'rules' => [
+                    'description' => 'Specify the rules that need to be matched to include products within the collection',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdateSmartCollection' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'smart_collections/{id}.json',
+            'summary'          => 'Update a smart collection',
+            'data'             => ['root_key' => 'smart_collection'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Smart collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'title' => [
+                    'description' => 'Smart collection title',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'body_html' => [
+                    'description' => 'Collection description',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published' => [
+                    'description' => 'Status for the smart collection',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'image' => [
+                    'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'rules' => [
+                    'description' => 'Specify the rules that need to be matched to include products within the collection',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'DeleteSmartCollection' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'smart_collections/{id}.json',
+            'summary'          => 'Delete a smart collection',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Smart collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * THEME RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/theme
