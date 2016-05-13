@@ -125,6 +125,14 @@ use ZfrShopify\Exception;
  * SHOP RELATED METHODS:
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}
+ * 
+ * SMART COLLECTION RELATED METHODS:
+ *
+ * @method array getSmartCollections(array $args = []) {@command Shopify GetSmartCollections}
+ * @method array getSmartCollection(array $args = []) {@command Shopify GetSmartCollection}
+ * @method array createSmartCollection(array $args = []) {@command Shopify CreateSmartCollection}
+ * @method array updateSmartCollection(array $args = []) {@command Shopify UpdateSmartCollection}
+ * @method array deleteSmartCollection(array $args = []) {@command Shopify DeleteSmartCollection}
  *
  * THEME RELATED METHODS:
  *
