@@ -21,8 +21,10 @@ namespace ZfrShopify;
 use Guzzle\Common\Event;
 use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
+use Guzzle\Service\Resource\ResourceIterator;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use ZfrShopify\Exception;
+use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
 
 /**
  * Shopify client used to interact with the Shopify API
@@ -157,6 +159,23 @@ use ZfrShopify\Exception;
  * @method array createWebhook(array $args = []) {@command Shopify CreateWebhook}
  * @method array updateWebhook(array $args = []) {@command Shopify UpdateWebhook}
  * @method array deleteWebhook(array $args = []) {@command Shopify DeleteWebhook}
+ *
+ * ITERATOR METHODS:
+ *
+ * @method ResourceIterator getArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetArticles}
+ * @method ResourceIterator getBlogArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetBlogArticles}
+ * @method ResourceIterator getCustomCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomCollections}
+ * @method ResourceIterator getEventsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetEvents}
+ * @method ResourceIterator getFulfillmentsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetFulfillments}
+ * @method ResourceIterator getMetafieldsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetMetafields}
+ * @method ResourceIterator getOrdersIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetOrders}
+ * @method ResourceIterator getPagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetPages}
+ * @method ResourceIterator getProductsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProducts}
+ * @method ResourceIterator getProductImagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductImages}
+ * @method ResourceIterator getRecurringApplicationChargesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetRecurringApplicationCharges}
+ * @method ResourceIterator getSmartCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetSmartCollections}
+ * @method ResourceIterator getProductVariantsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductVariants}
+ * @method ResourceIterator getWebhooksIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetWebhooks}
  */
 class ShopifyClient extends Client
 {
@@ -174,6 +193,7 @@ class ShopifyClient extends Client
 
         $this->options = $options;
 
+        $this->setResourceIteratorFactory(new ShopifyResourceIteratorFactory());
         $this->setUserAgent('zfr-shopify-php', true);
         $this->setDescription(ServiceDescription::factory(__DIR__ . '/ServiceDescription/Shopify-v1.php'));
 
@@ -248,6 +268,15 @@ class ShopifyClient extends Client
      */
     public function __call($method, $args = [])
     {
+        // Allow magic method calls for iterators (e.g. $client-><CommandName>Iterator($params))
+        if (substr($method, -8) === 'Iterator') {
+            $command         = substr($method, 0, -8);
+            $commandOptions  = $args[0] ?? [];
+            $iteratorOptions = $args[1] ?? [];
+
+            return $this->getIterator($command, $commandOptions, $iteratorOptions);
+        }
+
         // In Shopify, all API responses wrap the data by the resource name. For instance, using the "/shop" endpoint will wrap
         // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the
         // result. The only exception if the "ExchangeCodeForToken" command that works a bit differently

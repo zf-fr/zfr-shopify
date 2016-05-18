@@ -21,8 +21,13 @@ namespace ZfrShopifyTest;
 use Guzzle\Common\Event;
 use Guzzle\Http\Message\RequestInterface;
 use Guzzle\Service\Command\CommandInterface;
+use Guzzle\Service\Resource\ResourceIterator;
+use Guzzle\Service\Resource\ResourceIteratorFactoryInterface;
+use Guzzle\Service\Resource\ResourceIteratorInterface;
+use Prophecy\Argument;
 use Psr\Http\Message\ServerRequestInterface;
 use ZfrShopify\Exception\InvalidRequestException;
+use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
 use ZfrShopify\ShopifyClient;
 
 /**
@@ -43,6 +48,15 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
             'access_token'  => 'token',
             'private_app'   => false
         ]);
+    }
+
+    public function testInitializesWithDefaultResourceIteratorFactory()
+    {
+        $this->assertAttributeInstanceOf(
+            ShopifyResourceIteratorFactory::class,
+            'resourceIteratorFactory',
+            $this->client
+        );
     }
 
     public function testCanAuthorizeRequestForPrivateApp()
@@ -102,5 +116,23 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $clonedDispatcher = $clonedClient->getEventDispatcher();
 
         $this->assertNotSame($originalDispatcher, $clonedDispatcher);
+    }
+
+    public function testAllowsMagicMethodCallsForIterators()
+    {
+        $resourceIteratorFactory = $this->prophesize(ResourceIteratorFactoryInterface::class);
+        $this->client->setResourceIteratorFactory($resourceIteratorFactory->reveal());
+
+        $commandOptions   = ['title' => 'Test'];
+        $iteratorOptions  = ['foo' => 'bar'];
+        $resourceIterator = $this->prophesize(ResourceIteratorInterface::class);
+
+        $resourceIteratorFactory->build(Argument::that(function (CommandInterface $command) {
+            return 'GetArticles' === $command->getName() && 'Test' === $command['title'];
+        }), $iteratorOptions)->shouldBeCalled()->willReturn($resourceIterator->reveal());
+
+        $result = $this->client->getArticlesIterator($commandOptions, $iteratorOptions);
+
+        $this->assertSame($resourceIterator->reveal(), $result);
     }
 }
