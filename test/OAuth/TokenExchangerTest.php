@@ -20,6 +20,7 @@ namespace ZfrShopifyTest\OAuth;
 
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\OAuth\TokenExchanger;
 
 /**
@@ -38,13 +39,13 @@ class TokenExchangerTest extends \PHPUnit_Framework_TestCase
     /**
      * @dataProvider shopDomainProvider
      */
-    public function testCanSendRequest()
+    public function testExchangesCodeForToken()
     {
         $client         = $this->prophesize(ClientInterface::class);
         $tokenExchanger = new TokenExchanger($client->reveal());
 
         $response = $this->prophesize(ResponseInterface::class);
-        $response->getBody()->shouldBeCalled()->willReturn('{"access_token": "tok_123"}');
+        $response->getBody()->shouldBeCalled()->willReturn('{"access_token": "tok_123", "scope": "write_orders,read_customers"}');
 
         $url = 'https://test.myshopify.com/admin/oauth/access_token';
 
@@ -56,8 +57,44 @@ class TokenExchangerTest extends \PHPUnit_Framework_TestCase
             ]
         ])->shouldBeCalled()->willReturn($response->reveal());
 
-        $code = $tokenExchanger->exchangeCodeForToken('app_123', 'secret', 'test.myshopify.com', 'code_123');
+        $code = $tokenExchanger->exchangeCodeForToken(
+            'app_123',
+            'secret',
+            'test.myshopify.com',
+            ['write_orders', 'read_customers'],
+            'code_123'
+        );
 
         $this->assertEquals('tok_123', $code);
+    }
+
+    public function testThrowsExceptionIfMissingScopes()
+    {
+        $client         = $this->prophesize(ClientInterface::class);
+        $tokenExchanger = new TokenExchanger($client->reveal());
+
+        $response = $this->prophesize(ResponseInterface::class);
+        $response->getBody()->shouldBeCalled()->willReturn('{"access_token": "tok_123", "scope": "write_orders,read_orders"}');
+
+        $url = 'https://test.myshopify.com/admin/oauth/access_token';
+
+        $client->request('POST', $url, [
+            'json' => [
+                'client_id'     => 'app_123',
+                'client_secret' => 'secret',
+                'code'          => 'code_123'
+            ]
+        ])->shouldBeCalled()->willReturn($response->reveal());
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Missing authorization for: "write_products, read_products"');
+
+        $tokenExchanger->exchangeCodeForToken(
+            'app_123',
+            'secret',
+            'test.myshopify.com',
+            ['write_orders', 'read_orders', 'write_products', 'read_products'],
+            'code_123'
+        );
     }
 }
