@@ -45,7 +45,9 @@ class TokenExchangerTest extends \PHPUnit_Framework_TestCase
         $tokenExchanger = new TokenExchanger($client->reveal());
 
         $response = $this->prophesize(ResponseInterface::class);
-        $response->getBody()->shouldBeCalled()->willReturn('{"access_token": "tok_123", "scope": "write_orders,read_customers"}');
+        $response->getBody()->shouldBeCalled()->willReturn(
+            '{"access_token": "tok_123", "scope": "write_orders,read_customers"}'
+        );
 
         $url = 'https://test.myshopify.com/admin/oauth/access_token';
 
@@ -74,7 +76,9 @@ class TokenExchangerTest extends \PHPUnit_Framework_TestCase
         $tokenExchanger = new TokenExchanger($client->reveal());
 
         $response = $this->prophesize(ResponseInterface::class);
-        $response->getBody()->shouldBeCalled()->willReturn('{"access_token": "tok_123", "scope": "write_orders,read_orders"}');
+        $response->getBody()->shouldBeCalled()->willReturn(
+            '{"access_token": "tok_123", "scope": "write_orders,read_orders"}'
+        );
 
         $url = 'https://test.myshopify.com/admin/oauth/access_token';
 

@@ -34,8 +34,13 @@ class TokenExchanger
      * @param  string   $code
      * @return string
      */
-    public function exchangeCodeForToken(string $apiKey, string $sharedSecret, string $shopDomain, array $requiredScopes, string $code): string
-    {
+    public function exchangeCodeForToken(
+        string $apiKey,
+        string $sharedSecret,
+        string $shopDomain,
+        array $requiredScopes,
+        string $code
+    ): string {
         $url = sprintf(
             'https://%s/admin/oauth/access_token',
             trim($shopDomain, '/')
