@@ -29,7 +29,7 @@ final class ShopifyResourceIterator extends ResourceIterator
         $this->command['limit'] = $this->pageSize;
 
         if ($this->nextToken) {
-            $this->command['since_id'] = $this->nextToken;
+            $this->command['page'] = $this->nextToken;
         }
 
         // Run request and "unwrap" the result
@@ -37,9 +37,12 @@ final class ShopifyResourceIterator extends ResourceIterator
         $rootKey = $this->command->getOperation()->getData('root_key');
         $data    = $result[$rootKey] ?? $result;
 
-        // This avoid to do any additional request
-        $lastItem        = end($data);
-        $this->nextToken = $lastItem['id'] ?? false;
+        // Check if reached last page
+        if (count($data) === $this->pageSize) {
+            $this->nextToken = $this->nextToken ? $this->nextToken + 1 : 2;
+        } else {
+            $this->nextToken = false;
+        }
 
         return $data;
     }
