@@ -16,35 +16,20 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZfrShopify\OAuth;
+namespace ZfrShopifyTest;
 
-use Zend\Diactoros\Response\RedirectResponse;
+use ZfrShopify\ConfigProvider;
 
 /**
- * Create a redirection response to Shopify
- *
- * @author Michaël Gallego
+ * @author Daniel Gimenes
  */
-class AuthorizationRedirectResponse extends RedirectResponse
+final class ConfigProviderTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @param string $apiKey
-     * @param string $shopDomain
-     * @param array  $scopes
-     * @param string $redirectUri
-     * @param string $nonce
-     */
-    public function __construct(string $apiKey, string $shopDomain, array $scopes, string $redirectUri, string $nonce)
+    public function testProvidesContainerConfig()
     {
-        $uri = sprintf(
-            'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
-            str_replace('.myshopify.com', '', $shopDomain),
-            $apiKey,
-            implode(',', $scopes),
-            $redirectUri,
-            $nonce
-        );
+        $moduleConfig = new ConfigProvider();
+        $config       = $moduleConfig();
 
-        parent::__construct($uri);
+        $this->assertArrayHasKey('dependencies', $config);
     }
 }

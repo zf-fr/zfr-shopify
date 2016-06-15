@@ -16,35 +16,18 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZfrShopify\OAuth;
-
-use Zend\Diactoros\Response\RedirectResponse;
+namespace ZfrShopify;
 
 /**
- * Create a redirection response to Shopify
- *
- * @author Michaël Gallego
+ * @author Daniel Gimenes
  */
-class AuthorizationRedirectResponse extends RedirectResponse
+final class ConfigProvider
 {
     /**
-     * @param string $apiKey
-     * @param string $shopDomain
-     * @param array  $scopes
-     * @param string $redirectUri
-     * @param string $nonce
+     * @return array
      */
-    public function __construct(string $apiKey, string $shopDomain, array $scopes, string $redirectUri, string $nonce)
+    public function __invoke(): array
     {
-        $uri = sprintf(
-            'https://%s.myshopify.com/admin/oauth/authorize?client_id=%s&scope=%s&redirect_uri=%s&state=%s',
-            str_replace('.myshopify.com', '', $shopDomain),
-            $apiKey,
-            implode(',', $scopes),
-            $redirectUri,
-            $nonce
-        );
-
-        parent::__construct($uri);
+        return require __DIR__ . '/../config/module.config.php';
     }
 }

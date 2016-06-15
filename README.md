@@ -9,15 +9,15 @@ ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.sho
 ## Dependencies
 
 * PHP 7
-* [Guzzle](http://www.guzzlephp.org): >= 3.6
-* [Zend Diactoros](https://github.com/zendframework/zend-diactoros): >=1.1
+* [Guzzle](http://www.guzzlephp.org): ^3.9 and ^6.1
+* [Zend Diactoros](https://github.com/zendframework/zend-diactoros): >=1.3
 
 ## Installation
 
 Installation of ZfrShopify is only officially supported using Composer:
 
 ```sh
-php composer.phar require 'zfr/zfr-shopify:0.1.*'
+php composer.phar require 'zfr/zfr-shopify:1.0'
 ```
 
 ## Usage
@@ -77,9 +77,8 @@ return [
 ];
 ```
 
-If you're using Zend\Expressive with Zend\ServiceManager 3, you can use `ZfrShopify\ModuleConfig` to register our
-factories into Zend\ServiceManager automatically.
-More info [here](http://zendframework.github.io/zend-expressive/cookbook/modular-layout/)
+If you're using Zend\ServiceManager 3, you can use [Zend\ComponentInstaller](https://zendframework.github.io/zend-component-installer/)
+to register our factories into Zend\ServiceManager automatically.
 
 However if you're using other framework or other container, you can still manually register our factories, they are
 under [src/Container](/src/Container) folder.

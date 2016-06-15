@@ -17,14 +17,16 @@
     ],
     "require": {
         "php": "~7.0",
-        "guzzle/guzzle": "~3.6",
-        "guzzlehttp/guzzle": "~6.0",
-        "zendframework/zend-diactoros": "~1.1",
-        "container-interop/container-interop": "^1.1"
+        "container-interop/container-interop": "^1.1",
+        "guzzle/guzzle": "^3.9",
+        "guzzlehttp/guzzle": "^6.1",
+        "psr/http-message": "^1.0",
+        "symfony/event-dispatcher": "^2.8",
+        "zendframework/zend-diactoros": "^1.3"
     },
     "require-dev": {
-        "phpunit/phpunit": "~5.2",
-        "squizlabs/php_codesniffer": "^2.3",
+        "phpunit/phpunit": "^5.2",
+        "squizlabs/php_codesniffer": "^2.5",
         "zendframework/zend-servicemanager": "^3.0"
     },
     "suggest": {
@@ -48,5 +50,12 @@
         "cs": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit"
+    },
+    "extra": {
+        "zf": {
+            "config-provider": [
+                "ZfrShopify\\ConfigProvider"
+            ]
+        }
     }
 }
