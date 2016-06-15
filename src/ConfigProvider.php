@@ -5,7 +5,7 @@ namespace ZfrShopify;
 /**
  * @author Daniel Gimenes
  */
-final class ModuleConfig
+final class ConfigProvider
 {
     /**
      * @return array

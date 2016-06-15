@@ -2,16 +2,16 @@
 
 namespace ZfrShopifyTest;
 
-use ZfrShopify\ModuleConfig;
+use ZfrShopify\ConfigProvider;
 
 /**
  * @author Daniel Gimenes
  */
-final class ModuleConfigTest extends \PHPUnit_Framework_TestCase
+final class ConfigProviderTest extends \PHPUnit_Framework_TestCase
 {
     public function testProvidesContainerConfig()
     {
-        $moduleConfig = new ModuleConfig();
+        $moduleConfig = new ConfigProvider();
         $config       = $moduleConfig();
 
         $this->assertArrayHasKey('dependencies', $config);
