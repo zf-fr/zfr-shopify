@@ -159,6 +159,10 @@ use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
  * @method array createWebhook(array $args = []) {@command Shopify CreateWebhook}
  * @method array updateWebhook(array $args = []) {@command Shopify UpdateWebhook}
  * @method array deleteWebhook(array $args = []) {@command Shopify DeleteWebhook}
+ * 
+ * OTHER METHODS:
+ * 
+ * @method array createDelegateAccessToken(array $args = []) {@command Shopify CreateDelegateAccessToken}
  *
  * ITERATOR METHODS:
  *
