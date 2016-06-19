@@ -3150,5 +3150,31 @@ return [
                 ]
             ]
         ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * OTHERS
+         * --------------------------------------------------------------------------------
+         */
+
+        'CreateDelegateAccessToken' => [
+            'httpMethod' => 'POST',
+            'uri'        => 'access_tokens/delegate.json',
+            'summary'    => 'Create a new delegate access token',
+            'parameters' => [
+                'delegate_access_scope' => [
+                    'description' => 'New scopes that are granted to the delegate access token',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => true,
+                ],
+                'expires_in' => [
+                    'description' => 'Number of times in second before the token expires',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false
+                ]
+            ]
+        ],
     ]
 ];

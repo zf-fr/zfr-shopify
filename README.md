@@ -314,3 +314,7 @@ Here is a list of supported endpoints (more to come in the future):
 * createWebhook(array $args = [])
 * updateWebhook(array $args = [])
 * deleteWebhook(array $args = [])
+
+**OTHER METHODS:**
+
+* createDelegateAccessToken(array $args = [])
