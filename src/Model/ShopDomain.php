@@ -46,6 +46,24 @@ class ShopDomain
     }
 
     /**
+     * @param string $shopDomain
+     *
+     * @return ShopDomain
+     */
+    public static function fromString(string $shopDomain): self
+    {
+        return new self($shopDomain);
+    }
+
+    /**
+     * @return string
+     */
+    public function toString(): string
+    {
+        return $this->shopDomain;
+    }
+
+    /**
      * @return string
      */
     public function __toString(): string

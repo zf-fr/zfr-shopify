@@ -63,4 +63,11 @@ class ShopDomainTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('test', $shopDomain->getSubDomain());
     }
+
+    public function testIsStringSerializable()
+    {
+        $shopDomain = 'test.myshopify.com';
+
+        self::assertSame($shopDomain, ShopDomain::fromString($shopDomain)->toString());
+    }
 }
