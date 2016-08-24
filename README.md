@@ -217,6 +217,14 @@ Here is a list of supported endpoints (more to come in the future):
 * updateCustomCollection(array $args = [])
 * deleteCustomCollection(array $args = [])
 
+**CUSTOM COLLECTION RELATED METHODS:**
+
+* getCustomCollections(array $args = [])
+* getCustomCollection(array $args = [])
+* createCustomCollection(array $args = [])
+* updateCustomCollection(array $args = [])
+* deleteCustomCollection(array $args = [])
+
 **EVENT RELATED METHODS:**
 
 * getEvents(array $args = [])
@@ -306,6 +314,12 @@ Here is a list of supported endpoints (more to come in the future):
 * createProductVariant(array $args = [])
 * updateProductVariant(array $args = [])
 * deleteProductVariant(array $args = [])
+
+**USAGE CHARGE RELATED METHODS:**
+
+* getUsageCharges(array $args = [])
+* getUsageCharge(array $args = [])
+* createUsageCharge(array $args = [])
 
 **WEBHOOK RELATED METHODS:**
 
