@@ -2293,6 +2293,18 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
+                'capped_amount' => [
+                    'description' => 'Capped amount (to use with usage charge)',
+                    'location'    => 'json',
+                    'type'        => 'number',
+                    'required'    => false
+                ],
+                'terms' => [
+                    'description' => 'Terms displayed to the merchant when accepting the charge (to use with usage charge)',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
                 'test' => [
                     'description' => 'Test mode for the charge',
                     'location'    => 'json',
@@ -2712,7 +2724,7 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
-         * ASSETS RELATED METHODS
+         * PRODUCT VARIANT RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/product_variant
          * --------------------------------------------------------------------------------
@@ -2940,6 +2952,83 @@ return [
                     'description' => 'Specific product ID',
                     'location'    => 'uri',
                     'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * USAGE CHARGES RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/usagecharge
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetUsageCharges' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'recurring_application_charges/{recurring_charge_id}/usage_charges.json',
+            'summary'          => 'Retrieve a list of usage charges for the given recurring application charges',
+            'data'             => ['root_key' => 'usage_charges'],
+            'parameters'       => [
+                'recurring_charge_id' => [
+                    'description' => 'Recurring charge from which we need to extract usage charges',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetUsageCharge' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'recurring_application_charges/{recurring_charge_id}/usage_charges/{id}.json',
+            'summary'          => 'Retrieve a specific usage charge',
+            'data'             => ['root_key' => 'usage_charge'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific usage charge ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'recurring_charge_id' => [
+                    'description' => 'Recurring charge from which we need to extract usage charges',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateUsageCharge' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'recurring_application_charges/{recurring_charge_id}/usage_charges.json',
+            'summary'          => 'Create a new usage charge',
+            'data'             => ['root_key' => 'usage_charge'],
+            'parameters'       => [
+                'description' => [
+                    'description' => 'Usage charge description',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'price' => [
+                    'description' => 'Price to charge',
+                    'location'    => 'json',
+                    'type'        => 'number',
                     'required'    => true
                 ]
             ]
