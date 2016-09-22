@@ -302,6 +302,75 @@ return [
 
         'CreateArticle' => [
             'httpMethod'       => 'POST',
+            'uri'              => 'articles.json',
+            'summary'          => 'Create a new article',
+            'data'             => ['root_key' => 'article'],
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Article title',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'author' => [
+                    'description' => 'Author for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'tags' => [
+                    'description' => 'Tags for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'body_html' => [
+                    'description' => 'HTML content for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'summary_html' => [
+                    'description' => 'HTML content for the article\'s summary',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Handle for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published' => [
+                    'description' => 'Set the publication status',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'published_at' => [
+                    'description' => 'Publication date for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'image' => [
+                    'description' => 'Set the image (either through a base 64 attachment or URL)',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateBlogArticle' => [
+            'httpMethod'       => 'POST',
             'uri'              => 'blogs/{blog_id}/articles.json',
             'summary'          => 'Create a new article',
             'data'             => ['root_key' => 'article'],
@@ -334,13 +403,13 @@ return [
                     'description' => 'HTML content for the article',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => false
                 ],
                 'summary_html' => [
                     'description' => 'HTML content for the article\'s summary',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true
+                    'required'    => false
                 ],
                 'handle' => [
                     'description' => 'Handle for the article',
@@ -376,6 +445,81 @@ return [
         ],
 
         'UpdateArticle' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'articles/{id}.json',
+            'summary'          => 'Update an existing article',
+            'data'             => ['root_key' => 'article'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Article ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'title' => [
+                    'description' => 'Article title',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'author' => [
+                    'description' => 'Author for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'tags' => [
+                    'description' => 'Tags for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'body_html' => [
+                    'description' => 'HTML content for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'summary_html' => [
+                    'description' => 'HTML content for the article\'s summary',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'handle' => [
+                    'description' => 'Handle for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'published' => [
+                    'description' => 'Set the publication status',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'published_at' => [
+                    'description' => 'Publication date for the article',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'image' => [
+                    'description' => 'Set the image (either through a base 64 attachment or URL)',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'UpdateBlogArticle' => [
             'httpMethod'       => 'PUT',
             'uri'              => 'blogs/{blog_id}/articles/{id}.json',
             'summary'          => 'Update an existing article',
@@ -458,11 +602,25 @@ return [
 
         'DeleteArticle' => [
             'httpMethod'       => 'DELETE',
+            'uri'              => 'articles/{id}.json',
+            'summary'          => 'Delete an existing article',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Article ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        'DeleteBlogArticle' => [
+            'httpMethod'       => 'DELETE',
             'uri'              => 'blogs/{blog_id}/articles/{id}.json',
             'summary'          => 'Delete an existing article',
             'parameters'       => [
                 'id' => [
-                    'description' => 'Page ID',
+                    'description' => 'Article ID',
                     'location'    => 'uri',
                     'type'        => 'integer',
                     'required'    => true

@@ -198,8 +198,11 @@ Here is a list of supported endpoints (more to come in the future):
 * getArticlesAuthors(array $args = [])
 * getArticlesTags(array $args = [])
 * createArticle(array $args = [])
+* createBlogArticle(array $args = [])
 * updateArticle(array $args = [])
+* updateBlogArticle(array $args = [])
 * deleteArticle(array $args = [])
+* deleteBlogArticle(array $args = [])
 
 **ASSET RELATED METHODS:**
 
