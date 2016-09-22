@@ -1,3 +1,7 @@
+# 1.3.0
+
+* Added new endpoint for accessing articles without the blog reference.
+
 # 1.2.0
 
 * Add support for usage charge methods (https://help.shopify.com/api/reference/usagecharge)

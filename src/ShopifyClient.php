@@ -23,7 +23,6 @@ use Guzzle\Service\Client;
 use Guzzle\Service\Description\ServiceDescription;
 use Guzzle\Service\Resource\ResourceIterator;
 use Symfony\Component\EventDispatcher\EventDispatcher;
-use ZfrShopify\Exception;
 use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
 
 /**
@@ -43,8 +42,11 @@ use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
  * @method array getArticlesAuthors(array $args = []) {@command Shopify GetArticlesAuthors}
  * @method array getArticlesTags(array $args = []) {@command Shopify GetArticlesTags}
  * @method array createArticle(array $args = []) {@command Shopify CreateArticle}
+ * @method array createBlogArticle(array $args = []) {@command Shopify CreateBlogArticle}
  * @method array updateArticle(array $args = []) {@command Shopify UpdateArticle}
+ * @method array updateBlogArticle(array $args = []) {@command Shopify UpdateBlogArticle}
  * @method array deleteArticle(array $args = []) {@command Shopify DeleteArticle}
+ * @method array deleteBlogArticle(array $args = []) {@command Shopify DeleteBlogArticle}
  *
  * ASSET RELATED METHODS:
  *
