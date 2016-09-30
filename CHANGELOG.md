@@ -1,3 +1,7 @@
+# 1.4.0
+
+* Add support for order transaction methods (https://help.shopify.com/api/reference/transaction)
+
 # 1.3.0
 
 * Added new endpoint for accessing articles without the blog reference.
