@@ -3117,6 +3117,139 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * TRANSACTION RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/transaction
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetTransactions' => [
+            'httpMethod' => 'GET',
+            'uri'        => 'orders/{order_id}/transactions.json',
+            'summary'    => 'Retrieve a list of transactions for a given order',
+            'data'       => ['root_key' => 'transactions'],
+            'parameters' => [
+                'order_id' => [
+                    'description' => 'Order from which we need to extract transactions',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetTransaction' => [
+            'httpMethod' => 'GET',
+            'uri'        => 'orders/{order_id}/transactions/{id}.json',
+            'summary'    => 'Retrieve a specific transaction',
+            'data'       => ['root_key' => 'transaction'],
+            'parameters' => [
+                'order_id' => [
+                    'description' => 'Order from which we need to extract transactions',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Transaction ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateTransaction' => [
+            'httpMethod' => 'POST',
+            'uri'        => 'orders/{order_id}/transactions.json',
+            'summary'    => 'Create a new transaction for a given order',
+            'data'       => ['root_key' => 'transaction'],
+            'parameters' => [
+                'order_id' => [
+                    'description' => 'Order from which we need to extract transactions',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'amount' => [
+                    'description' => 'The amount of money that the transaction was for',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'authorization' => [
+                    'description' => 'The authorization code associated with the transaction',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'device_id' => [
+                    'description' => 'The unique identifier for the device',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'gateway' => [
+                    'description' => 'The name of the gateway the transaction was issued through',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'kind' => [
+                    'description' => 'The kind of transaction',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['authorization', 'capture', 'sale', 'void', 'refund'],
+                ],
+                'error_code' => [
+                    'description' => 'A standardized error code, independent of the payment provider',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'status' => [
+                    'description' => 'The status of the transaction',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['pending', 'failure', 'success', 'error']
+                ],
+                'test' => [
+                    'description' => 'The option to use the transaction for testing purposes',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false
+                ],
+                'currency' => [
+                    'description' => 'The three letter code (ISO 4217) for the currency used for the payment',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * USAGE CHARGES RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/usagecharge

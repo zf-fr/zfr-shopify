@@ -154,6 +154,12 @@ use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
  * @method array updateProductVariant(array $args = []) {@command Shopify UpdateProductVariant}
  * @method array deleteProductVariant(array $args = []) {@command Shopify DeleteProductVariant}
  *
+ * TRANSACTION RELATED METHODS:
+ *
+ * @method array getTransactions(array $args = []) {@command Shopify GetTransactions}
+ * @method array getTransaction(array $args = []) {@command Shopify GetTransaction}
+ * @method array createTransaction(array $args = []) {@command Shopify CreateTransaction}
+ *
  * USAGE CHARGE RELATED METHODS:
  *
  * @method array getUsageCharges(array $args = []) {@command Shopify GetUsageCharges}
