@@ -1,3 +1,8 @@
+# 1.5.0
+
+* Add support for script tag methods (https://help.shopify.com/api/reference/scripttag)
+* Fix the "attachment" parameter for theme assets
+
 # 1.4.0
 
 * Add support for order transaction methods (https://help.shopify.com/api/reference/transaction)

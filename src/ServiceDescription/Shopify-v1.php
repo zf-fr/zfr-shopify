@@ -709,7 +709,7 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'attachement' => [
+                'attachment' => [
                     'description' => 'Image through a base 64 encoded',
                     'location'    => 'json',
                     'type'        => 'string',
@@ -748,7 +748,7 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'attachement' => [
+                'attachment' => [
                     'description' => 'Image through a base 64 encoded',
                     'location'    => 'json',
                     'type'        => 'string',
@@ -3108,6 +3108,173 @@ return [
                 ],
                 'product_id' => [
                     'description' => 'Specific product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * SCRIPT TAGS RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/scripttag
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetScriptTags' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'script_tags.json',
+            'summary'          => 'Retrieve a list of installed script tags',
+            'data'             => ['root_key' => 'script_tags'],
+            'parameters'       => [
+                'created_at_max' => [
+                    'description' => 'Max creation date of the script tag',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'created_at_min' => [
+                    'description' => 'Min creation date of the script tag',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_max' => [
+                    'description' => 'Max update date of the script tag',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'updated_at_min' => [
+                    'description' => 'Min update date of the script tag',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'GetScriptTag' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'script_tags/{id}.json',
+            'summary'          => 'Retrieve a single script tag',
+            'data'             => ['root_key' => 'script_tag'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Script tag ID to retrieve',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ]
+            ]
+        ],
+
+        'CreateScriptTag' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'script_tags.json',
+            'summary'          => 'Create a new script tags',
+            'data'             => ['root_key' => 'script_tags'],
+            'parameters'       => [
+                'event' => [
+                    'description' => 'Event value when the script tag is loaded',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['onload'],
+                ],
+                'src' => [
+                    'description' => 'URL of the script tag',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'display_scope' => [
+                    'description' => 'Decide when the script tag should be loaded',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['online_store', 'order_status', 'all'],
+                ]
+            ]
+        ],
+
+        'UpdateScriptTag' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'script_tags/{id}.json',
+            'summary'          => 'Update an existing script tag',
+            'data'             => ['root_key' => 'script_tag'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Script tag ID to update',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'event' => [
+                    'description' => 'Event value when the script tag is loaded',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['onload'],
+                ],
+                'src' => [
+                    'description' => 'URL of the script tag',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'display_scope' => [
+                    'description' => 'Decide when the script tag should be loaded',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                    'enum'        => ['online_store', 'order_status', 'all'],
+                ]
+            ]
+        ],
+
+        'DeleteScriptTag' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'script_tags/{id}.json',
+            'summary'          => 'Delete an existing script tag',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Script tag ID to delete',
                     'location'    => 'uri',
                     'type'        => 'integer',
                     'required'    => true
