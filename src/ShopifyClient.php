@@ -154,6 +154,14 @@ use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
  * @method array updateProductVariant(array $args = []) {@command Shopify UpdateProductVariant}
  * @method array deleteProductVariant(array $args = []) {@command Shopify DeleteProductVariant}
  *
+ * SCRIPT TAGS RELATED METHODS:
+ *
+ * @method array getScriptTags(array $args = []) {@command Shopify GetScriptTags}
+ * @method array getScriptTag(array $args = []) {@command Shopify GetScriptTag}
+ * @method array createScriptTag(array $args = []) {@command Shopify CreateScriptTag}
+ * @method array updateScriptTag(array $args = []) {@command Shopify UpdateScriptTag}
+ * @method array deleteScriptTag(array $args = []) {@command Shopify DeleteScriptTag}
+ *
  * TRANSACTION RELATED METHODS:
  *
  * @method array getTransactions(array $args = []) {@command Shopify GetTransactions}

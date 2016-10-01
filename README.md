@@ -310,6 +310,14 @@ Here is a list of supported endpoints (more to come in the future):
 * updateProductVariant(array $args = [])
 * deleteProductVariant(array $args = [])
 
+**SCRIPT TAG RELATED METHODS:**
+
+* getScriptTags(array $args = [])
+* getScriptTag(array $args = [])
+* createScriptTag(array $args = [])
+* updateScriptTag(array $args = [])
+* deleteScriptTag(array $args = [])
+
 **TRANSACTION RELATED METHODS:**
 
 * getTransactions(array $args = [])
