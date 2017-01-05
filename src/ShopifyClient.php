@@ -198,20 +198,20 @@ use ZfrShopify\Exception\RuntimeException;
  *
  * ITERATOR METHODS:
  *
- * @method \Generator getArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetArticles}
- * @method \Generator getBlogArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetBlogArticles}
- * @method \Generator getCustomCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomCollections}
- * @method \Generator getEventsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetEvents}
- * @method \Generator getFulfillmentsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetFulfillments}
- * @method \Generator getMetafieldsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetMetafields}
- * @method \Generator getOrdersIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetOrders}
- * @method \Generator getPagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetPages}
- * @method \Generator getProductsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProducts}
- * @method \Generator getProductImagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductImages}
- * @method \Generator getRecurringApplicationChargesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetRecurringApplicationCharges}
- * @method \Generator getSmartCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetSmartCollections}
- * @method \Generator getProductVariantsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductVariants}
- * @method \Generator getWebhooksIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetWebhooks}
+ * @method \Traversable getArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetArticles}
+ * @method \Traversable getBlogArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetBlogArticles}
+ * @method \Traversable getCustomCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomCollections}
+ * @method \Traversable getEventsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetEvents}
+ * @method \Traversable getFulfillmentsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetFulfillments}
+ * @method \Traversable getMetafieldsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetMetafields}
+ * @method \Traversable getOrdersIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetOrders}
+ * @method \Traversable getPagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetPages}
+ * @method \Traversable getProductsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProducts}
+ * @method \Traversable getProductImagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductImages}
+ * @method \Traversable getRecurringApplicationChargesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetRecurringApplicationCharges}
+ * @method \Traversable getSmartCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetSmartCollections}
+ * @method \Traversable getProductVariantsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductVariants}
+ * @method \Traversable getWebhooksIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetWebhooks}
  */
 class ShopifyClient
 {
@@ -238,21 +238,10 @@ class ShopifyClient
         $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
 
         $httpClient  = new Client(['base_uri' => $baseUri, 'handler' => $handlerStack]);
-        $description = new Description(include_once __DIR__ . '/ServiceDescription/Shopify-v1.php');
+        $description = new Description(require __DIR__ . '/ServiceDescription/Shopify-v1.php');
 
         $this->guzzleClient = new GuzzleClient($httpClient, $description, [$this, 'wrapRequestData']);
         $this->connectionOptions = $connectionOptions;
-    }
-
-    /**
-     * Create a new client with new connection options
-     *
-     * @param array $connectionOptions New options that are merged with existing ones
-     * @return ShopifyClient
-     */
-    public function withConnectionOptions(array $connectionOptions): ShopifyClient
-    {
-        return new ShopifyClient(array_merge($this->connectionOptions, $connectionOptions));
     }
 
     /**

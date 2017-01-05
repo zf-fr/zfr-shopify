@@ -50,16 +50,6 @@ $shopifyClient = new ShopifyClient([
 ]);
 ```
 
-Most of the time, you will need to alter the client once you have retrieved the shop info. To that extent, the client offers
-a public method that allows to create a new client:
-
-```php
-$newClient = $shopifyClient->withConnectionSettings([
-  'shop'         => 'merchant.myshopify.com',
-  'access_token' => 'your_access_token'
-]);
-```
-
 ### Using a container
 
 ZfrShopify also provides built-in [container-interop](https://github.com/container-interop/container-interop) factories
