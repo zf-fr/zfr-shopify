@@ -38,19 +38,37 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
                 false
             ],
             [
-                ['shop' => 'test.myshopify.com', 'api_key' => 'key_123', 'private_app' => true],
+                [
+                    'shop'        => 'test.myshopify.com',
+                    'api_key'     => 'key_123',
+                    'private_app' => true
+                ],
                 false
             ],
             [
-                ['shop' => 'test.myshopify.com', 'api_key' => 'key_123', 'private_app' => false],
+                [
+                    'shop'        => 'test.myshopify.com',
+                    'api_key'     => 'key_123',
+                    'private_app' => false
+                ],
                 false
             ],
             [
-                ['shop' => 'test.myshopify.com', 'api_key' => 'key_123', 'private_app' => true, 'password' => 'pass_123'],
+                [
+                    'shop'        => 'test.myshopify.com',
+                    'api_key'     => 'key_123',
+                    'private_app' => true,
+                    'password'    => 'pass_123'
+                ],
                 true
             ],
             [
-                ['shop' => 'test.myshopify.com', 'api_key' => 'key_123', 'private_app' => false, 'access_token' => 'token_123'],
+                [
+                    'shop'         => 'test.myshopify.com',
+                    'api_key'      => 'key_123',
+                    'private_app'  => false,
+                    'access_token' => 'token_123'
+                ],
                 true
             ]
         ];
