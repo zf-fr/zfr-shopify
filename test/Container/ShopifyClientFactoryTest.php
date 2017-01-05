@@ -45,7 +45,9 @@ class ShopifyClientFactoryTest extends \PHPUnit_Framework_TestCase
         $container->has('config')->shouldBeCalled()->willReturn(true);
         $container->get('config')->shouldBeCalled()->willReturn([
             'zfr_shopify' => [
-                'api_key'       => 'bar',
+                'shop'          => 'example.myshopify.com',
+                'api_key'       => 'key',
+                'access_token'  => 'token',
                 'private_app'   => false
             ]
         ]);

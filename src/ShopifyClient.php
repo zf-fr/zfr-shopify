@@ -226,22 +226,15 @@ class ShopifyClient
     private $connectionOptions;
 
     /**
-     * @param array $connectionOptions
+     * @param array                       $connectionOptions
+     * @param ServiceClientInterface|null $guzzleClient
      */
-    public function __construct(array $connectionOptions)
+    public function __construct(array $connectionOptions, ServiceClientInterface $guzzleClient = null)
     {
         $this->validateConnectionOptions($connectionOptions);
-
-        $baseUri = 'https://' . str_replace('.myshopify.com', '', $connectionOptions['shop']) . '.myshopify.com';
-
-        $handlerStack = HandlerStack::create(new CurlHandler());
-        $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
-
-        $httpClient  = new Client(['base_uri' => $baseUri, 'handler' => $handlerStack]);
-        $description = new Description(require __DIR__ . '/ServiceDescription/Shopify-v1.php');
-
-        $this->guzzleClient = new GuzzleClient($httpClient, $description, [$this, 'wrapRequestData']);
         $this->connectionOptions = $connectionOptions;
+
+        $this->guzzleClient = $guzzleClient ?? $this->createDefaultClient();
     }
 
     /**
@@ -330,7 +323,7 @@ class ShopifyClient
         }
 
         // Otherwise, retry when we're having a 429 exception
-        if ($exception && $exception->getCode() === 429) {
+        if ($exception && $response->getStatusCode() === 429) {
             return true;
         }
 
@@ -367,6 +360,22 @@ class ShopifyClient
         if (!$connectionOptions['private_app'] && !isset($connectionOptions['access_token'])) {
             throw new RuntimeException('You must specify the "access_token" option when instantiating the Shopify client for a public app');
         }
+    }
+
+    /**
+     * @return ServiceClientInterface
+     */
+    private function createDefaultClient(): ServiceClientInterface
+    {
+        $baseUri = 'https://' . str_replace('.myshopify.com', '', $this->connectionOptions['shop']) . '.myshopify.com';
+
+        $handlerStack = HandlerStack::create(new CurlHandler());
+        $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
+
+        $httpClient  = new Client(['base_uri' => $baseUri, 'handler' => $handlerStack]);
+        $description = new Description(require __DIR__ . '/ServiceDescription/Shopify-v1.php');
+
+        return new GuzzleClient($httpClient, $description, [$this, 'wrapRequestData']);
     }
 
     /**
