@@ -185,6 +185,25 @@ $shopDomain = $shopifyClient->getShop()['domain'];
 
 When reading Shopify API doc, make sure you remove the top key when exploiting responses.
 
+### Using iterators
+
+For most "list" endpoints (`getProducts`, `getCollections`...), Shopify allows you to get up to 250 resources at a time. When using the standard `get**`
+method, you are responsible to handle the pagination yourself.
+
+For convenience, ZfrShopify allows you to easily iterate through all resources efficiently (internally, we are using generators). Here is how you can
+get all the products from a given store:
+
+```php
+foreach ($shopifyClient->getProductsIterator(['fields' => 'id,title']) as $product) {
+   // Do something with product
+}
+```
+
+ZfrShopify will take care of doing additional requests when it has reached the end of a given page.
+
+> If you are using the `fields` attribute to restrict the number of fields returned by Shopify, make sure that you are including at least the `id`
+attribute, as internally ZfrShopify uses it.
+
 ## Implemented endpoints
 
 Here is a list of supported endpoints (more to come in the future):

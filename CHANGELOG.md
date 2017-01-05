@@ -1,3 +1,9 @@
+# 2.0.0
+
+* Update dependencies to use the more recent Guzzle 6 service
+* Improve iterators performance by using generators
+* Add a basic retry policy for better resiliency against Shopify API rate limits
+
 # 1.5.0
 
 * Add support for script tag methods (https://help.shopify.com/api/reference/scripttag)
