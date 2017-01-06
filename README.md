@@ -9,7 +9,7 @@ ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.sho
 ## Dependencies
 
 * PHP 7
-* [Guzzle](http://www.guzzlephp.org): ^3.9 and ^6.1
+* [Guzzle](http://www.guzzlephp.org): ^6.1
 * [Zend Diactoros](https://github.com/zendframework/zend-diactoros): >=1.3
 
 ## Installation
@@ -17,7 +17,7 @@ ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.sho
 Installation of ZfrShopify is only officially supported using Composer:
 
 ```sh
-php composer.phar require 'zfr/zfr-shopify:1.0'
+php composer.phar require 'zfr/zfr-shopify:2.0'
 ```
 
 ## Usage
@@ -77,7 +77,7 @@ under [src/Container](/src/Container) folder.
 
 ### Validating a request
 
-ZfrShopify client provides an easy way to validate an incoming request to make sure it provides from Shopify through the `RequestValidator`
+ZfrShopify client provides an easy way to validate an incoming request to make sure it comes from Shopify through the `RequestValidator`
 object. It requires a PSR7 requests and a shared secret:
 
 ```php
