@@ -24,7 +24,6 @@ use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Serializer;
-use GuzzleHttp\Command\ServiceClientInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\CurlHandler;
@@ -216,7 +215,7 @@ use ZfrShopify\Exception\RuntimeException;
 class ShopifyClient
 {
     /**
-     * @var ServiceClientInterface
+     * @var GuzzleClient
      */
     private $guzzleClient;
 
@@ -226,10 +225,10 @@ class ShopifyClient
     private $connectionOptions;
 
     /**
-     * @param array                       $connectionOptions
-     * @param ServiceClientInterface|null $guzzleClient
+     * @param array             $connectionOptions
+     * @param GuzzleClient|null $guzzleClient
      */
-    public function __construct(array $connectionOptions, ServiceClientInterface $guzzleClient = null)
+    public function __construct(array $connectionOptions, GuzzleClient $guzzleClient = null)
     {
         $this->validateConnectionOptions($connectionOptions);
         $this->connectionOptions = $connectionOptions;
@@ -363,9 +362,9 @@ class ShopifyClient
     }
 
     /**
-     * @return ServiceClientInterface
+     * @return GuzzleClient
      */
-    private function createDefaultClient(): ServiceClientInterface
+    private function createDefaultClient(): GuzzleClient
     {
         $baseUri = 'https://' . str_replace('.myshopify.com', '', $this->connectionOptions['shop']) . '.myshopify.com';
 
