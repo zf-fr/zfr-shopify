@@ -322,7 +322,7 @@ class ShopifyClient
         }
 
         // Otherwise, retry when we're having a 429 exception
-        if ($exception && $response->getStatusCode() === 429) {
+        if ($response->getStatusCode() === 429) {
             return true;
         }
 
