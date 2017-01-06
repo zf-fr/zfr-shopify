@@ -18,16 +18,17 @@
 
 namespace ZfrShopifyTest;
 
-use Guzzle\Common\Event;
-use Guzzle\Http\Message\RequestInterface;
-use Guzzle\Service\Command\CommandInterface;
-use Guzzle\Service\Resource\ResourceIterator;
-use Guzzle\Service\Resource\ResourceIteratorFactoryInterface;
-use Guzzle\Service\Resource\ResourceIteratorInterface;
-use Prophecy\Argument;
-use Psr\Http\Message\ServerRequestInterface;
-use ZfrShopify\Exception\InvalidRequestException;
-use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
+use GuzzleHttp\Command\CommandInterface;
+use GuzzleHttp\Command\Guzzle\DescriptionInterface;
+use GuzzleHttp\Command\Guzzle\GuzzleClient;
+use GuzzleHttp\Command\Guzzle\Operation;
+use GuzzleHttp\Command\ServiceClientInterface;
+use GuzzleHttp\Command\ToArrayInterface;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\ShopifyClient;
 
 /**
@@ -35,104 +36,208 @@ use ZfrShopify\ShopifyClient;
  */
 class ShopifyClientTest extends \PHPUnit_Framework_TestCase
 {
+    public function validationData()
+    {
+        return [
+            [
+                [],
+                false
+            ],
+            [
+                [
+                    'shop'        => 'test.myshopify.com',
+                    'api_key'     => 'key_123',
+                    'private_app' => true
+                ],
+                false
+            ],
+            [
+                [
+                    'shop'        => 'test.myshopify.com',
+                    'api_key'     => 'key_123',
+                    'private_app' => false
+                ],
+                false
+            ],
+            [
+                [
+                    'shop'        => 'test.myshopify.com',
+                    'api_key'     => 'key_123',
+                    'private_app' => true,
+                    'password'    => 'pass_123'
+                ],
+                true
+            ],
+            [
+                [
+                    'shop'         => 'test.myshopify.com',
+                    'api_key'      => 'key_123',
+                    'private_app'  => false,
+                    'access_token' => 'token_123'
+                ],
+                true
+            ]
+        ];
+    }
+
     /**
-     * @var ShopifyClient
+     * @dataProvider validationData
      */
-    private $client;
-
-    public function setUp()
+    public function testValidation(array $data, bool $isValid)
     {
-        $this->client = new ShopifyClient([
-            'shop'          => 'my_shop',
-            'api_key'       => 'abc',
-            'access_token'  => 'token',
-            'private_app'   => false
-        ]);
+        if (!$isValid) {
+            $this->expectException(RuntimeException::class);
+        }
+
+        new ShopifyClient($data);
     }
 
-    public function testInitializesWithDefaultResourceIteratorFactory()
+    public function testStopRetryingAfterFiveAttempts()
     {
-        $this->assertAttributeInstanceOf(
-            ShopifyResourceIteratorFactory::class,
-            'resourceIteratorFactory',
-            $this->client
-        );
+        $client = $this->getShopifyClientForPublicApp();
+
+        $this->assertFalse($client->retryDecider(6, $this->prophesize(RequestInterface::class)->reveal()));
     }
 
-    public function testCanAuthorizeRequestForPrivateApp()
+    public function testRetryOnConnectionException()
     {
-        $client = new ShopifyClient([
-            'shop'        => 'my_shop',
-            'api_key'     => 'abc',
-            'password'    => 'secret',
-            'private_app' => true
-        ]);
+        $client = $this->getShopifyClientForPublicApp();
 
-        $request = $this->prophesize(RequestInterface::class);
+        $request   = $this->prophesize(RequestInterface::class)->reveal();
+        $response  = $this->prophesize(ResponseInterface::class)->reveal();
+        $exception = $this->prophesize(ConnectException::class)->reveal();
+
+        $this->assertTrue($client->retryDecider(4, $request, $response, $exception));
+    }
+
+    public function statusCodeProvider()
+    {
+        return [
+           [400],
+           [404],
+           [429],
+           [500]
+        ];
+    }
+
+    /**
+     * @dataProvider statusCodeProvider
+     */
+    public function testRetryOnTooManyRequestsStatusCode(int $statusCode)
+    {
+        $client = $this->getShopifyClientForPublicApp();
+
+        $request  = $this->prophesize(RequestInterface::class)->reveal();
+        $response = $this->prophesize(ResponseInterface::class);
+        $response->getStatusCode()->shouldBeCalled()->willReturn($statusCode);
+        $exception = $this->prophesize(RequestException::class)->reveal();
+
+        if ($statusCode === 429) {
+            $this->assertTrue($client->retryDecider(4, $request, $response->reveal(), $exception));
+        } else {
+            $this->assertFalse($client->retryDecider(4, $request, $response->reveal(), $exception));
+        }
+    }
+
+    public function testRetryDelay()
+    {
+        $client = $this->getShopifyClientForPublicApp();
+
+        $this->assertEquals(1000, $client->retryDelay(1));
+        $this->assertEquals(2000, $client->retryDelay(2));
+    }
+
+    public function testCanDoCallForPublicApp()
+    {
+        $serviceClient = $this->prophesize(GuzzleClient::class);
+        $client        = $this->getShopifyClientForPublicApp($serviceClient->reveal());
+
+        $expectedArgs = [
+            'fields' => 'id,name',
+            '@http'  => [
+                'headers' => [
+                    'X-Shopify-Access-Token' => 'token_123'
+                ]
+            ]
+        ];
 
         $command = $this->prophesize(CommandInterface::class);
-        $command->getRequest()->shouldBeCalled()->willReturn($request->reveal());
+        $command->getName()->shouldBeCalled()->willReturn('GetShop');
 
-        $event = new Event([
-            'command' => $command->reveal()
-        ]);
+        $result = $this->prophesize(ToArrayInterface::class);
+        $result->toArray()->shouldBeCalled()->willReturn(['shop' => ['id' => 123, 'name' => 'Test shop']]);
 
-        $request->setHeader()->shouldNotBeCalled();
-        $request->setAuth('abc', 'secret')->shouldBeCalled();
+        $serviceClient->getCommand('GetShop', $expectedArgs)->shouldBeCalled()->willReturn($command->reveal());
+        $serviceClient->execute($command)->shouldBeCalled()->willReturn($result->reveal());
 
-        $client->authorizeRequest($event);
+        $description = $this->prophesize(DescriptionInterface::class);
+        $serviceClient->getDescription()->shouldBeCalled()->willReturn($description->reveal());
+
+        $operation = $this->prophesize(Operation::class);
+        $description->getOperation('GetShop')->shouldBeCalled()->willReturn($operation->reveal());
+
+        $operation->getData('root_key')->shouldBeCalled()->willReturn('shop');
+
+        $payload = $client->getShop(['fields' => 'id,name']);
+
+        $this->assertEquals(['id' => 123, 'name' => 'Test shop'], $payload);
     }
 
-    public function testCanAuthorizeRequestForPublicApp()
+    public function testCanDoCallForPrivateApp()
     {
-        $client = new ShopifyClient([
-            'shop'         => 'my_shop',
-            'api_key'      => 'abc',
-            'access_token' => 'secret',
-            'private_app'  => false
-        ]);
+        $serviceClient = $this->prophesize(GuzzleClient::class);
+        $client        = $this->getShopifyClientForPrivateApp($serviceClient->reveal());
 
-        $request = $this->prophesize(RequestInterface::class);
+        $expectedArgs = [
+            'fields' => 'id,name',
+            '@http'  => [
+                'auth' => ['key', 'password_123']
+            ]
+        ];
 
         $command = $this->prophesize(CommandInterface::class);
-        $command->getRequest()->shouldBeCalled()->willReturn($request->reveal());
+        $command->getName()->shouldBeCalled()->willReturn('GetShop');
 
-        $event = new Event([
-            'command' => $command->reveal()
-        ]);
+        $result = $this->prophesize(ToArrayInterface::class);
+        $result->toArray()->shouldBeCalled()->willReturn(['shop' => ['id' => 123, 'name' => 'Test shop']]);
 
-        $request->setAuth()->shouldNotBeCalled();
-        $request->setHeader('X-Shopify-Access-Token', 'secret')->shouldBeCalled();
+        $serviceClient->getCommand('GetShop', $expectedArgs)->shouldBeCalled()->willReturn($command->reveal());
+        $serviceClient->execute($command)->shouldBeCalled()->willReturn($result->reveal());
 
-        $client->authorizeRequest($event);
+        $description = $this->prophesize(DescriptionInterface::class);
+        $serviceClient->getDescription()->shouldBeCalled()->willReturn($description->reveal());
+
+        $operation = $this->prophesize(Operation::class);
+        $description->getOperation('GetShop')->shouldBeCalled()->willReturn($operation->reveal());
+
+        $operation->getData('root_key')->shouldBeCalled()->willReturn('shop');
+
+        $payload = $client->getShop(['fields' => 'id,name']);
+
+        $this->assertEquals(['id' => 123, 'name' => 'Test shop'], $payload);
     }
 
-    public function testCanClone()
+    private function getShopifyClientForPublicApp(ServiceClientInterface $client = null): ShopifyClient
     {
-        $client             = new ShopifyClient([]);
-        $originalDispatcher = $client->getEventDispatcher();
+        $options = [
+            'shop'         => 'test.myshopify.com',
+            'private_app'  => false,
+            'access_token' => 'token_123',
+            'api_key'      => 'key'
+        ];
 
-        $clonedClient     = clone $client;
-        $clonedDispatcher = $clonedClient->getEventDispatcher();
-
-        $this->assertNotSame($originalDispatcher, $clonedDispatcher);
+        return new ShopifyClient($options, $client);
     }
 
-    public function testAllowsMagicMethodCallsForIterators()
+    private function getShopifyClientForPrivateApp(ServiceClientInterface $client = null): ShopifyClient
     {
-        $resourceIteratorFactory = $this->prophesize(ResourceIteratorFactoryInterface::class);
-        $this->client->setResourceIteratorFactory($resourceIteratorFactory->reveal());
+        $options = [
+            'shop'         => 'test.myshopify.com',
+            'private_app'  => true,
+            'password'     => 'password_123',
+            'api_key'      => 'key'
+        ];
 
-        $commandOptions   = ['title' => 'Test'];
-        $iteratorOptions  = ['foo' => 'bar'];
-        $resourceIterator = $this->prophesize(ResourceIteratorInterface::class);
-
-        $resourceIteratorFactory->build(Argument::that(function (CommandInterface $command) {
-            return 'GetArticles' === $command->getName() && 'Test' === $command['title'];
-        }), $iteratorOptions)->shouldBeCalled()->willReturn($resourceIterator->reveal());
-
-        $result = $this->client->getArticlesIterator($commandOptions, $iteratorOptions);
-
-        $this->assertSame($resourceIterator->reveal(), $result);
+        return new ShopifyClient($options, $client);
     }
 }

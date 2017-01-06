@@ -50,14 +50,6 @@ $shopifyClient = new ShopifyClient([
 ]);
 ```
 
-Most of the time, you will need to alter the client once you have retrieved the shop info. To that extent, the client offers
-two public methods:
-
-```php
-$shopifyClient->setShopDomain('merchant.myshopify.com');
-$shopifyClient->setAccessToken('your_access_token');
-```
-
 ### Using a container
 
 ZfrShopify also provides built-in [container-interop](https://github.com/container-interop/container-interop) factories
@@ -184,6 +176,25 @@ $shopDomain = $shopifyClient->getShop()['domain'];
 ```
 
 When reading Shopify API doc, make sure you remove the top key when exploiting responses.
+
+### Using iterators
+
+For most "list" endpoints (`getProducts`, `getCollections`...), Shopify allows you to get up to 250 resources at a time. When using the standard `get**`
+method, you are responsible to handle the pagination yourself.
+
+For convenience, ZfrShopify allows you to easily iterate through all resources efficiently (internally, we are using generators). Here is how you can
+get all the products from a given store:
+
+```php
+foreach ($shopifyClient->getProductsIterator(['fields' => 'id,title']) as $product) {
+   // Do something with product
+}
+```
+
+ZfrShopify will take care of doing additional requests when it has reached the end of a given page.
+
+> If you are using the `fields` attribute to restrict the number of fields returned by Shopify, make sure that you are including at least the `id`
+attribute, as internally ZfrShopify uses it.
 
 ## Implemented endpoints
 

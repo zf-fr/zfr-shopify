@@ -19,7 +19,6 @@
 namespace ZfrShopify\OAuth;
 
 use GuzzleHttp\ClientInterface;
-use ZfrShopify\Exception;
 use ZfrShopify\Exception\RuntimeException;
 
 /**

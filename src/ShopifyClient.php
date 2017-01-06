@@ -18,12 +18,21 @@
 
 namespace ZfrShopify;
 
-use Guzzle\Common\Event;
-use Guzzle\Service\Client;
-use Guzzle\Service\Description\ServiceDescription;
-use Guzzle\Service\Resource\ResourceIterator;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
+use Generator;
+use GuzzleHttp\Client;
+use GuzzleHttp\Command\CommandInterface;
+use GuzzleHttp\Command\Guzzle\Description;
+use GuzzleHttp\Command\Guzzle\GuzzleClient;
+use GuzzleHttp\Command\Guzzle\Serializer;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Handler\CurlHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\Psr7;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
+use ZfrShopify\Exception\RuntimeException;
 
 /**
  * Shopify client used to interact with the Shopify API
@@ -188,105 +197,43 @@ use ZfrShopify\Iterator\ShopifyResourceIteratorFactory;
  *
  * ITERATOR METHODS:
  *
- * @method ResourceIterator getArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetArticles}
- * @method ResourceIterator getBlogArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetBlogArticles}
- * @method ResourceIterator getCustomCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomCollections}
- * @method ResourceIterator getEventsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetEvents}
- * @method ResourceIterator getFulfillmentsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetFulfillments}
- * @method ResourceIterator getMetafieldsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetMetafields}
- * @method ResourceIterator getOrdersIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetOrders}
- * @method ResourceIterator getPagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetPages}
- * @method ResourceIterator getProductsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProducts}
- * @method ResourceIterator getProductImagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductImages}
- * @method ResourceIterator getRecurringApplicationChargesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetRecurringApplicationCharges}
- * @method ResourceIterator getSmartCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetSmartCollections}
- * @method ResourceIterator getProductVariantsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductVariants}
- * @method ResourceIterator getWebhooksIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetWebhooks}
+ * @method \Traversable getArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetArticles}
+ * @method \Traversable getBlogArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetBlogArticles}
+ * @method \Traversable getCustomCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomCollections}
+ * @method \Traversable getEventsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetEvents}
+ * @method \Traversable getFulfillmentsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetFulfillments}
+ * @method \Traversable getMetafieldsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetMetafields}
+ * @method \Traversable getOrdersIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetOrders}
+ * @method \Traversable getPagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetPages}
+ * @method \Traversable getProductsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProducts}
+ * @method \Traversable getProductImagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductImages}
+ * @method \Traversable getRecurringApplicationChargesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetRecurringApplicationCharges}
+ * @method \Traversable getSmartCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetSmartCollections}
+ * @method \Traversable getProductVariantsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductVariants}
+ * @method \Traversable getWebhooksIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetWebhooks}
  */
-class ShopifyClient extends Client
+class ShopifyClient
 {
+    /**
+     * @var GuzzleClient
+     */
+    private $guzzleClient;
+
     /**
      * @var array
      */
-    private $options;
+    private $connectionOptions;
 
     /**
-     * @param array $options
+     * @param array             $connectionOptions
+     * @param GuzzleClient|null $guzzleClient
      */
-    public function __construct(array $options)
+    public function __construct(array $connectionOptions, GuzzleClient $guzzleClient = null)
     {
-        parent::__construct();
+        $this->validateConnectionOptions($connectionOptions);
+        $this->connectionOptions = $connectionOptions;
 
-        $this->options = $options;
-
-        $this->setResourceIteratorFactory(new ShopifyResourceIteratorFactory());
-        $this->setUserAgent('zfr-shopify-php', true);
-        $this->setDescription(ServiceDescription::factory(__DIR__ . '/ServiceDescription/Shopify-v1.php'));
-
-        // Add an event to set the Authorization param
-        $dispatcher = $this->getEventDispatcher();
-        $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
-        $dispatcher->addListener('command.after_prepare', [$this, 'wrapRequestData']);
-        $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
-    }
-
-    /**
-     * Do a deep clone
-     */
-    public function __clone()
-    {
-        $dispatcher = new EventDispatcher();
-        $dispatcher->addListener('client.command.create', [$this, 'prepareShopBaseUrl']);
-        $dispatcher->addListener('command.after_prepare', [$this, 'wrapRequestData']);
-        $dispatcher->addListener('command.before_send', [$this, 'authorizeRequest']);
-
-        $this->setEventDispatcher($dispatcher);
-    }
-
-    /**
-     * Get the options relative to Shopify
-     *
-     * @return array
-     */
-    public function getShopifyOptions()
-    {
-        return $this->options;
-    }
-
-    /**
-     * @param string $apiKey
-     * @return void
-     */
-    public function setApiKey(string $apiKey)
-    {
-        $this->options['api_key'] = $apiKey;
-    }
-
-    /**
-     * @param  string $password
-     * @return void
-     */
-    public function setPassword(string $password)
-    {
-        $this->options['password'] = $password;
-    }
-
-    /**
-     * @param  string $shop
-     * @return void
-     */
-    public function setShopDomain(string $shop)
-    {
-        $this->options['shop'] = $shop;
-    }
-
-    /**
-     * @param  string $accessToken
-     * @return void
-     */
-    public function setAccessToken(string $accessToken)
-    {
-        $this->options['access_token'] = $accessToken;
+        $this->guzzleClient = $guzzleClient ?? $this->createDefaultClient();
     }
 
     /**
@@ -296,91 +243,163 @@ class ShopifyClient extends Client
     {
         // Allow magic method calls for iterators (e.g. $client-><CommandName>Iterator($params))
         if (substr($method, -8) === 'Iterator') {
-            $command         = substr($method, 0, -8);
-            $commandOptions  = $args[0] ?? [];
-            $iteratorOptions = $args[1] ?? [];
-
-            return $this->getIterator($command, $commandOptions, $iteratorOptions);
+            return $this->iterateResources(substr($method, 0, -8), $args);
         }
 
+        $args = $args[0] ?? [];
+
+        if ($this->connectionOptions['private_app']) {
+            $args = array_merge($args, [
+                '@http' => [
+                    'auth' => [$this->connectionOptions['api_key'], $this->connectionOptions['password']]
+                ]
+            ]);
+        } else {
+            $args = array_merge($args, [
+               '@http' => [
+                   'headers' => [
+                       'X-Shopify-Access-Token' => $this->connectionOptions['access_token']
+                   ]
+               ]
+            ]);
+        }
+
+        $command = $this->guzzleClient->getCommand(ucfirst($method), $args);
+        $result  = $this->guzzleClient->execute($command);
+
         // In Shopify, all API responses wrap the data by the resource name. For instance, using the "/shop" endpoint will wrap
-        // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the
-        // result. The only exception if the "ExchangeCodeForToken" command that works a bit differently
+        // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the result.
 
-        $command = $this->getCommand(ucfirst($method), isset($args[0]) ? $args[0] : []);
-        $data    = $command->getResult();
-        $rootKey = $command->getOperation()->getData('root_key');
+        $operation = $this->guzzleClient->getDescription()->getOperation($command->getName());
+        $rootKey   = $operation->getData('root_key');
 
-        return (null === $rootKey) ? $data : $data[$rootKey];
-    }
-
-    /**
-     * Prepare the base URL
-     *
-     * @internal
-     * @param Event $event
-     */
-    public function prepareShopBaseUrl(Event $event)
-    {
-        /** @var Client $client */
-        $client = $event['client'];
-
-        // In both cases, we need to set the "shop" options for the request. Note the user may either pass the
-        // subdomain (myshop) or the complete domain (myshop.myshopify.com), but we normalize it to always have the subdomain
-        $shop = str_replace('.myshopify.com', '', $this->options['shop']);
-        $client->setBaseUrl("https://$shop.myshopify.com/admin");
+        return (null === $rootKey) ? $result->toArray() : $result->toArray()[$rootKey];
     }
 
     /**
      * Wrap request data around a top-key (only for POST and PUT requests)
      *
-     * @param  Event $event
-     * @return void
+     * @internal
+     * @param  CommandInterface $command
+     * @return RequestInterface
      */
-    public function wrapRequestData(Event $event)
+    public function wrapRequestData(CommandInterface $command): RequestInterface
     {
-        /* @var \Guzzle\Service\Command\CommandInterface $command */
-        $command = $event['command'];
-        $request = $command->getRequest();
-        $method  = strtolower($request->getMethod());
+        $operation = $this->guzzleClient->getDescription()->getOperation($command->getName());
+        $method    = strtolower($operation->getHttpMethod());
+        $rootKey   = $operation->getData('root_key');
 
-        if (!($method === 'post' || $method === 'put')) {
-            return;
+        $serializer = new Serializer($this->guzzleClient->getDescription()); // Create a default serializer to handle all the hard-work
+        $request    = $serializer($command);
+
+        if (($method === 'post' || $method === 'put') && $rootKey !== null) {
+            $newBody = [$rootKey => json_decode($request->getBody()->getContents(), true)];
+            $request = $request->withBody(Psr7\stream_for(json_encode($newBody)));
         }
 
-        $rootKey = $command->getOperation()->getData('root_key');
-
-        if (null === $rootKey) {
-            return;
-        }
-
-        // It's a bit inefficient because we have to decode what has been previously coded... but I didn't find any way to
-        // interact before the code
-        $data = json_decode($request->getBody(), true);
-        $data = [$rootKey => $data];
-
-        $request->setBody(json_encode($data));
+        return $request;
     }
 
     /**
-     * Authorize the request
+     * Decide when we should retry a request
+     *
+     * @param  int                    $retries
+     * @param  RequestInterface       $request
+     * @param  ResponseInterface|null $response
+     * @param  RequestException|null  $exception
+     * @return bool
+     */
+    public function retryDecider(int $retries, RequestInterface $request, ResponseInterface $response = null, RequestException $exception = null): bool
+    {
+        // Limit the number of retries to 5
+        if ($retries >= 5) {
+            return false;
+        }
+
+        // Retry connection exceptions
+        if ($exception instanceof ConnectException) {
+            return true;
+        }
+
+        // Otherwise, retry when we're having a 429 exception
+        if ($response->getStatusCode() === 429) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Basic retry delay
      *
      * @internal
-     * @param  Event $event
-     * @return void
+     * @param  int $retries
+     * @return int
      */
-    public function authorizeRequest(Event $event)
+    public function retryDelay(int $retries): int
     {
-        /* @var \Guzzle\Service\Command\CommandInterface $command */
-        $command = $event['command'];
-        $request = $command->getRequest();
+        return 1000 * $retries;
+    }
 
-        // For private app, we need to use basic auth, otherwise we need to add
-        // an access token in a header
-        if ($this->options['private_app']) {
-            $request->setAuth($this->options['api_key'], $this->options['password']);
-        } else {
-            $request->setHeader('X-Shopify-Access-Token', $this->options['access_token']);
+    /**
+     * Validate all the connection parameters
+     *
+     * @param array $connectionOptions
+     */
+    private function validateConnectionOptions(array $connectionOptions)
+    {
+        if (!isset($connectionOptions['shop'], $connectionOptions['api_key'], $connectionOptions['private_app'])) {
+            throw new RuntimeException('"shop", "private_app" and/or "api_key" must be provided when instantiating the Shopify client');
         }
+
+        if ($connectionOptions['private_app'] && !isset($connectionOptions['password'])) {
+            throw new RuntimeException('You must specify the "password" option when instantiating the Shopify client for a private app');
+        }
+
+        if (!$connectionOptions['private_app'] && !isset($connectionOptions['access_token'])) {
+            throw new RuntimeException('You must specify the "access_token" option when instantiating the Shopify client for a public app');
+        }
+    }
+
+    /**
+     * @return GuzzleClient
+     */
+    private function createDefaultClient(): GuzzleClient
+    {
+        $baseUri = 'https://' . str_replace('.myshopify.com', '', $this->connectionOptions['shop']) . '.myshopify.com';
+
+        $handlerStack = HandlerStack::create(new CurlHandler());
+        $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
+
+        $httpClient  = new Client(['base_uri' => $baseUri, 'handler' => $handlerStack]);
+        $description = new Description(require __DIR__ . '/ServiceDescription/Shopify-v1.php');
+
+        return new GuzzleClient($httpClient, $description, [$this, 'wrapRequestData']);
+    }
+
+    /**
+     * @param  string $commandName
+     * @param  array  $args
+     * @return Generator
+     */
+    private function iterateResources(string $commandName, array $args): Generator
+    {
+        $args = $args[0] ?? [];
+
+        // When using the iterator, we force the maximum number of items per page. Also, if no "since_id" is set, we force it to 0 because by
+        // default Shopify sort resources by title
+        $args['limit']    = 250;
+        $args['since_id'] = $args['since_id'] ?? 0;
+
+        do {
+            $results = $this->$commandName($args);
+
+            foreach ($results as $result) {
+                yield $result;
+            }
+
+            // Advance the since_id
+            $args['since_id'] = end($results)['id'];
+        } while(count($results) >= 250);
     }
 }
