@@ -26,6 +26,7 @@ use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Serializer;
 use GuzzleHttp\Command\Result;
+use GuzzleHttp\Command\ToArrayInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\CurlHandler;
@@ -463,10 +464,10 @@ class ShopifyClient
      * the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the result.
      *
      * @param  CommandInterface $command
-     * @param  Result           $commandResult
+     * @param  ToArrayInterface $commandResult
      * @return array
      */
-    private function unwrapResponseData(CommandInterface $command, Result $commandResult): array
+    private function unwrapResponseData(CommandInterface $command, ToArrayInterface $commandResult): array
     {
         $operation = $this->guzzleClient->getDescription()->getOperation($command->getName());
         $rootKey   = $operation->getData('root_key');
