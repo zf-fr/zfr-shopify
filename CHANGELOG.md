@@ -1,3 +1,8 @@
+# 2.1.0
+
+* Add new `getCommand`, `execute` and `executeAll` methods which proxy to Guzzle client equivalent methods and allow more advanced use cases
+such as executing multiple commands concurrently.
+
 # 2.0.0
 
 * Update dependencies to use the more recent Guzzle 6 service
