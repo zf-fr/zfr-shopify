@@ -21,9 +21,12 @@ namespace ZfrShopify;
 use Generator;
 use GuzzleHttp\Client;
 use GuzzleHttp\Command\CommandInterface;
+use GuzzleHttp\Command\Exception\CommandException;
 use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Serializer;
+use GuzzleHttp\Command\Result;
+use GuzzleHttp\Command\ToArrayInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\CurlHandler;
@@ -237,16 +240,19 @@ class ShopifyClient
     }
 
     /**
-     * {@inheritdoc}
+     * Manually create a command (without executing it)
+     *
+     * This can be used to execute multiple commands in parallel by taking advantage of Guzzle multi-requests. Please
+     * note that creating a command will not execute it. You will need to use the "execute" method of the Shopify client
+     * to execute it and get the result
+     *
+     * @param  string $method
+     * @param  array  $args
+     * @return CommandInterface
      */
-    public function __call($method, $args = [])
+    public function getCommand(string $method, $args = []): CommandInterface
     {
-        // Allow magic method calls for iterators (e.g. $client-><CommandName>Iterator($params))
-        if (substr($method, -8) === 'Iterator') {
-            return $this->iterateResources(substr($method, 0, -8), $args);
-        }
-
-        $args = $args[0] ?? [];
+        // Add authentication parameters to each command based on the Shopify app type
 
         if ($this->connectionOptions['private_app']) {
             $args = array_merge($args, [
@@ -256,24 +262,74 @@ class ShopifyClient
             ]);
         } else {
             $args = array_merge($args, [
-               '@http' => [
-                   'headers' => [
-                       'X-Shopify-Access-Token' => $this->connectionOptions['access_token']
-                   ]
-               ]
+                '@http' => [
+                    'headers' => [
+                        'X-Shopify-Access-Token' => $this->connectionOptions['access_token']
+                    ]
+                ]
             ]);
         }
 
-        $command = $this->guzzleClient->getCommand(ucfirst($method), $args);
-        $result  = $this->guzzleClient->execute($command);
+        return $this->guzzleClient->getCommand(ucfirst($method), $args);
+    }
 
-        // In Shopify, all API responses wrap the data by the resource name. For instance, using the "/shop" endpoint will wrap
-        // the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the result.
+    /**
+     * Execute a single command
+     *
+     * @param  CommandInterface $command
+     * @return array
+     */
+    public function execute(CommandInterface $command): array
+    {
+        $result = $this->guzzleClient->execute($command);
 
-        $operation = $this->guzzleClient->getDescription()->getOperation($command->getName());
-        $rootKey   = $operation->getData('root_key');
+        return $this->unwrapResponseData($command, $result);
+    }
 
-        return (null === $rootKey) ? $result->toArray() : $result->toArray()[$rootKey];
+    /**
+     * Execute multiple commands
+     *
+     * @param  array $commands
+     * @return array
+     */
+    public function executeAll(array $commands = []): array
+    {
+        $commandResults = $this->guzzleClient->executeAll($commands);
+        $results        = [];
+
+        // Normally, results are expected to be returned in the same order as initial commands, so we can post-process them
+
+        /** @var Result $commandResult */
+        foreach ($commandResults as $index => $commandResult) {
+            // If the command has failed, we store the exception, otherwise the payload
+            $results[$index] = ($commandResult instanceof CommandException) ? $commandResult : $this->unwrapResponseData($commands[$index], $commandResult);
+        }
+
+        return $results;
+    }
+
+    /**
+     * Directly call a specific endpoint by creating the command and executing it
+     *
+     * Using __call magic methods is equivalent to creating and executing a single command. It also supports using optimized
+     * iterator requests by adding "Iterator" keyword to the command
+     *
+     * @param  $method
+     * @param  array $args
+     * @return array|Generator
+     */
+    public function __call($method, $args = [])
+    {
+        $args = $args[0] ?? [];
+
+        // Allow magic method calls for iterators (e.g. $client-><CommandName>Iterator($params))
+        if (substr($method, -8) === 'Iterator') {
+            return $this->iterateResources(substr($method, 0, -8), $args);
+        }
+
+        $command = $this->getCommand($method, $args);
+
+        return $this->execute($command);
     }
 
     /**
@@ -303,6 +359,7 @@ class ShopifyClient
     /**
      * Decide when we should retry a request
      *
+     * @internal
      * @param  int                    $retries
      * @param  RequestInterface       $request
      * @param  ResponseInterface|null $response
@@ -384,15 +441,14 @@ class ShopifyClient
      */
     private function iterateResources(string $commandName, array $args): Generator
     {
-        $args = $args[0] ?? [];
-
         // When using the iterator, we force the maximum number of items per page. Also, if no "since_id" is set, we force it to 0 because by
         // default Shopify sort resources by title
         $args['limit']    = 250;
         $args['since_id'] = $args['since_id'] ?? 0;
 
         do {
-            $results = $this->$commandName($args);
+            $command = $this->getCommand($commandName, $args);
+            $results = $this->execute($command);
 
             foreach ($results as $result) {
                 yield $result;
@@ -401,5 +457,21 @@ class ShopifyClient
             // Advance the since_id
             $args['since_id'] = end($results)['id'];
         } while(count($results) >= 250);
+    }
+
+    /**
+     * In Shopify, all API responses wrap the data by the resource name. For instance, using the "/shop" endpoint will wrap
+     * the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the result.
+     *
+     * @param  CommandInterface $command
+     * @param  ToArrayInterface $commandResult
+     * @return array
+     */
+    private function unwrapResponseData(CommandInterface $command, ToArrayInterface $commandResult): array
+    {
+        $operation = $this->guzzleClient->getDescription()->getOperation($command->getName());
+        $rootKey   = $operation->getData('root_key');
+
+        return (null === $rootKey) ? $commandResult->toArray() : $commandResult->toArray()[$rootKey];
     }
 }

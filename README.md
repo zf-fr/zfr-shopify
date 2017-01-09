@@ -196,6 +196,40 @@ ZfrShopify will take care of doing additional requests when it has reached the e
 > If you are using the `fields` attribute to restrict the number of fields returned by Shopify, make sure that you are including at least the `id`
 attribute, as internally ZfrShopify uses it.
 
+### Executing multiple requests concurrently
+
+For optimization purposes, it may be desirable to execute multiple requests concurrently. To do that, ZfrShopify client allow you to take advantage of
+the underlying Guzzle client and execute multiple requests at the same time.
+
+To do that, you can manually create the Guzzle commands, and execute them all. ZfrShopify will take care of authenticating all requests individually, and
+extracting the response payload. For instance, here is how you could get both shop info and products info:
+
+```php
+$command1 = $client->getCommand('GetShop', ['fields' => 'id']);
+$command2 = $client->getCommand('GetProducts', ['fields' => 'id,title']);
+
+$results = $client->executeAll([$command1, $command2]);
+
+// $results[0] represents the response of $command1, $results[1] represents the response of $command2
+```
+
+If a request has failed, it will contain an instance of `GuzzleHttp\Command\Exception\CommandException`. For instance, here is how you could iterate
+through all the results:
+
+```php
+use GuzzleHttp\Command\Exception\CommandException;
+
+foreach ($results as $singleResult) {
+   if ($singleResult instanceof CommandException) {
+     // Get the command that has failed, and eventually retry
+     $command = $singleResult->getCommand();
+     continue;
+   }
+   
+   // Otherwise, $singleResult is just an array that contains the Shopify data
+}
+```
+
 ## Implemented endpoints
 
 Here is a list of supported endpoints (more to come in the future):

@@ -22,7 +22,6 @@ use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Guzzle\DescriptionInterface;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Operation;
-use GuzzleHttp\Command\ServiceClientInterface;
 use GuzzleHttp\Command\ToArrayInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
@@ -147,7 +146,39 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2000, $client->retryDelay(2));
     }
 
-    public function testCanDoCallForPublicApp()
+    public function testCanGetCommandForPublicApp()
+    {
+        $serviceClient = $this->prophesize(GuzzleClient::class);
+        $client        = $this->getShopifyClientForPublicApp($serviceClient->reveal());
+
+        $serviceClient->getCommand('GetShop', [
+            'fields' => 'id',
+            '@http' => [
+                'headers' => [
+                    'X-Shopify-Access-Token' => 'token_123'
+                ]
+            ]
+        ])->shouldBeCalled()->willReturn($this->prophesize(CommandInterface::class)->reveal());
+
+        $client->getCommand('GetShop', ['fields' => 'id']);
+    }
+
+    public function testCanGetCommandForPrivateApp()
+    {
+        $serviceClient = $this->prophesize(GuzzleClient::class);
+        $client        = $this->getShopifyClientForPrivateApp($serviceClient->reveal());
+
+        $serviceClient->getCommand('GetShop', [
+            'fields' => 'id',
+            '@http' => [
+                'auth' => ['key', 'password_123']
+            ]
+        ])->shouldBeCalled()->willReturn($this->prophesize(CommandInterface::class)->reveal());
+
+        $client->getCommand('GetShop', ['fields' => 'id']);
+    }
+
+    public function testMagicMethodForPublicApp()
     {
         $serviceClient = $this->prophesize(GuzzleClient::class);
         $client        = $this->getShopifyClientForPublicApp($serviceClient->reveal());
@@ -183,7 +214,7 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['id' => 123, 'name' => 'Test shop'], $payload);
     }
 
-    public function testCanDoCallForPrivateApp()
+    public function testMagicMethodForPrivateApp()
     {
         $serviceClient = $this->prophesize(GuzzleClient::class);
         $client        = $this->getShopifyClientForPrivateApp($serviceClient->reveal());
@@ -217,7 +248,7 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['id' => 123, 'name' => 'Test shop'], $payload);
     }
 
-    private function getShopifyClientForPublicApp(ServiceClientInterface $client = null): ShopifyClient
+    private function getShopifyClientForPublicApp(GuzzleClient $client = null): ShopifyClient
     {
         $options = [
             'shop'         => 'test.myshopify.com',
@@ -229,7 +260,7 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         return new ShopifyClient($options, $client);
     }
 
-    private function getShopifyClientForPrivateApp(ServiceClientInterface $client = null): ShopifyClient
+    private function getShopifyClientForPrivateApp(GuzzleClient $client = null): ShopifyClient
     {
         $options = [
             'shop'         => 'test.myshopify.com',
