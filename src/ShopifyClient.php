@@ -302,7 +302,7 @@ class ShopifyClient
         /** @var Result $commandResult */
         foreach ($commandResults as $index => $commandResult) {
             // If the command has failed, we store the exception, otherwise the payload
-            $results[] = ($commandResult instanceof CommandException) ? $commandResult : $this->unwrapResponseData($commands[$index], $commandResult);
+            $results[$index] = ($commandResult instanceof CommandException) ? $commandResult : $this->unwrapResponseData($commands[$index], $commandResult);
         }
 
         return $results;
