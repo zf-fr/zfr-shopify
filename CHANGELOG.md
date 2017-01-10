@@ -1,3 +1,8 @@
+# 2.1.1
+
+* Fix a bug in the `createCustomCollection` and `createSmartCollection` endpoints that prevented to use them.
+* Update the semantic of the Guzzle service description to more closely reflect the nature of some properties.
+
 # 2.1.0
 
 * Add new `getCommand`, `execute` and `executeAll` methods which proxy to Guzzle client equivalent methods and allow more advanced use cases
