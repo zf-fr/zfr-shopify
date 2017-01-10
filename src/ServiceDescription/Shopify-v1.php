@@ -364,7 +364,7 @@ return [
                 'image' => [
                     'description' => 'Set the image (either through a base 64 attachment or URL)',
                     'location'    => 'json',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'metafields' => [
@@ -440,7 +440,7 @@ return [
                 'image' => [
                     'description' => 'Set the image (either through a base 64 attachment or URL)',
                     'location'    => 'json',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'metafields' => [
@@ -516,7 +516,7 @@ return [
                 'image' => [
                     'description' => 'Set the image (either through a base 64 attachment or URL)',
                     'location'    => 'json',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'metafields' => [
@@ -598,7 +598,7 @@ return [
                 'image' => [
                     'description' => 'Set the image (either through a base 64 attachment or URL)',
                     'location'    => 'json',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'metafields' => [
@@ -944,9 +944,9 @@ return [
             'parameters'       => [
                 'title' => [
                     'description' => 'Custom collection title',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => true
                 ],
                 'body_html' => [
                     'description' => 'Collection description',
@@ -963,7 +963,7 @@ return [
                 'image' => [
                     'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
                     'location'    => 'json',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'collects' => [
@@ -1015,7 +1015,7 @@ return [
                 'image' => [
                     'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
                     'location'    => 'json',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'collects' => [
@@ -1448,7 +1448,7 @@ return [
                 'metafield' => [
                     'description' => 'Filter metafields by resource type and ID (accepts sub-fields "owner_id" and "owner_resource")',
                     'location'    => 'query',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'fields' => [
@@ -2728,9 +2728,9 @@ return [
             'parameters'       => [
                 'title' => [
                     'description' => 'Smart collection title',
-                    'location'    => 'query',
+                    'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false
+                    'required'    => true
                 ],
                 'body_html' => [
                     'description' => 'Collection description',
@@ -2747,7 +2747,7 @@ return [
                 'image' => [
                     'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
                     'location'    => 'json',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'rules' => [
@@ -2799,7 +2799,7 @@ return [
                 'image' => [
                     'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
                     'location'    => 'json',
-                    'type'        => 'array',
+                    'type'        => 'object',
                     'required'    => false
                 ],
                 'rules' => [
