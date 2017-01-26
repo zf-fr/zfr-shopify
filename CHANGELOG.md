@@ -1,3 +1,7 @@
+# 2.1.2
+
+* Add a `name` filter for the `getOrders` endpoint that allows to filter by order number.
+
 # 2.1.1
 
 * Fix a bug in the `createCustomCollection` and `createSmartCollection` endpoints that prevented to use them.
