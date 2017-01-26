@@ -1612,6 +1612,12 @@ return [
                     'required'    => false,
                     'enum'        => ['shipped', 'partial', 'unshipped', 'any']
                 ],
+                'name' => [
+                    'description' => 'Order name (number without leading #)',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false
+                ],
                 'limit' => [
                     'description' => 'A limit of results to fetch',
                     'location'    => 'query',
