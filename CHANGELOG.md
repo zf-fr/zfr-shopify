@@ -1,3 +1,7 @@
+# 2.2.0
+
+* Add customer endpoints.
+
 # 2.1.2
 
 * Add a `name` filter for the `getOrders` endpoint that allows to filter by order number.
