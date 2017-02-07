@@ -1050,6 +1050,257 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * CUSTOMER RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/customer
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetCustomers' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/customers.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of customers',
+            'data'          => ['root_key' => 'customers'],
+            'parameters'    => [
+                'ids' => [
+                    'description' => 'A comma-separated list of customer ids',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'since_id' => [
+                    'description' => 'Restrict results after the specified id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+                'created_at_min' => [
+                    'description' => 'Show customers created after date (format: 2014-04-25T16:15:47-04:00)',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'created_at_max' => [
+                    'description' => 'Show customers created before date (format: 2014-04-25T16:15:47-04:00)',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'updated_at_min' => [
+                    'description' => 'Show customers last updated after date (format: 2014-04-25T16:15:47-04:00)',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'updated_at_max' => [
+                    'description' => 'Show customers last updated before date (format: 2014-04-25T16:15:47-04:00)',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'limit' => [
+                    'description' => 'Amount of results',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false,
+                ],
+                'fields' => [
+                    'description' => 'comma-separated list of fields to include in the response',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'GetCustomer' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/customers/{id}.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Receive a single customer',
+            'data'          => ['root_key' => 'customer'],
+            'parameters'    => [
+                'id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'fields' => [
+                    'description' => 'Comma-separated list of fields to include in the response',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'CreateCustomer' => [
+            'httpMethod'    => 'POST',
+            'uri'           => 'admin/customers.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Create a new customer',
+            'data'          => ['root_key' => 'customer'],
+            'parameters'    => [
+                'accepts_marketing' => [
+                    'description' => 'Indicates whether the customer has consented to be sent marketing material via email',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'addresses' => [
+                    'description' => 'A list of addresses for the customer',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
+                'email' => [
+                    'description' => 'The email address of the customer',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'phone' => [
+                    'description' => 'The phone number for the customer',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'first_name' => [
+                    'description' => 'The customer\'s first name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
+                'last_name' => [
+                    'description' => 'The customer\'s last name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'tags' => [
+                    'description' => 'Tags are additional short descriptors formatted as a string of comma-separated values',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'tax_exempt' => [
+                    'description' => 'Indicates whether the customer should be charged taxes when placing orders',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'verified_email' => [
+                    'description' => 'States whether or not the email address has been verified',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'UpdateCustomer' => [
+            'httpMethod'    => 'PUT',
+            'uri'           => 'admin/customers/{id}.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Modify an existing customer',
+            'data'          => ['root_key' => 'customer'],
+            'parameters'    => [
+                'id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'accepts_marketing' => [
+                    'description' => 'Indicates whether the customer has consented to be sent marketing material via email',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'addresses' => [
+                    'description' => 'A list of addresses for the customer',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
+                'email' => [
+                    'description' => 'The email address of the customer',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'phone' => [
+                    'description' => 'The phone number for the customer',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'first_name' => [
+                    'description' => 'The customer\'s first name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
+                'last_name' => [
+                    'description' => 'The customer\'s last name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'tags' => [
+                    'description' => 'Tags are additional short descriptors formatted as a string of comma-separated values',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'tax_exempt' => [
+                    'description' => 'Indicates whether the customer should be charged taxes when placing orders',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'verified_email' => [
+                    'description' => 'States whether or not the email address has been verified',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+            ]
+        ],
+
+        'DeleteCustomer' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/customers/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Remove a customer from the database',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * EVENTS RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/events

@@ -265,6 +265,14 @@ Here is a list of supported endpoints (more to come in the future):
 * updateCustomCollection(array $args = [])
 * deleteCustomCollection(array $args = [])
 
+**CUSTOMER RELATED METHODS:**
+
+* getCustomers(array $args = [])
+* getCustomer(array $args = [])
+* createCustomer(array $args = [])
+* updateCustomer(array $args = [])
+* deleteCustomer(array $args = [])
+
 **EVENT RELATED METHODS:**
 
 * getEvents(array $args = [])
