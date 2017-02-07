@@ -76,6 +76,14 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateCustomCollection(array $args = []) {@command Shopify UpdateCustomCollection}
  * @method array deleteCustomCollection(array $args = []) {@command Shopify DeleteCustomCollection}
  *
+ * CUSTOMER RELATED METHODS:
+ *
+ * @method array getCustomers(array $args = []) {@command Shopify GetCustomers}
+ * @method array getCustomer(array $args = []) {@command Shopify GetCustomer}
+ * @method array createCustomer(array $args = []) {@command Shopify CreateCustomer}
+ * @method array updateCustomer(array $args = []) {@command Shopify UpdateCustomer}
+ * @method array deleteCustomer(array $args = []) {@command Shopify DeleteCustomer}
+ *
  * EVENTS RELATED METHODS:
  *
  * @method array getEvents(array $args = []) {@command Shopify GetEvents}
