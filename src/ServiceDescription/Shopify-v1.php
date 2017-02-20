@@ -2014,6 +2014,12 @@ return [
                     'type'        => 'array',
                     'required'    => false,
                 ],
+                'location_id' => [
+                    'description' => 'The unique numeric identifier for the physical location at which the order was processed',
+                    'location'    => 'json',
+                    'type'        => 'int',
+                    'required'    => false,
+                ],
                 'note' => [
                     'description' => 'The text of an optional note that a shop owner can attach to the order',
                     'location'    => 'json',
