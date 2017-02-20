@@ -2086,6 +2086,12 @@ return [
                     'type'        => 'number',
                     'required'    => false,
                 ],
+               'transactions' => [
+                    'description' => 'Payment transactions related to this order',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
             ],
         ],
 
