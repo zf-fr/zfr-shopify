@@ -1912,40 +1912,10 @@ return [
                     'type'        => 'object',
                     'required'    => false,
                 ],
-                'browser_ip' => [
-                    'description' => 'The IP address of the browser used by the customer when placing the order',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
                 'buyer_accepts_marketing' => [
                     'description' => 'Indicates whether or not the person who placed the order would like to receive email updates from the shop',
                     'location'    => 'json',
                     'type'        => 'boolean',
-                    'required'    => false,
-                ],
-                'cancel_reason' => [
-                    'description' => 'The reason why the order was cancelled',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'cancelled_at' => [
-                    'description' => 'The date and time when the order was cancelled. If the order was cancelled',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'cart_token' => [
-                    'description' => 'Unique identifier for a particular cart that is attached to a particular order',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'client_details' => [
-                    'description' => 'An object containing information about the client',
-                    'location'    => 'json',
-                    'type'        => 'object',
                     'required'    => false,
                 ],
                 'closed_at' => [
@@ -1998,12 +1968,6 @@ return [
                 ],
                 'tags' => [
                     'description' => 'Tags are additional short descriptors',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'landing_site' => [
-                    'description' => 'The URL for the page where the buyer landed when entering the shop',
                     'location'    => 'json',
                     'type'        => 'string',
                     'required'    => false,
