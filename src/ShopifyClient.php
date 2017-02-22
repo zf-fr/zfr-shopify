@@ -109,6 +109,7 @@ use ZfrShopify\Exception\RuntimeException;
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}
+ * @method array createOrder(array $args = []) {@command Shopify CreateOrder}
  * @method array getOrder(array $args = []) {@command Shopify GetOrder}
  * @method array closeOrder(array $args = []) {@command Shopify CloseOrder}
  * @method array openOrder(array $args = []) {@command Shopify OpenOrder}
