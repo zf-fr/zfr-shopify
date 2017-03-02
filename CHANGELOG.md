@@ -1,3 +1,7 @@
+# 2.2.1
+
+* Simplified the `UpdateProductVariant` by no longer needing the product ID (variant ID is enough).
+
 # 2.2.0
 
 * Add customer endpoints.
