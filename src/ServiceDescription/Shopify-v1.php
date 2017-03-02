@@ -3353,19 +3353,13 @@ return [
 
         'UpdateProductVariant' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/products/{product_id}/variants/{id}.json',
+            'uri'              => 'admin/variants/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing variant',
             'data'             => ['root_key' => 'variant'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Specific variant ID',
-                    'location'    => 'uri',
-                    'type'        => 'integer',
-                    'required'    => true
-                ],
-                'product_id' => [
-                    'description' => 'Specific product ID',
                     'location'    => 'uri',
                     'type'        => 'integer',
                     'required'    => true
