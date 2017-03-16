@@ -3149,6 +3149,150 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * REFUND RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/refund
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetRefunds' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/orders/{order_id}/refunds.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve a list of Refunds for an Order',
+            'data'             => ['root_key' => 'refunds'],
+            'parameters'       => [
+                'order_id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'GetRefund' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/orders/{order_id}/refunds/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve a specific refund',
+            'data'             => ['root_key' => 'refund'],
+            'parameters'       => [
+                'order_id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'id' => [
+                    'description' => 'Specific refund ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'CalculateRefund' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/orders/{order_id}/refunds/calculate.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Calculate refund transactions based on line items and shipping',
+            'data'             => ['root_key' => 'refund'],
+            'parameters'       => [
+                'order_id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'shipping' => [
+                    'description' => 'Object to specify how much shipping to refund',
+                    'location'    => 'json',
+                    'type'        => 'object',
+                    'required'    => false,
+                ],
+                'refund_line_items' => [
+                    'description' => 'Array of line item IDs and quantities to refund',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'CreateRefund' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/orders/{order_id}/refunds.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a Refund for an existing Order',
+            'data'             => ['root_key' => 'refund'],
+            'parameters'       => [
+                'order_id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'restock' => [
+                    'description' => 'Whether or not to add the line items back to the store inventory',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'notify' => [
+                    'description' => 'Set to true to send a refund notification to the customer',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'note' => [
+                    'description' => 'An optional comment attached to a refund',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'discrepancy_reason' => [
+                    'description' => 'An optional comment, used if there is a discrepancy between calculated and actual refund amounts (one of: restock, damage, customer, other)',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'shipping' => [
+                    'description' => 'Object to specify how much shipping to refund',
+                    'location'    => 'json',
+                    'type'        => 'object',
+                    'required'    => false,
+                ],
+                'refund_line_items' => [
+                    'description' => 'Array of line item IDs and quantities to refund',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
+                'transactions' => [
+                    'description' => 'Array of transactions to process as refunds',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * SHOP RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/shop

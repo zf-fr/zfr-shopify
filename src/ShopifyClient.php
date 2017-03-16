@@ -154,6 +154,13 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array activateRecurringApplicationCharge(array $args = []) {@command Shopify ActivateRecurringApplicationCharge}
  * @method array deleteRecurringApplicationCharge(array $args = []) {@command Shopify DeleteRecurringApplicationCharge}
  *
+ * REFUND RELATED METHODS:
+ *
+ * @method array getRefunds(array $args = []) {@command Shopify GetRefunds}
+ * @method array getRefund(array $args = []) {@command Shopify GetRefund}
+ * @method array calculateRefund(array $args = []) {@command Shopify CalculateRefund}
+ * @method array createRefund(array $args = []) {@command Shopify CreateRefund}
+ *
  * SHOP RELATED METHODS:
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}
