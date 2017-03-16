@@ -343,6 +343,13 @@ Here is a list of supported endpoints (more to come in the future):
 * activateRecurringApplicationCharge(array $args = [])
 * deleteRecurringApplicationCharge(array $args = [])
 
+**REFUND RELATED METHODS:**
+
+* getRefunds(array $args = [])
+* getRefund(array $args = [])
+* calculateRefund(array $args = [])
+* createRefund(array $args = [])
+
 **SHOP RELATED METHODS:**
 
 * getShop(array $args = [])
