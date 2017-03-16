@@ -1237,7 +1237,7 @@ return [
                     'description' => 'The email address of the customer',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
                 ],
                 'phone' => [
                     'description' => 'The phone number for the customer',
@@ -1249,7 +1249,7 @@ return [
                     'description' => 'The customer\'s first name',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
@@ -1261,7 +1261,7 @@ return [
                     'description' => 'The customer\'s last name',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
                 ],
                 'tags' => [
                     'description' => 'Tags are additional short descriptors formatted as a string of comma-separated values',
