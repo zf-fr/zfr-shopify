@@ -287,6 +287,14 @@ Here is a list of supported endpoints (more to come in the future):
 * completeFulfillment(array $args = [])
 * cancelFulfillment(array $args = []) 
 
+**GIFT CARD RELATED METHODS:**
+
+* getGiftCards(array $args = [])
+* getGiftCard(array $args = [])
+* createGiftCard(array $args = [])
+* updateGiftCard(array $args = [])
+* disableGiftCard(array $args = [])
+
 **METAFIELDS RELATED METHODS:**
 
 * array getMetafields(array $args = [])

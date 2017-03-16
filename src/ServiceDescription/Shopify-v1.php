@@ -1619,6 +1619,139 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * GIFT CARD RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/reference/gift_card
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetGiftCards' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/gift_cards.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Receive a list of all Gift Cards',
+            'data'             => ['root_key' => 'gift_cards'],
+            'parameters'       => [
+                'status' => [
+                    'description' => 'Restrict results to only enabled/disabled gift cards',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'limit' => [
+                    'description' => 'A limit of results to fetch',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false,
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'required'    => false,
+                ],
+                'fields' => [
+                    'description' => 'Comma separated list of fields to retrieve',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'GetGiftCard' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/gift_cards/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Receive a single Gift Card',
+            'data'             => ['root_key' => 'gift_card'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Gift Card ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+            ],
+        ],
+
+        'CreateGiftCard' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/gift_cards.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a new Gift Card',
+            'data'             => ['root_key' => 'gift_card'],
+            'parameters'       => [
+                'note' => [
+                    'description' => 'The text of an optional note that a shop owner can attach to the gift card',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'initial_value' => [
+                    'description' => 'The initial Gift Card value',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'code' => [
+                    'description' => 'The gift card code which consists of a minimum of 8 alphanumeric characters',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'template_suffix' => [
+                    'description' => 'When specified, the gift card will be rendered using gift_card.SUFFIX.liquid instead of gift_card.liquid',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'UpdateGiftCard' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/gift_cards/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update the Gift Card',
+            'data'             => ['root_key' => 'gift_card'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Gift Card ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'note' => [
+                    'description' => 'The text of an optional note that a shop owner can attach to the gift card',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'DisableGiftCard' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/gift_cards/{id}/disable.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Disabling a Gift Card is permanent and cannot be undone',
+            'data'             => ['root_key' => 'gift_card'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Gift Card ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * METAFIELDS RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/metafield

@@ -98,6 +98,14 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array completeFulfillment(array $args = []) {@command Shopify CompleteFulfillment}
  * @method array cancelFulfillment(array $args = []) {@command Shopify CancelFulfillment}
  *
+ * GIFT CARD RELATED METHODS:
+ *
+ * @method array getGiftCards(array $args = []) {@command Shopify GetGiftCards}
+ * @method array getGiftCard(array $args = []) {@command Shopify GetGiftCard}
+ * @method array createGiftCard(array $args = []) {@command Shopify CreateGiftCard}
+ * @method array updateGiftCard(array $args = []) {@command Shopify CreateGiftCard}
+ * @method array disableGiftCard(array $args = []) {@command Shopify DisableGiftCard}
+ *
  * METAFIELDS RELATED METHODS:
  * 
  * @method array getMetafields(array $args = []) {@command Shopify GetMetafields}
