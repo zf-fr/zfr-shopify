@@ -1175,17 +1175,23 @@ return [
                     'type'        => 'string',
                     'required'    => true,
                 ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
                 'last_name' => [
                     'description' => 'The customer\'s last name',
                     'location'    => 'json',
                     'type'        => 'string',
                     'required'    => true,
+                ],
+                'note' => [
+                    'description' => 'Set a short note about the customer',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
                 ],
                 'tags' => [
                     'description' => 'Tags are additional short descriptors formatted as a string of comma-separated values',
@@ -1275,17 +1281,23 @@ return [
                     'type'        => 'string',
                     'required'    => false,
                 ],
+                'last_name' => [
+                    'description' => 'The customer\'s last name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
                     'location'    => 'json',
                     'type'        => 'array',
                     'required'    => false,
                 ],
-                'last_name' => [
-                    'description' => 'The customer\'s last name',
+                'note' => [
+                    'description' => 'Set a short note about the customer',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => false,
+                    'required'    => true,
                 ],
                 'tags' => [
                     'description' => 'Tags are additional short descriptors formatted as a string of comma-separated values',
