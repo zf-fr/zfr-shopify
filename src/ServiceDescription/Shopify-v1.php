@@ -1185,7 +1185,7 @@ return [
                     'description' => 'Set a short note about the customer',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
                 ],
                 'metafields' => [
                     'description' => 'Optional metafields to attach',
@@ -1297,7 +1297,7 @@ return [
                     'description' => 'Set a short note about the customer',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
                 ],
                 'tags' => [
                     'description' => 'Tags are additional short descriptors formatted as a string of comma-separated values',
