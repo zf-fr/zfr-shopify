@@ -2150,7 +2150,7 @@ return [
                 'location_id' => [
                     'description' => 'The unique numeric identifier for the physical location at which the order was processed',
                     'location'    => 'json',
-                    'type'        => 'int',
+                    'type'        => 'integer',
                     'required'    => false,
                 ],
                 'note' => [
