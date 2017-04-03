@@ -1205,6 +1205,30 @@ return [
                     'type'        => 'boolean',
                     'required'    => false,
                 ],
+                'password' => [
+                    'description' => 'Force using a given password',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'password_confirmation' => [
+                    'description' => 'Force using a given password (confirmation)',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'send_email_welcome' => [
+                    'description' => 'Send or not a welcome email',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'send_email_invite' => [
+                    'description' => 'Send or not an invite email',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ]
             ],
         ],
 
