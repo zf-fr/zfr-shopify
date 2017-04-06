@@ -2120,7 +2120,7 @@ return [
                 'financial_status' => [
                     'description' => 'The order financial status',
                     'location'    => 'json',
-                    'type'        => 'object',
+                    'type'        => 'string',
                     'required'    => false,
                 ],
                 'fulfillments' => [
