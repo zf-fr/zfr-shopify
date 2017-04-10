@@ -1,3 +1,7 @@
+# 2.2.2
+
+* Retry in case of 5XX response.
+
 # 2.2.1
 
 * Simplified the `UpdateProductVariant` by no longer needing the product ID (variant ID is enough).
