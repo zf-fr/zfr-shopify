@@ -25,6 +25,7 @@ use GuzzleHttp\Command\Guzzle\Operation;
 use GuzzleHttp\Command\ToArrayInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ServerException;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use ZfrShopify\Exception\RuntimeException;
@@ -109,13 +110,23 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($client->retryDecider(4, $request, $response, $exception));
     }
 
+    public function testRetryOnServerError()
+    {
+        $client = $this->getShopifyClientForPublicApp();
+
+        $request   = $this->prophesize(RequestInterface::class)->reveal();
+        $response  = $this->prophesize(ResponseInterface::class)->reveal();
+        $exception = $this->prophesize(ServerException::class)->reveal();
+
+        $this->assertTrue($client->retryDecider(4, $request, $response, $exception));
+    }
+
     public function statusCodeProvider()
     {
         return [
            [400],
            [404],
            [429],
-           [500]
         ];
     }
 

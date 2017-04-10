@@ -22,6 +22,7 @@ use Generator;
 use GuzzleHttp\Client;
 use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Exception\CommandException;
+use GuzzleHttp\Command\Exception\CommandServerException;
 use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Serializer;
@@ -29,6 +30,7 @@ use GuzzleHttp\Command\Result;
 use GuzzleHttp\Command\ToArrayInterface;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
@@ -401,6 +403,11 @@ class ShopifyClient
 
         // Retry connection exceptions
         if ($exception instanceof ConnectException) {
+            return true;
+        }
+
+        // Retry 5XX
+        if ($exception instanceof ServerException) {
             return true;
         }
 
