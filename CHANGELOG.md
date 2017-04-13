@@ -1,3 +1,7 @@
+# 2.2.3
+
+* Add an `UpdateOrder` endpoint
+
 # 2.2.2
 
 * Retry in case of 5XX response.

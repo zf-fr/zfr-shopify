@@ -2261,6 +2261,70 @@ return [
                     'type'        => 'array',
                     'required'    => false,
                 ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ]
+            ],
+        ],
+
+        'UpdateOrder' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/orders/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update an existing order',
+            'data'             => ['root_key' => 'order'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'email' => [
+                    'description' => 'The customer\'s email address',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'customer' => [
+                    'description' => 'An object containing information about the customer',
+                    'location'    => 'json',
+                    'type'        => 'object',
+                    'required'    => false,
+                ],
+                'shipping_address' => [
+                    'description' => 'Customer\'s shipping address',
+                    'location'    => 'json',
+                    'type'        => 'object',
+                    'required'    => false,
+                ],
+                'tags' => [
+                    'description' => 'Tags are additional short descriptors',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'note' => [
+                    'description' => 'The text of an optional note that a shop owner can attach to the order',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'note_attributes' => [
+                    'description' => 'Extra information that is added to the order',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false,
+                ],
+                'metafields' => [
+                    'description' => 'Optional metafields to attach',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
+                ],
             ],
         ],
 

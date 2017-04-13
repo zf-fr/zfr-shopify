@@ -307,6 +307,8 @@ Here is a list of supported endpoints (more to come in the future):
 
 * array getOrders(array $args = [])
 * array getOrder(array $args = [])
+* array createOrder(array $args = [])
+* array updateOrder(array $args = [])
 * array closeOrder(array $args = [])
 * array openOrder(array $args = [])
 * array cancelOrder(array $args = [])
