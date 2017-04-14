@@ -961,202 +961,6 @@ return [
             ],
         ],
 
-        'CreateOrder' => [
-            'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Create a new order',
-            'data'             => ['root_key' => 'order'],
-            'parameters'       => [
-                'billing_address' => [
-                    'description' => 'The mailing address associated with the payment method',
-                    'location'    => 'json',
-                    'type'        => 'object',
-                    'required'    => false,
-                ],
-                'buyer_accepts_marketing' => [
-                    'description' => 'Indicates whether or not the person who placed the order would like to receive email updates from the shop',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false,
-                ],
-                'closed_at' => [
-                    'description' => 'The date and time when the order was closed',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'currency' => [
-                    'description' => 'The three letter code (ISO 4217) for the currency used for the payment',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'customer' => [
-                    'description' => 'An object containing information about the customer',
-                    'location'    => 'json',
-                    'type'        => 'object',
-                    'required'    => false,
-                ],
-                'discount_codes' => [
-                    'description' => 'Applicable discount codes that can be applied to the order',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-                'email' => [
-                    'description' => 'The customer\'s email address',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'financial_status' => [
-                    'description' => 'The order financial status',
-                    'location'    => 'json',
-                    'type'        => 'object',
-                    'required'    => false,
-                ],
-                'fulfillments' => [
-                    'description' => 'The order fulfillments',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-                'fulfillment_status' => [
-                    'description' => 'The order fulfillment status',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'tags' => [
-                    'description' => 'Tags are additional short descriptors',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'line_items' => [
-                    'description' => 'The order line items',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-                'location_id' => [
-                    'description' => 'The unique numeric identifier for the physical location at which the order was processed',
-                    'location'    => 'json',
-                    'type'        => 'int',
-                    'required'    => false,
-                ],
-                'note' => [
-                    'description' => 'The text of an optional note that a shop owner can attach to the order',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'note_attributes' => [
-                    'description' => 'Extra information that is added to the order',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-                'processed_at' => [
-                    'description' => 'The date and time when the order was imported',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'processing_method' => [
-                    'description' => 'States the type of payment processing method',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'referring_site' => [
-                    'description' => 'The website that the customer clicked on to come to the shop',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'refunds' => [
-                    'description' => 'The list of refunds applied to the order',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-                'shipping_address' => [
-                    'description' => 'Customer\'s shipping address',
-                    'location'    => 'json',
-                    'type'        => 'object',
-                    'required'    => false,
-                ],
-                'shipping_lines' => [
-                    'description' => 'An array of shipping_line objects',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-                'source_name' => [
-                    'description' => 'Where the order originated',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'subtotal_price' => [
-                    'description' => 'Price of the order before shipping and taxes',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'tax_lines' => [
-                    'description' => 'An array of tax_line objects',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-                'taxes_included' => [
-                    'description' => 'States whether or not taxes are included in the order subtotal',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false,
-                ],
-                'total_discounts' => [
-                    'description' => 'The total amount of the discounts to be applied to the price of the order',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'total_line_items_price' => [
-                    'description' => 'The sum of all the prices of all the items in the order',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'total_price' => [
-                    'description' => 'The sum of all the prices of all the items in the order, taxes and discounts included',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'total_tax' => [
-                    'description' => 'The sum of all the taxes applied to the order',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'total_weight' => [
-                    'description' => 'The sum of all the weights of the line items in the order, in grams',
-                    'location'    => 'json',
-                    'type'        => 'number',
-                    'required'    => false,
-                ],
-                'transactions' => [
-                    'description' => 'Payment transactions related to this order',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-            ],
-        ],
-
         'GetOrder' => [
             'httpMethod'       => 'GET',
             'uri'              => 'admin/orders/{id}.json',
@@ -1170,13 +974,29 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/orders.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a new order',
+            'data'             => ['root_key' => 'order'],
+            'parameters'       => [
+                'line_items' => [
+                    'description' => 'The order line items',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => true,
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'CloseOrder' => [
@@ -1224,26 +1044,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'restock' => [
-                    'description' => 'Restock the items for this order back to your store',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false
-                ],
-                'reason' => [
-                    'description' => 'The reason for the order cancellation',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['customer', 'fraud', 'inventory', 'other']
-                ],
-                'email' => [
-                    'description' => 'Send an email to the customer notifying them of the cancellation',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         /**
@@ -1255,95 +1059,14 @@ return [
          */
 
         'GetPages' => [
-            'httpMethod'       => 'GET',
-            'uri'              => 'admin/pages.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Retrieve a list of pages',
-            'data'             => ['root_key' => 'pages'],
-            'parameters'       => [
-                'created_at_max' => [
-                    'description' => 'Max creation date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'created_at_min' => [
-                    'description' => 'Min creation date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_max' => [
-                    'description' => 'Max update date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_min' => [
-                    'description' => 'Min update date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published_at_max' => [
-                    'description' => 'Max publication date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published_at_min' => [
-                    'description' => 'Min publication date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'title' => [
-                    'description' => 'Filter by page title',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'handle' => [
-                    'description' => 'Filter by page handle',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published_status' => [
-                    'description' => 'Current status of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['published', 'unpublished', 'any']
-                ],
-                'limit' => [
-                    'description' => 'A limit of results to fetch',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'max'         => 250,
-                    'required'    => false
-                ],
-                'page' => [
-                    'description' => 'Page to show',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'required'    => false
-                ],
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/pages.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of pages',
+            'data'                 => ['root_key' => 'pages'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetPage' => [
@@ -1358,14 +1081,11 @@ return [
                     'location'    => 'uri',
                     'type'        => 'integer',
                     'required'    => true
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
                 ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreatePage' => [
@@ -1387,19 +1107,10 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'handle' => [
-                    'description' => 'Handle for the page',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'UpdatePage' => [
@@ -1415,37 +1126,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'title' => [
-                    'description' => 'Page title',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'handle' => [
-                    'description' => 'Handle for the page',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'body_html' => [
-                    'description' => 'HTML content for the page',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published' => [
-                    'description' => 'Set the publication status',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'DeletePage' => [
@@ -1472,113 +1156,14 @@ return [
          */
 
         'GetProducts' => [
-            'httpMethod'       => 'GET',
-            'uri'              => 'admin/products.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Retrieve a list of products',
-            'data'             => ['root_key' => 'products'],
-            'parameters'       => [
-                'ids' => [
-                    'description' => 'A comma separated ids',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'created_at_max' => [
-                    'description' => 'Max creation date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'created_at_min' => [
-                    'description' => 'Min creation date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_max' => [
-                    'description' => 'Max update date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_min' => [
-                    'description' => 'Min update date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published_at_max' => [
-                    'description' => 'Max publication date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published_at_min' => [
-                    'description' => 'Min publication date of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'title' => [
-                    'description' => 'Filter by product title',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'vendor' => [
-                    'description' => 'Filter by product vendor',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'handle' => [
-                    'description' => 'Filter by product handle',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'collection_id' => [
-                    'description' => 'Filter by collection id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'published_status' => [
-                    'description' => 'Current status of the product',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['published', 'unpublished', 'any']
-                ],
-                'limit' => [
-                    'description' => 'A limit of results to fetch',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'max'         => 250,
-                    'required'    => false
-                ],
-                'page' => [
-                    'description' => 'Page to show',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'required'    => false
-                ],
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/products.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of products',
+            'data'                 => ['root_key' => 'products'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetProduct' => [
@@ -1594,13 +1179,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateProduct' => [
@@ -1616,55 +1198,10 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'body_html' => [
-                    'description' => 'Product description',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'vendor' => [
-                    'description' => 'Product vendor',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'product_type' => [
-                    'description' => 'Product type',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'images' => [
-                    'description' => 'List of images. Each element can either contain all the attributes accepted by a product image',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ],
-                'tags' => [
-                    'description' => 'List of tags separated by comma',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'variants' => [
-                    'description' => 'List of variants. Each element can either contain all the attributes accepted by a product variant',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ],
-                'published' => [
-                    'description' => 'Set the publication status',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'UpdateProduct' => [
@@ -1680,61 +1217,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'title' => [
-                    'description' => 'Product title',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'body_html' => [
-                    'description' => 'Product description',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'vendor' => [
-                    'description' => 'Product vendor',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'product_type' => [
-                    'description' => 'Product type',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'images' => [
-                    'description' => 'List of images. Each element can either contain all the attributes accepted by a product image',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ],
-                'tags' => [
-                    'description' => 'List of tags separated by comma',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'variants' => [
-                    'description' => 'List of variants. Each element can either contain all the attributes accepted by a product variant',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ],
-                'published' => [
-                    'description' => 'Set the publication status',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'DeleteProduct' => [
@@ -1773,19 +1259,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetProductImage' => [
@@ -1807,13 +1284,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateProductImage' => [
@@ -1829,43 +1303,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'variant_ids' => [
-                    'description' => 'Variant ids attached to this image',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ],
-                'attachment' => [
-                    'description' => 'Base 64 encoded of the image',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'src' => [
-                    'description' => 'Source URL that will be downloaded by Shopify',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'filename' => [
-                    'description' => 'Name of the file to upload',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'position' => [
-                    'description' => 'Position of the image for the product',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'UpdateProductImage' => [
@@ -1887,43 +1328,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'variant_ids' => [
-                    'description' => 'Variant ids attached to this image',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ],
-                'attachment' => [
-                    'description' => 'Base 64 encoded of the image',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'src' => [
-                    'description' => 'Source URL that will be downloaded by Shopify',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'filename' => [
-                    'description' => 'Name of the file to upload',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'position' => [
-                    'description' => 'Position of the image for the product',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'DeleteProductImage' => [
@@ -1956,25 +1364,14 @@ return [
          */
 
         'GetRecurringApplicationCharges' => [
-            'httpMethod'       => 'GET',
-            'uri'              => 'admin/recurring_application_charges.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Retrieve a list of recurring application charges',
-            'data'             => ['root_key' => 'recurring_application_charges'],
-            'parameters'       => [
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/recurring_application_charges.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of recurring application charges',
+            'data'                 => ['root_key' => 'recurring_application_charges'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetRecurringApplicationCharge' => [
@@ -1990,13 +1387,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateRecurringApplicationCharge' => [
@@ -2024,31 +1418,10 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'capped_amount' => [
-                    'description' => 'Capped amount (to use with usage charge)',
-                    'location'    => 'json',
-                    'type'        => 'number',
-                    'required'    => false
-                ],
-                'terms' => [
-                    'description' => 'Terms displayed to the merchant when accepting the charge (to use with usage charge)',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'test' => [
-                    'description' => 'Test mode for the charge',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false
-                ],
-                'trial_days' => [
-                    'description' => 'Number of days for allowing trial',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'ActivateRecurringApplicationCharge' => [
@@ -2103,12 +1476,9 @@ return [
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
             ],
         ],
 
@@ -2131,12 +1501,9 @@ return [
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
             ],
         ],
 
@@ -2153,18 +1520,9 @@ return [
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'shipping' => [
-                    'description' => 'Object to specify how much shipping to refund',
-                    'location'    => 'json',
-                    'type'        => 'object',
-                    'required'    => false,
-                ],
-                'refund_line_items' => [
-                    'description' => 'Array of line item IDs and quantities to refund',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
             ],
         ],
 
@@ -2181,48 +1539,9 @@ return [
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'restock' => [
-                    'description' => 'Whether or not to add the line items back to the store inventory',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false,
-                ],
-                'notify' => [
-                    'description' => 'Set to true to send a refund notification to the customer',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false,
-                ],
-                'note' => [
-                    'description' => 'An optional comment attached to a refund',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'discrepancy_reason' => [
-                    'description' => 'An optional comment, used if there is a discrepancy between calculated and actual refund amounts (one of: restock, damage, customer, other)',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                ],
-                'shipping' => [
-                    'description' => 'Object to specify how much shipping to refund',
-                    'location'    => 'json',
-                    'type'        => 'object',
-                    'required'    => false,
-                ],
-                'refund_line_items' => [
-                    'description' => 'Array of line item IDs and quantities to refund',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
-                'transactions' => [
-                    'description' => 'Array of transactions to process as refunds',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false,
-                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
             ],
         ],
 
@@ -2235,19 +1554,14 @@ return [
          */
 
         'GetShop' => [
-            'httpMethod'       => 'GET',
-            'uri'              => 'admin/shop.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Get data about a single shop',
-            'data'             => ['root_key' => 'shop'],
-            'parameters'       => [
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/shop.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Get data about a single shop',
+            'data'                 => ['root_key' => 'shop'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         /**
@@ -2259,101 +1573,14 @@ return [
          */
 
         'GetSmartCollections' => [
-            'httpMethod'       => 'GET',
-            'uri'              => 'admin/smart_collections.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Retrieve a list of smart collections',
-            'data'             => ['root_key' => 'smart_collections'],
-            'parameters'       => [
-                'title' => [
-                    'description' => 'Only show smart collections with given title',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'handle' => [
-                    'description' => 'Filter by collection handle',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'product_id' => [
-                    'description' => 'Show smart collections that includes given product',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'created_at_max' => [
-                    'description' => 'Max creation date of the smart collection',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'created_at_min' => [
-                    'description' => 'Min creation date of the smart collection',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_max' => [
-                    'description' => 'Max update date of the smart collection',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_min' => [
-                    'description' => 'Min update date of the smart collection',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published_at_max' => [
-                    'description' => 'Max publication date of the smart collection',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published_at_min' => [
-                    'description' => 'Min publication date of the smart collection',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published_status' => [
-                    'description' => 'Current status of the page',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['published', 'unpublished', 'any']
-                ],
-                'limit' => [
-                    'description' => 'A limit of results to fetch',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'max'         => 250,
-                    'required'    => false
-                ],
-                'page' => [
-                    'description' => 'Page to show',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'required'    => false
-                ],
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/smart_collections.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of smart collections',
+            'data'                 => ['root_key' => 'smart_collections'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetSmartCollection' => [
@@ -2369,13 +1596,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateSmartCollection' => [
@@ -2391,37 +1615,10 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'body_html' => [
-                    'description' => 'Collection description',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published' => [
-                    'description' => 'Status for the smart collection',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false
-                ],
-                'image' => [
-                    'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
-                    'location'    => 'json',
-                    'type'        => 'object',
-                    'required'    => false
-                ],
-                'rules' => [
-                    'description' => 'Specify the rules that need to be matched to include products within the collection',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'UpdateSmartCollection' => [
@@ -2437,43 +1634,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'title' => [
-                    'description' => 'Smart collection title',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'body_html' => [
-                    'description' => 'Collection description',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'published' => [
-                    'description' => 'Status for the smart collection',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false
-                ],
-                'image' => [
-                    'description' => 'Attached image (can accept a "src" or "attachment" sub-parameter)',
-                    'location'    => 'json',
-                    'type'        => 'object',
-                    'required'    => false
-                ],
-                'rules' => [
-                    'description' => 'Specify the rules that need to be matched to include products within the collection',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'DeleteSmartCollection' => [
@@ -2500,19 +1664,14 @@ return [
          */
 
         'GetThemes' => [
-            'httpMethod'       => 'GET',
-            'uri'              => 'admin/themes.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Retrieve a list of themes',
-            'data'             => ['root_key' => 'themes'],
-            'parameters'       => [
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/themes.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of themes',
+            'data'                 => ['root_key' => 'themes'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetTheme' => [
@@ -2528,13 +1687,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateTheme' => [
@@ -2556,14 +1712,10 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'role' => [
-                    'description' => 'Theme role name',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['main', 'mobile', 'unpublished']
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'UpdateTheme' => [
@@ -2585,14 +1737,10 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'role' => [
-                    'description' => 'Theme role name',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['main', 'mobile', 'unpublished']
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'DeleteTheme' => [
@@ -2631,34 +1779,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'limit' => [
-                    'description' => 'A limit of results to fetch',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'max'         => 250,
-                    'required'    => false
-                ],
-                'page' => [
-                    'description' => 'Page to show',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'required'    => false
-                ],
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetProductVariant' => [
@@ -2674,13 +1798,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateProductVariant' => [
@@ -2696,61 +1817,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'option1' => [
-                    'description' => 'Option 1',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'option2' => [
-                    'description' => 'Option 2',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'option3' => [
-                    'description' => 'Option 3',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'price' => [
-                    'description' => 'Price for the variant',
-                    'location'    => 'json',
-                    'type'        => 'number',
-                    'required'    => false
-                ],
-                'inventory_quantity' => [
-                    'description' => 'Current inventory quantity',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'old_inventory_quantity' => [
-                    'description' => 'Old inventory quantity',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'inventory_quantity_adjustment' => [
-                    'description' => 'Modify inventory by the given amount',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'image_id' => [
-                    'description' => 'Image to attach for the variant',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'UpdateProductVariant' => [
@@ -2766,61 +1836,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'option1' => [
-                    'description' => 'Option 1',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'option2' => [
-                    'description' => 'Option 2',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'option3' => [
-                    'description' => 'Option 3',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'price' => [
-                    'description' => 'Price for the variant',
-                    'location'    => 'json',
-                    'type'        => 'number',
-                    'required'    => false
-                ],
-                'inventory_quantity' => [
-                    'description' => 'Current inventory quantity',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'old_inventory_quantity' => [
-                    'description' => 'Old inventory quantity',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'inventory_quantity_adjustment' => [
-                    'description' => 'Modify inventory by the given amount',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'image_id' => [
-                    'description' => 'Image to attach for the variant',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'metafields' => [
-                    'description' => 'Optional metafields to attach',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'DeleteProductVariant' => [
@@ -2853,64 +1872,14 @@ return [
          */
 
         'GetScriptTags' => [
-            'httpMethod'       => 'GET',
-            'uri'              => 'admin/script_tags.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Retrieve a list of installed script tags',
-            'data'             => ['root_key' => 'script_tags'],
-            'parameters'       => [
-                'created_at_max' => [
-                    'description' => 'Max creation date of the script tag',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'created_at_min' => [
-                    'description' => 'Min creation date of the script tag',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_max' => [
-                    'description' => 'Max update date of the script tag',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_min' => [
-                    'description' => 'Min update date of the script tag',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'limit' => [
-                    'description' => 'A limit of results to fetch',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'max'         => 250,
-                    'required'    => false
-                ],
-                'page' => [
-                    'description' => 'Page to show',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'required'    => false
-                ],
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/script_tags.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of installed script tags',
+            'data'                 => ['root_key' => 'script_tags'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetScriptTag' => [
@@ -2926,13 +1895,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateScriptTag' => [
@@ -2955,14 +1921,10 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'display_scope' => [
-                    'description' => 'Decide when the script tag should be loaded',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['online_store', 'order_status', 'all'],
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'UpdateScriptTag' => [
@@ -2991,14 +1953,10 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'display_scope' => [
-                    'description' => 'Decide when the script tag should be loaded',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['online_store', 'order_status', 'all'],
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         'DeleteScriptTag' => [
@@ -3037,19 +1995,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetTransaction' => [
@@ -3071,13 +2020,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateTransaction' => [
@@ -3093,30 +2039,6 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'amount' => [
-                    'description' => 'The amount of money that the transaction was for',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'authorization' => [
-                    'description' => 'The authorization code associated with the transaction',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'device_id' => [
-                    'description' => 'The unique identifier for the device',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'gateway' => [
-                    'description' => 'The name of the gateway the transaction was issued through',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
                 'kind' => [
                     'description' => 'The kind of transaction',
                     'location'    => 'json',
@@ -3124,32 +2046,10 @@ return [
                     'required'    => true,
                     'enum'        => ['authorization', 'capture', 'sale', 'void', 'refund'],
                 ],
-                'error_code' => [
-                    'description' => 'A standardized error code, independent of the payment provider',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'status' => [
-                    'description' => 'The status of the transaction',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => ['pending', 'failure', 'success', 'error']
-                ],
-                'test' => [
-                    'description' => 'The option to use the transaction for testing purposes',
-                    'location'    => 'json',
-                    'type'        => 'boolean',
-                    'required'    => false
-                ],
-                'currency' => [
-                    'description' => 'The three letter code (ISO 4217) for the currency used for the payment',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
         ],
 
         /**
@@ -3173,13 +2073,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetUsageCharge' => [
@@ -3201,13 +2098,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateUsageCharge' => [
@@ -3241,84 +2135,14 @@ return [
          */
 
         'GetWebhooks' => [
-            'httpMethod'       => 'GET',
-            'uri'              => 'admin/webhooks.json',
-            'responseModel'    => 'GenericModel',
-            'summary'          => 'Retrieve a list of webhooks',
-            'data'             => ['root_key' => 'webhooks'],
-            'parameters'       => [
-                'address' => [
-                    'description' => 'Specific URL for the webhook',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'created_at_max' => [
-                    'description' => 'Max creation date of the webhook',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'created_at_min' => [
-                    'description' => 'Min creation date of the webhook',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_max' => [
-                    'description' => 'Max update date of the webhook',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'updated_at_min' => [
-                    'description' => 'Min update date of the webhook',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'topic' => [
-                    'description' => 'List of webhook topic',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => [
-                        'orders/create', 'orders/delete', 'orders/updated', 'orders/paid', 'orders/cancelled', 'orders/fulfilled', 'orders/partially_fulfilled',
-                        'order_transactions/create', 'carts/create', 'carts/update', 'checkouts/create', 'checkouts/update', 'checkouts/delete', 'refunds/create',
-                        'products/create', 'products/update', 'products/delete', 'collections/create', 'collections/update', 'collections/delete',
-                        'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
-                        'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'fulfillment_events/create', 'fulfillment_events/update',
-                        'shop/update', 'disputes/create', 'disputes/update', 'themes/publish', 'app/uninstalled'
-                    ]
-                ],
-                'limit' => [
-                    'description' => 'A limit of results to fetch',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'max'         => 250,
-                    'required'    => false
-                ],
-                'page' => [
-                    'description' => 'Page to show',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'min'         => 1,
-                    'required'    => false
-                ],
-                'since_id' => [
-                    'description' => 'Restrict results after the specified id',
-                    'location'    => 'query',
-                    'type'        => 'integer',
-                    'required'    => false
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/webhooks.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of webhooks',
+            'data'                 => ['root_key' => 'webhooks'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'GetWebhook' => [
@@ -3334,13 +2158,10 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'query',
-                    'type'        => 'string',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'CreateWebhook' => [
@@ -3377,13 +2198,10 @@ return [
                         'shop/update', 'disputes/create', 'disputes/update', 'themes/publish', 'app/uninstalled'
                     ]
                 ],
-                'fields' => [
-                    'description' => 'List of fields return by the webhooks',
-                    'location'    => 'json',
-                    'type'        => 'array',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         'UpdateWebhook' => [
@@ -3398,32 +2216,6 @@ return [
                     'location'    => 'uri',
                     'type'        => 'integer',
                     'required'    => true
-                ],
-                'address' => [
-                    'description' => 'Specific URL for the webhook',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
-                ],
-                'topic' => [
-                    'description' => 'List of webhook topic',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false,
-                    'enum'        => [
-                        'orders/create', 'orders/delete', 'orders/updated', 'orders/paid', 'orders/cancelled', 'orders/fulfilled', 'orders/partially_fulfilled',
-                        'order_transactions/create', 'carts/create', 'carts/update', 'checkouts/create', 'checkouts/update', 'checkouts/delete', 'refunds/create',
-                        'products/create', 'products/update', 'products/delete', 'collections/create', 'collections/update', 'collections/delete',
-                        'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
-                        'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'fulfillment_events/create', 'fulfillment_events/update',
-                        'shop/update', 'disputes/create', 'disputes/update', 'themes/publish', 'app/uninstalled'
-                    ]
-                ],
-                'fields' => [
-                    'description' => 'Comma separated list of fields to retrieve',
-                    'location'    => 'json',
-                    'type'        => 'string',
-                    'required'    => false
                 ],
             ],
             'additionalParameters' => [
@@ -3464,15 +2256,13 @@ return [
                     'type'        => 'array',
                     'required'    => true,
                 ],
-                'expires_in' => [
-                    'description' => 'Number of times in second before the token expires',
-                    'location'    => 'json',
-                    'type'        => 'integer',
-                    'required'    => false
-                ]
-            ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
     ],
+
     'models' => [
         'GenericModel' => [
             'type'                 => 'object',
