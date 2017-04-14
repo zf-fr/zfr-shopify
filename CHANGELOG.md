@@ -1,3 +1,7 @@
+# 2.2.4
+
+* Allow to pass `metafield_namespaces` when creating or updating webhooks.
+
 # 2.2.3
 
 * Add an `UpdateOrder` endpoint

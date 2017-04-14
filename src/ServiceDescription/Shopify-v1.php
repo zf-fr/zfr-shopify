@@ -4553,6 +4553,12 @@ return [
                     'location'    => 'json',
                     'type'        => 'array',
                     'required'    => false
+                ],
+                'metafield_namespaces' => [
+                    'description' => 'List of namespaces to return as part of the webhook',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => false
                 ]
             ]
         ],
@@ -4594,6 +4600,12 @@ return [
                     'description' => 'Comma separated list of fields to retrieve',
                     'location'    => 'json',
                     'type'        => 'string',
+                    'required'    => false
+                ],
+                'metafield_namespaces' => [
+                    'description' => 'List of namespaces to return as part of the webhook',
+                    'location'    => 'json',
+                    'type'        => 'array',
                     'required'    => false
                 ]
             ]
