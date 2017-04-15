@@ -90,6 +90,12 @@ return [
                     'type'        => 'integer',
                     'required'    => true
                 ],
+                'blog_id' => [
+                    'description' => 'Blog ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
             ],
             'additionalParameters' => [
                 'location' => 'query',
