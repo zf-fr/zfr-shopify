@@ -150,6 +150,14 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateProductImage(array $args = []) {@command Shopify UpdateProductImage}
  * @method array deleteProductImage(array $args = []) {@command Shopify DeleteProductImage}
  *
+ * REDIRECT RELATED METHODS:
+ *
+ * @method array getRedirects(array $args = []) {@command Shopify GetRedirects}
+ * @method array getRedirect(array $args = []) {@command Shopify GetRedirect}
+ * @method array createRedirect(array $args = []) {@command Shopify CreateRedirect}
+ * @method array updateRedirect(array $args = []) {@command Shopify UpdateRedirect}
+ * @method array deleteRedirect(array $args = []) {@command Shopify DeleteRedirect}
+ *
  * RECURRING APPLICATION CHARGE RELATED METHODS:
  *
  * @method array getRecurringApplicationCharges(array $args = []) {@command Shopify GetRecurringApplicationCharges}

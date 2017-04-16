@@ -10,6 +10,10 @@ This change should make the maintenance much easier, and allow people to use las
 It should not cause any BC break, except that validation will no longer be performed on optional fields, but to be on the safe side, this version is now
 tagged as 3.0.
 
+# 2.2.5
+
+* Add redirect endpoints.
+
 # 2.2.4
 
 * Allow to pass `metafield_namespaces` when creating or updating webhooks.
