@@ -380,6 +380,14 @@ Here is a list of supported endpoints (more to come in the future):
 * updateProductVariant(array $args = [])
 * deleteProductVariant(array $args = [])
 
+**REDIRECT RELATED METHODS:**
+
+* getRedirects(array $args = [])
+* getRedirect(array $args = [])
+* createRedirect(array $args = [])
+* updateRedirect(array $args = [])
+* deleteRedirect(array $args = [])
+
 **SCRIPT TAG RELATED METHODS:**
 
 * getScriptTags(array $args = [])
