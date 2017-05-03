@@ -1,3 +1,7 @@
+# 2.2.6
+
+* Add the `expires_on` property for gift card.
+
 # 2.2.5
 
 * Add redirect endpoints.
