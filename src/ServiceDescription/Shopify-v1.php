@@ -1745,6 +1745,12 @@ return [
                     'type'        => 'string',
                     'required'    => false,
                 ],
+                'expires_on' => [
+                    'description' => 'Expiration date (format YYYY-MM-DD)',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ]
             ],
         ],
 
@@ -1767,6 +1773,12 @@ return [
                     'type'        => 'string',
                     'required'    => false,
                 ],
+                'expires_on' => [
+                    'description' => 'Expiration date (format YYYY-MM-DD)',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => false,
+                ]
             ],
         ],
 
