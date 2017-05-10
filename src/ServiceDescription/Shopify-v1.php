@@ -2129,6 +2129,18 @@ return [
                     'type'        => 'string',
                     'required'    => false,
                 ],
+                'send_receipt' => [
+                    'description' => 'Determines whether an order confirmation will be sent to the customer',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
+                'send_fulfillment_receipt' => [
+                    'description' => 'Determines whether a fulfillment confirmation will be sent to the customer',
+                    'location'    => 'json',
+                    'type'        => 'boolean',
+                    'required'    => false,
+                ],
                 'financial_status' => [
                     'description' => 'The order financial status',
                     'location'    => 'json',
