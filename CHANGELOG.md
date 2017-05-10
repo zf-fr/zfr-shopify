@@ -1,3 +1,7 @@
+# 2.2.7
+
+* Add `send_receipt` and `send_fulfillment_receipt` when creating order.
+
 # 2.2.6
 
 * Add the `expires_on` property for gift card.
