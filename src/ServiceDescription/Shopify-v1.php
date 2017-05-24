@@ -1161,7 +1161,7 @@ return [
                     'description' => 'The email address of the customer',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
                 ],
                 'phone' => [
                     'description' => 'The phone number for the customer',
