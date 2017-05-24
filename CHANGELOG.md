@@ -1,3 +1,7 @@
+# 2.2.8
+
+* Make `email` optional when creating customer.
+
 # 2.2.7
 
 * Add `send_receipt` and `send_fulfillment_receipt` when creating order.
