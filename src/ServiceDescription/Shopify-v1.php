@@ -1116,6 +1116,48 @@ return [
             ],
         ],
 
+        'SearchCustomers' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/customers/search.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Searches for customers',
+            'data'          => ['root_key' => 'customers'],
+            'parameters'    => [
+                'order' => [
+                    'description' => 'Field and direction to order results by',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'query' => [
+                    'description' => 'Text to search customers',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+                'limit' => [
+                    'description' => 'Amount of results',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false,
+                ],
+                'fields' => [
+                    'description' => 'comma-separated list of fields to include in the response',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
         'GetCustomer' => [
             'httpMethod'    => 'GET',
             'uri'           => 'admin/customers/{id}.json',
