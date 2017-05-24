@@ -1,3 +1,7 @@
+# 2.2.9
+
+* Add `SearchCustomers` endpoint.
+
 # 2.2.8
 
 * Make `email` optional when creating customer.

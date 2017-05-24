@@ -268,6 +268,7 @@ Here is a list of supported endpoints (more to come in the future):
 **CUSTOMER RELATED METHODS:**
 
 * getCustomers(array $args = [])
+* searchCustomers(array $args = [])
 * getCustomer(array $args = [])
 * createCustomer(array $args = [])
 * updateCustomer(array $args = [])
