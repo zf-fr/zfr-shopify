@@ -10,6 +10,22 @@ This change should make the maintenance much easier, and allow people to use las
 It should not cause any BC break, except that validation will no longer be performed on optional fields, but to be on the safe side, this version is now
 tagged as 3.0.
 
+# 2.2.9
+
+* Add `SearchCustomers` endpoint.
+
+# 2.2.8
+
+* Make `email` optional when creating customer.
+
+# 2.2.7
+
+* Add `send_receipt` and `send_fulfillment_receipt` when creating order.
+
+# 2.2.6
+
+* Add the `expires_on` property for gift card.
+
 # 2.2.5
 
 * Add redirect endpoints.

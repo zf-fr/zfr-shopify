@@ -488,6 +488,48 @@ return [
             ],
         ],
 
+        'SearchCustomers' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/customers/search.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Searches for customers',
+            'data'          => ['root_key' => 'customers'],
+            'parameters'    => [
+                'order' => [
+                    'description' => 'Field and direction to order results by',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'query' => [
+                    'description' => 'Text to search customers',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+                'limit' => [
+                    'description' => 'Amount of results',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false,
+                ],
+                'fields' => [
+                    'description' => 'comma-separated list of fields to include in the response',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+            ],
+        ],
+
         'GetCustomer' => [
             'httpMethod'    => 'GET',
             'uri'           => 'admin/customers/{id}.json',
@@ -518,7 +560,7 @@ return [
                     'description' => 'The email address of the customer',
                     'location'    => 'json',
                     'type'        => 'string',
-                    'required'    => true,
+                    'required'    => false,
                 ],
                 'first_name' => [
                     'description' => 'The customer\'s first name',
@@ -1872,6 +1914,103 @@ return [
         /**
          * --------------------------------------------------------------------------------
          * REDIRECT RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/api/reference/redirect
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetRedirects' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/redirects.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of redirects',
+            'data'                 => ['root_key' => 'redirects'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetRedirect' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/redirects/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve a specific redirect',
+            'data'             => ['root_key' => 'redirect'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Redirect ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateRedirect' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/redirects.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a redirect',
+            'data'             => ['root_key' => 'redirect'],
+            'parameters'       => [
+                'path' => [
+                    'description' => 'Path URL',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'target' => [
+                    'description' => 'Target URL',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        'UpdateRedirect' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/redirects/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update an existing redirect',
+            'data'             => ['root_key' => 'redirect'],
+            'parameters'       => [
+                'path' => [
+                    'description' => 'Path URL',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'target' => [
+                    'description' => 'Target URL',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        'DeleteRedirect' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/redirects/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Delete an existing redirect',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Redirect ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * SCRIPT TAGS RELATED METHODS
          *
          * DOC: https://help.shopify.com/api/reference/redirect
          * --------------------------------------------------------------------------------

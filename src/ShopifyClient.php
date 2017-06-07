@@ -81,6 +81,7 @@ use ZfrShopify\Exception\RuntimeException;
  * CUSTOMER RELATED METHODS:
  *
  * @method array getCustomers(array $args = []) {@command Shopify GetCustomers}
+ * @method array searchCustomers(array $args = []) {@command Shopify SearchCustomers}
  * @method array getCustomer(array $args = []) {@command Shopify GetCustomer}
  * @method array createCustomer(array $args = []) {@command Shopify CreateCustomer}
  * @method array updateCustomer(array $args = []) {@command Shopify UpdateCustomer}
