@@ -488,6 +488,13 @@ class ShopifyClient
         $args['limit']    = 250;
         $args['since_id'] = $args['since_id'] ?? 0;
 
+        // Because the iteration depends on the presence of the "id" field, we must make sure that if the "fields" filter is set, it contains
+        // at the minimum the "id" one. We make a simple detection here
+        if (isset($args['fields'])) {
+            $fields         = explode(',', str_replace(' ', '', $args['fields']));
+            $args['fields'] = implode(',', array_unique(array_merge(['id'], $fields)));
+        }
+
         do {
             $command = $this->getCommand($commandName, $args);
             $results = $this->execute($command);
