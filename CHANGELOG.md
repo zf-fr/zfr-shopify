@@ -1,3 +1,15 @@
+# 3.0.0
+
+* ZfrShopify no longer explicitly specifies all the parameters in the descriptor. Instead, only the required fields are still validated, while others
+parameters are all passed to Shopify API. The reason was that Shopify API is moving fast, and keeping up to date with all the new attributes (or missing ones)
+was too time consuming. We lost a lot of hours of work trying to figure out why some of our API calls didn't work as expected, just to figure out that it was
+because we forgot the property in the descriptor.
+
+This change should make the maintenance much easier, and allow people to use last Shopify features without waiting for an upgrade of this package.
+
+It should not cause any BC break, except that validation will no longer be performed on optional fields, but to be on the safe side, this version is now
+tagged as 3.0.
+
 # 2.2.9
 
 * Add `SearchCustomers` endpoint.
