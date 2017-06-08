@@ -466,7 +466,7 @@ class ShopifyClient
      */
     private function createDefaultClient(): GuzzleClient
     {
-        $baseUri = 'https://' . str_replace('.myshopify.com', '', $this->connectionOptions['shop']) . '.myshopify.com';
+        $baseUri = 'https://' . $this->connectionOptions['shop'];
 
         $handlerStack = HandlerStack::create(new CurlHandler());
         $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
