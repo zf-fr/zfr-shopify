@@ -486,8 +486,13 @@ class ShopifyClient
     {
         // When using the iterator, we force the maximum number of items per page. Also, if no "since_id" is set, we force it to 0 because by
         // default Shopify sort resources by title
-        $args['limit']    = 250;
-        $args['since_id'] = $args['since_id'] ?? 0;
+        $args['limit'] = 250;
+
+        if ($commandName === 'getGiftCards') {
+            $args['page'] = $args['page'] ?? 1;
+        } else {
+            $args['since_id'] = $args['since_id'] ?? 0;
+        }
 
         // Because the iteration depends on the presence of the "id" field, we must make sure that if the "fields" filter is set, it contains
         // at the minimum the "id" one. We make a simple detection here
@@ -504,8 +509,14 @@ class ShopifyClient
                 yield $result;
             }
 
-            // Advance the since_id
-            $args['since_id'] = end($results)['id'];
+            // Unfortunately as of today gift card endpoint does not support "since_id" parameter, so we are forced to use the page
+            // instead of this endpoint
+            if ($commandName === 'getGiftCards') {
+                $args['page']++;
+            } else {
+                // Advance the since_id
+                $args['since_id'] = end($results)['id'];
+            }
         } while(count($results) >= 250);
     }
 
