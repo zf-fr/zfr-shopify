@@ -1,3 +1,7 @@
+# 3.0.1
+
+* Fix an issue with paginating gift cards.
+
 # 3.0.0
 
 * ZfrShopify no longer explicitly specifies all the parameters in the descriptor. Instead, only the required fields are still validated, while others
