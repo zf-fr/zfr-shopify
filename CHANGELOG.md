@@ -1,3 +1,7 @@
+# 3.1.0
+
+* Add a new validator middleware that can be used to validate incoming application proxy requests
+
 # 3.0.1
 
 * Fix an issue with paginating gift cards.
