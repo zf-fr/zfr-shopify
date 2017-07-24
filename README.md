@@ -117,9 +117,9 @@ Finally, you can also use the `ApplicationProxyRequestValidator` to validate app
 
 ```php
 use ZfrShopify\Exception\InvalidApplicationProxyRequestException;
-use ZfrShopify\Validator\ApplicationProxyRequestException;
+use ZfrShopify\Validator\ApplicationProxyRequestValidator;
 
-$validator = new RequestValidator();
+$validator = new ApplicationProxyRequestValidator();
 
 try {
   $validator->validateApplicationProxyRequest($psr7Request, 'shared_secret');
