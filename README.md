@@ -110,6 +110,24 @@ try {
 }
 ```
 
+### Validating an application request
+
+Finally, you can also use the `ApplicationProxyRequestValidator` to validate application proxy requests:
+
+
+```php
+use ZfrShopify\Exception\InvalidApplicationProxyRequestException;
+use ZfrShopify\Validator\ApplicationProxyRequestValidator;
+
+$validator = new ApplicationProxyRequestValidator();
+
+try {
+  $validator->validateApplicationProxyRequest($psr7Request, 'shared_secret');
+} catch {
+  // Request is not valid
+}
+```
+
 ### Create an authorization response
 
 ZfrShopify provides an easy way to create a PSR7 compliant `ResponseInterface` to create an authorization response: 
