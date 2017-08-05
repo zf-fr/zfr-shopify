@@ -221,9 +221,6 @@ foreach ($shopifyClient->getProductsIterator(['fields' => 'id,title']) as $produ
 
 ZfrShopify will take care of doing additional requests when it has reached the end of a given page.
 
-> If you are using the `fields` attribute to restrict the number of fields returned by Shopify, make sure that you are including at least the `id`
-attribute, as internally ZfrShopify uses it.
-
 ### Executing multiple requests concurrently
 
 For optimization purposes, it may be desirable to execute multiple requests concurrently. To do that, ZfrShopify client allow you to take advantage of
