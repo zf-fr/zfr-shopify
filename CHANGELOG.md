@@ -1,3 +1,13 @@
+# 3.2.0
+
+* Add a new `count` endpoint for each resource. For instance you can get the number of orders this way:
+
+```php
+$count = $shopifyClient->getOrderCount();
+```
+
+ZfrShopify automatically processes the response returned from Shopify to return you an integer.
+
 # 3.1.0
 
 * Add a new validator that can be used to validate incoming application proxy requests
