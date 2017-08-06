@@ -195,6 +195,16 @@ $shopDomain = $shopifyClient->getShop()['domain'];
 
 When reading Shopify API doc, make sure you remove the top key when exploiting responses.
 
+#### Count
+
+Similarily, when you use one of the `count` endpoint, ZfrShopify will automatically extract the value from Shopify's response, so you do not need
+to manually access the count property:
+
+``php
+$count = $shopifyClient->getOrderCount();
+// $count is already an integer
+``
+
 ### Using iterators
 
 For most "list" endpoints (`getProducts`, `getCollections`...), Shopify allows you to get up to 250 resources at a time. When using the standard `get**`
@@ -210,9 +220,6 @@ foreach ($shopifyClient->getProductsIterator(['fields' => 'id,title']) as $produ
 ```
 
 ZfrShopify will take care of doing additional requests when it has reached the end of a given page.
-
-> If you are using the `fields` attribute to restrict the number of fields returned by Shopify, make sure that you are including at least the `id`
-attribute, as internally ZfrShopify uses it.
 
 ### Executing multiple requests concurrently
 
@@ -254,65 +261,72 @@ Here is a list of supported endpoints (more to come in the future):
 
 **ARTICLE RELATED METHODS:**
 
-* getArticles(array $args = [])
-* getBlogArticles(array $args = [])
-* getArticle(array $args = [])
-* getBlogArticle(array $args = [])
-* getArticlesAuthors(array $args = [])
-* getArticlesTags(array $args = [])
-* createArticle(array $args = [])
-* createBlogArticle(array $args = [])
-* updateArticle(array $args = [])
-* updateBlogArticle(array $args = [])
-* deleteArticle(array $args = [])
-* deleteBlogArticle(array $args = [])
+* array getArticles(array $args = [])
+* int getArticleCount(array $args = [])
+* array getBlogArticles(array $args = [])
+* int getBlogArticleCount(array $args = [])
+* array getArticle(array $args = [])
+* array getBlogArticle(array $args = [])
+* array getArticlesAuthors(array $args = [])
+* array getArticlesTags(array $args = [])
+* array createArticle(array $args = [])
+* array createBlogArticle(array $args = [])
+* array updateArticle(array $args = [])
+* array updateBlogArticle(array $args = [])
+* array deleteArticle(array $args = [])
+* array deleteBlogArticle(array $args = [])
 
 **ASSET RELATED METHODS:**
 
-* getAssets(array $args = [])
-* getAsset(array $args = [])
-* createAsset(array $args = [])
-* updateAsset(array $args = [])
-* deleteAsset(array $args = [])
+* array getAssets(array $args = [])
+* array getAsset(array $args = [])
+* array createAsset(array $args = [])
+* array updateAsset(array $args = [])
+* array deleteAsset(array $args = [])
 
 **CUSTOM COLLECTION RELATED METHODS:**
 
-* getCustomCollections(array $args = [])
-* getCustomCollection(array $args = [])
-* createCustomCollection(array $args = [])
-* updateCustomCollection(array $args = [])
-* deleteCustomCollection(array $args = [])
+* array getCustomCollections(array $args = [])
+* int getCustomCollectionCount(array $args = [])
+* array getCustomCollection(array $args = [])
+* array createCustomCollection(array $args = [])
+* array updateCustomCollection(array $args = [])
+* array deleteCustomCollection(array $args = [])
 
 **CUSTOMER RELATED METHODS:**
 
-* getCustomers(array $args = [])
-* searchCustomers(array $args = [])
-* getCustomer(array $args = [])
-* createCustomer(array $args = [])
-* updateCustomer(array $args = [])
-* deleteCustomer(array $args = [])
+* array getCustomers(array $args = [])
+* int getCustomerCount(array $args = [])
+* array searchCustomers(array $args = [])
+* array getCustomer(array $args = [])
+* array createCustomer(array $args = [])
+* array updateCustomer(array $args = [])
+* array deleteCustomer(array $args = [])
 
 **EVENT RELATED METHODS:**
 
-* getEvents(array $args = [])
-* getEvent(array $args = [])
+* array getEvents(array $args = [])
+* int getEventCount(array $args = [])
+* array getEvent(array $args = [])
 
 **FULFILLMENTS RELATED METHODS:**
 
-* getFulfillments(array $args = [])
-* getFulfillment(array $args = [])
-* createFulfillment(array $args = [])
-* updateFilfillment(array $args = [])
-* completeFulfillment(array $args = [])
-* cancelFulfillment(array $args = []) 
+* array getFulfillments(array $args = [])
+* int getFulfillmentCount(array $args = [])
+* array getFulfillment(array $args = [])
+* array createFulfillment(array $args = [])
+* array updateFilfillment(array $args = [])
+* array completeFulfillment(array $args = [])
+* array cancelFulfillment(array $args = []) 
 
 **GIFT CARD RELATED METHODS:**
 
-* getGiftCards(array $args = [])
-* getGiftCard(array $args = [])
-* createGiftCard(array $args = [])
-* updateGiftCard(array $args = [])
-* disableGiftCard(array $args = [])
+* array getGiftCards(array $args = [])
+* int getGiftCardCount(array $args = [])
+* array getGiftCard(array $args = [])
+* array createGiftCard(array $args = [])
+* array updateGiftCard(array $args = [])
+* array disableGiftCard(array $args = [])
 
 **METAFIELDS RELATED METHODS:**
 
@@ -325,6 +339,7 @@ Here is a list of supported endpoints (more to come in the future):
 **ORDER RELATED METHODS:**
 
 * array getOrders(array $args = [])
+* int getOrderCount(array $args = [])
 * array getOrder(array $args = [])
 * array createOrder(array $args = [])
 * array updateOrder(array $args = [])
@@ -334,107 +349,116 @@ Here is a list of supported endpoints (more to come in the future):
 
 **PAGE RELATED METHODS:**
 
-* getPages(array $args = [])
-* getPage(array $args = [])
-* createPage(array $args = [])
-* updatePage(array $args = [])
-* deletePage(array $args = [])
+* array getPages(array $args = [])
+* int getPageCount(array $args = [])
+* array getPage(array $args = [])
+* array createPage(array $args = [])
+* array updatePage(array $args = [])
+* array deletePage(array $args = [])
 
 **PRODUCT RELATED METHODS:**
 
-* getProducts(array $args = [])
-* getProduct(array $args = [])
-* createProduct(array $args = [])
-* updateProduct(array $args = [])
-* deleteProduct(array $args = [])
+* array getProducts(array $args = [])
+* int getProductCount(array $args = [])
+* array getProduct(array $args = [])
+* array createProduct(array $args = [])
+* array updateProduct(array $args = [])
+* array deleteProduct(array $args = [])
 
 **PRODUCT IMAGE RELATED METHODS:**
 
-* getProductImages(array $args = [])
-* getProductImage(array $args = [])
-* createProductImage(array $args = [])
-* updateProductImage(array $args = [])
-* deleteProductImage(array $args = [])
+* array getProductImages(array $args = [])
+* int getProductImageCount(array $args = [])
+* array getProductImage(array $args = [])
+* array createProductImage(array $args = [])
+* array updateProductImage(array $args = [])
+* array deleteProductImage(array $args = [])
 
 **RECURRING APPLICATION CHARGE RELATED METHODS:**
 
-* getRecurringApplicationCharges(array $args = [])
-* getRecurringApplicationCharge(array $args = [])
-* createRecurringApplicationCharge(array $args = [])
-* activateRecurringApplicationCharge(array $args = [])
-* deleteRecurringApplicationCharge(array $args = [])
+* array getRecurringApplicationCharges(array $args = [])
+* array getRecurringApplicationCharge(array $args = [])
+* array createRecurringApplicationCharge(array $args = [])
+* array activateRecurringApplicationCharge(array $args = [])
+* array deleteRecurringApplicationCharge(array $args = [])
 
 **REFUND RELATED METHODS:**
 
-* getRefunds(array $args = [])
-* getRefund(array $args = [])
-* calculateRefund(array $args = [])
-* createRefund(array $args = [])
+* array getRefunds(array $args = [])
+* array getRefund(array $args = [])
+* array calculateRefund(array $args = [])
+* array createRefund(array $args = [])
 
 **SHOP RELATED METHODS:**
 
-* getShop(array $args = [])
+* array getShop(array $args = [])
 
 **SMART COLLECTION RELATED METHODS:**
 
-* getSmartCollections(array $args = [])
-* getSmartCollection(array $args = [])
-* createSmartCollection(array $args = [])
-* updateSmartCollection(array $args = [])
-* deleteSmartCollection(array $args = [])
+* array getSmartCollections(array $args = [])
+* int getSmartCollectionCount(array $args = [])
+* array getSmartCollection(array $args = [])
+* array createSmartCollection(array $args = [])
+* array updateSmartCollection(array $args = [])
+* array deleteSmartCollection(array $args = [])
 
 **THEME RELATED METHODS:**
 
-* getThemes(array $args = [])
-* getTheme(array $args = [])
-* createTheme(array $args = [])
-* updateTheme(array $args = [])
-* deleteTheme(array $args = [])
+* array getThemes(array $args = [])
+* array getTheme(array $args = [])
+* array createTheme(array $args = [])
+* array updateTheme(array $args = [])
+* array deleteTheme(array $args = [])
 
 **PRODUCT VARIANT RELATED METHODS:**
 
-* getProductVariants(array $args = [])
-* getProductVariant(array $args = [])
-* createProductVariant(array $args = [])
-* updateProductVariant(array $args = [])
-* deleteProductVariant(array $args = [])
+* array getProductVariants(array $args = [])
+* int getProductVariantCount(array $args = [])
+* array getProductVariant(array $args = [])
+* array createProductVariant(array $args = [])
+* array updateProductVariant(array $args = [])
+* array deleteProductVariant(array $args = [])
 
 **REDIRECT RELATED METHODS:**
 
-* getRedirects(array $args = [])
-* getRedirect(array $args = [])
-* createRedirect(array $args = [])
-* updateRedirect(array $args = [])
-* deleteRedirect(array $args = [])
+* array getRedirects(array $args = [])
+* int getRedirectCount(array $args = [])
+* array getRedirect(array $args = [])
+* array createRedirect(array $args = [])
+* array updateRedirect(array $args = [])
+* array deleteRedirect(array $args = [])
 
 **SCRIPT TAG RELATED METHODS:**
 
-* getScriptTags(array $args = [])
-* getScriptTag(array $args = [])
-* createScriptTag(array $args = [])
-* updateScriptTag(array $args = [])
-* deleteScriptTag(array $args = [])
+* array getScriptTags(array $args = [])
+* int getScriptTagCount(array $args = [])
+* array getScriptTag(array $args = [])
+* array createScriptTag(array $args = [])
+* array updateScriptTag(array $args = [])
+* array deleteScriptTag(array $args = [])
 
 **TRANSACTION RELATED METHODS:**
 
-* getTransactions(array $args = [])
-* getTransaction(array $args = [])
-* createTransaction(array $args = [])
+* array getTransactions(array $args = [])
+* int getTransactionCount(array $args = [])
+* array getTransaction(array $args = [])
+* array createTransaction(array $args = [])
 
 **USAGE CHARGE RELATED METHODS:**
 
-* getUsageCharges(array $args = [])
-* getUsageCharge(array $args = [])
-* createUsageCharge(array $args = [])
+* array getUsageCharges(array $args = [])
+* array getUsageCharge(array $args = [])
+* array createUsageCharge(array $args = [])
 
 **WEBHOOK RELATED METHODS:**
 
-* getWebhooks(array $args = [])
-* getWebhook(array $args = [])
-* createWebhook(array $args = [])
-* updateWebhook(array $args = [])
-* deleteWebhook(array $args = [])
+* array getWebhooks(array $args = [])
+* int getWebhookCount(array $args = [])
+* array getWebhook(array $args = [])
+* array createWebhook(array $args = [])
+* array updateWebhook(array $args = [])
+* array deleteWebhook(array $args = [])
 
 **OTHER METHODS:**
 
-* createDelegateAccessToken(array $args = [])
+* array createDelegateAccessToken(array $args = [])

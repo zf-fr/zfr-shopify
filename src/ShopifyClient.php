@@ -50,7 +50,9 @@ use ZfrShopify\Exception\RuntimeException;
  * ARTICLE RELATED METHODS:
  *
  * @method array getArticles(array $args = []) {@command Shopify GetArticles}
+ * @method int getArticleCount(array $args = []) {@command Shopify GetArticleCount}
  * @method array getBlogArticles(array $args = []) {@command Shopify GetBlogArticles}
+ * @method int getBlogArticleCount(array $args = []) {@command Shopify GetBlogArticleCount}
  * @method array getArticle(array $args = []) {@command Shopify GetArticle}
  * @method array getBlogArticle(array $args = []) {@command Shopify GetBlogArticle}
  * @method array getArticlesAuthors(array $args = []) {@command Shopify GetArticlesAuthors}
@@ -73,6 +75,7 @@ use ZfrShopify\Exception\RuntimeException;
  * CUSTOM COLLECTION RELATED METHODS:
  *
  * @method array getCustomCollections(array $args = []) {@command Shopify GetCustomCollections}
+ * @method int getCustomCollectionCount(array $args = []) {@command Shopify GetCustomCollectionCount}
  * @method array getCustomCollection(array $args = []) {@command Shopify GetCustomCollection}
  * @method array createCustomCollection(array $args = []) {@command Shopify CreateCustomCollection}
  * @method array updateCustomCollection(array $args = []) {@command Shopify UpdateCustomCollection}
@@ -81,6 +84,7 @@ use ZfrShopify\Exception\RuntimeException;
  * CUSTOMER RELATED METHODS:
  *
  * @method array getCustomers(array $args = []) {@command Shopify GetCustomers}
+ * @method int getCustomerCount(array $args = []) {@command Shopify GetCustomerCount}
  * @method array searchCustomers(array $args = []) {@command Shopify SearchCustomers}
  * @method array getCustomer(array $args = []) {@command Shopify GetCustomer}
  * @method array createCustomer(array $args = []) {@command Shopify CreateCustomer}
@@ -90,11 +94,13 @@ use ZfrShopify\Exception\RuntimeException;
  * EVENTS RELATED METHODS:
  *
  * @method array getEvents(array $args = []) {@command Shopify GetEvents}
+ * @method int getEventCount(array $args = []) {@command Shopify GetEventCount}
  * @method array getEvent(array $args = []) {@command Shopify GetEvent}
  *
  * FULFILLMENTS RELATED METHODS:
  *
  * @method array getFulfillments(array $args = []) {@command Shopify GetFulfillments}
+ * @method int getFulfillmentCount(array $args = []) {@command Shopify GetFulfillmentCount}
  * @method array getFulfillment(array $args = []) {@command Shopify GetFulfillment}
  * @method array createFulfillment(array $args = []) {@command Shopify CreateFulfillment}
  * @method array updateFilfillment(array $args = []) {@command Shopify UpdateFulfillment}
@@ -104,6 +110,7 @@ use ZfrShopify\Exception\RuntimeException;
  * GIFT CARD RELATED METHODS:
  *
  * @method array getGiftCards(array $args = []) {@command Shopify GetGiftCards}
+ * @method int getGiftCardCount(array $args = []) {@command Shopify GetGiftCardCount}
  * @method array getGiftCard(array $args = []) {@command Shopify GetGiftCard}
  * @method array createGiftCard(array $args = []) {@command Shopify CreateGiftCard}
  * @method array updateGiftCard(array $args = []) {@command Shopify CreateGiftCard}
@@ -120,6 +127,7 @@ use ZfrShopify\Exception\RuntimeException;
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}
+ * @method int getOrderCount(array $args = []) {@command Shopify GetOrderCount}
  * @method array createOrder(array $args = []) {@command Shopify CreateOrder}
  * @method array updateOrder(array $args = []) {@command Shopify UpdateOrder}
  * @method array getOrder(array $args = []) {@command Shopify GetOrder}
@@ -130,6 +138,7 @@ use ZfrShopify\Exception\RuntimeException;
  * PAGE RELATED METHODS:
  *
  * @method array getPages(array $args = []) {@command Shopify GetPages}
+ * @method int getPageCount(array $args = []) {@command Shopify GetPageCount}
  * @method array getPage(array $args = []) {@command Shopify GetPage}
  * @method array createPage(array $args = []) {@command Shopify CreatePage}
  * @method array updatePage(array $args = []) {@command Shopify UpdatePage}
@@ -138,6 +147,7 @@ use ZfrShopify\Exception\RuntimeException;
  * PRODUCT RELATED METHODS:
  *
  * @method array getProducts(array $args = []) {@command Shopify GetProducts}
+ * @method int getProductCount(array $args = []) {@command Shopify GetProductCount}
  * @method array getProduct(array $args = []) {@command Shopify GetProduct}
  * @method array createProduct(array $args = []) {@command Shopify CreateProduct}
  * @method array updateProduct(array $args = []) {@command Shopify UpdateProduct}
@@ -146,6 +156,7 @@ use ZfrShopify\Exception\RuntimeException;
  * PRODUCT IMAGE RELATED METHODS:
  *
  * @method array getProductImages(array $args = []) {@command Shopify GetProductImages}
+ * @method int getProductImageCount(array $args = []) {@command Shopify GetProductImageCount}
  * @method array getProductImage(array $args = []) {@command Shopify GetProductImage}
  * @method array createProductImage(array $args = []) {@command Shopify CreateProductImage}
  * @method array updateProductImage(array $args = []) {@command Shopify UpdateProductImage}
@@ -154,6 +165,7 @@ use ZfrShopify\Exception\RuntimeException;
  * REDIRECT RELATED METHODS:
  *
  * @method array getRedirects(array $args = []) {@command Shopify GetRedirects}
+ * @method int getRedirectCount(array $args = []) {@command Shopify GetRedirectCount}
  * @method array getRedirect(array $args = []) {@command Shopify GetRedirect}
  * @method array createRedirect(array $args = []) {@command Shopify CreateRedirect}
  * @method array updateRedirect(array $args = []) {@command Shopify UpdateRedirect}
@@ -181,6 +193,7 @@ use ZfrShopify\Exception\RuntimeException;
  * SMART COLLECTION RELATED METHODS:
  *
  * @method array getSmartCollections(array $args = []) {@command Shopify GetSmartCollections}
+ * @method int getSmartCollectionCount(array $args = []) {@command Shopify GetSmartCollectionCount}
  * @method array getSmartCollection(array $args = []) {@command Shopify GetSmartCollection}
  * @method array createSmartCollection(array $args = []) {@command Shopify CreateSmartCollection}
  * @method array updateSmartCollection(array $args = []) {@command Shopify UpdateSmartCollection}
@@ -197,6 +210,7 @@ use ZfrShopify\Exception\RuntimeException;
  * VARIANT RELATED METHODS:
  *
  * @method array getProductVariants(array $args = []) {@command Shopify GetProductVariants}
+ * @method int getProductVariantCount(array $args = []) {@command Shopify GetProductVariantCount}
  * @method array getProductVariant(array $args = []) {@command Shopify GetProductVariant}
  * @method array createProductVariant(array $args = []) {@command Shopify CreateProductVariant}
  * @method array updateProductVariant(array $args = []) {@command Shopify UpdateProductVariant}
@@ -205,6 +219,7 @@ use ZfrShopify\Exception\RuntimeException;
  * SCRIPT TAGS RELATED METHODS:
  *
  * @method array getScriptTags(array $args = []) {@command Shopify GetScriptTags}
+ * @method int getScriptTagCount(array $args = []) {@command Shopify GetScriptTagCount}
  * @method array getScriptTag(array $args = []) {@command Shopify GetScriptTag}
  * @method array createScriptTag(array $args = []) {@command Shopify CreateScriptTag}
  * @method array updateScriptTag(array $args = []) {@command Shopify UpdateScriptTag}
@@ -213,6 +228,7 @@ use ZfrShopify\Exception\RuntimeException;
  * TRANSACTION RELATED METHODS:
  *
  * @method array getTransactions(array $args = []) {@command Shopify GetTransactions}
+ * @method int getTransactionCount(array $args = []) {@command Shopify GetTransactionCount}
  * @method array getTransaction(array $args = []) {@command Shopify GetTransaction}
  * @method array createTransaction(array $args = []) {@command Shopify CreateTransaction}
  *
@@ -225,6 +241,7 @@ use ZfrShopify\Exception\RuntimeException;
  * WEBHOOK RELATED METHODS:
  *
  * @method array getWebhooks(array $args = []) {@command Shopify GetWebhooks}
+ * @method int getWebhookCount(array $args = []) {@command Shopify GetWebhookCount}
  * @method array getWebhook(array $args = []) {@command Shopify GetWebhook}
  * @method array createWebhook(array $args = []) {@command Shopify CreateWebhook}
  * @method array updateWebhook(array $args = []) {@command Shopify UpdateWebhook}
@@ -315,9 +332,9 @@ class ShopifyClient
      * Execute a single command
      *
      * @param  CommandInterface $command
-     * @return array
+     * @return mixed
      */
-    public function execute(CommandInterface $command): array
+    public function execute(CommandInterface $command)
     {
         $result = $this->guzzleClient->execute($command);
 
@@ -526,13 +543,19 @@ class ShopifyClient
      *
      * @param  CommandInterface $command
      * @param  ToArrayInterface $commandResult
-     * @return array
+     * @return mixed
      */
-    private function unwrapResponseData(CommandInterface $command, ToArrayInterface $commandResult): array
+    private function unwrapResponseData(CommandInterface $command, ToArrayInterface $commandResult)
     {
         $operation = $this->guzzleClient->getDescription()->getOperation($command->getName());
         $rootKey   = $operation->getData('root_key');
 
-        return (null === $rootKey) ? $commandResult->toArray() : $commandResult->toArray()[$rootKey];
+        $result = (null === $rootKey) ? $commandResult->toArray() : $commandResult->toArray()[$rootKey];
+
+        if (substr($command->getName(), -5) === 'Count') {
+            return $result['count'];
+        }
+
+        return $result;
     }
 }
