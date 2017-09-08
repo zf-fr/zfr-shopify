@@ -54,6 +54,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array getBlogArticles(array $args = []) {@command Shopify GetBlogArticles}
  * @method int getBlogArticleCount(array $args = []) {@command Shopify GetBlogArticleCount}
  * @method array getArticle(array $args = []) {@command Shopify GetArticle}
+ * @method array getArticleMetafields(array $args = []) {@command Shopify GetArticleMetafields}
  * @method array getBlogArticle(array $args = []) {@command Shopify GetBlogArticle}
  * @method array getArticlesAuthors(array $args = []) {@command Shopify GetArticlesAuthors}
  * @method array getArticlesTags(array $args = []) {@command Shopify GetArticlesTags}
@@ -87,6 +88,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method int getCustomerCount(array $args = []) {@command Shopify GetCustomerCount}
  * @method array searchCustomers(array $args = []) {@command Shopify SearchCustomers}
  * @method array getCustomer(array $args = []) {@command Shopify GetCustomer}
+ * @method array getCustomerMetafields(array $args = []) {@command Shopify GetCustomerMetafields}
  * @method array createCustomer(array $args = []) {@command Shopify CreateCustomer}
  * @method array updateCustomer(array $args = []) {@command Shopify UpdateCustomer}
  * @method array deleteCustomer(array $args = []) {@command Shopify DeleteCustomer}
@@ -131,6 +133,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array createOrder(array $args = []) {@command Shopify CreateOrder}
  * @method array updateOrder(array $args = []) {@command Shopify UpdateOrder}
  * @method array getOrder(array $args = []) {@command Shopify GetOrder}
+ * @method array getOrderMetafields(array $args = []) {@command Shopify GetOrderMetafields}
  * @method array closeOrder(array $args = []) {@command Shopify CloseOrder}
  * @method array openOrder(array $args = []) {@command Shopify OpenOrder}
  * @method array cancelOrder(array $args = []) {@command Shopify CancelOrder}
@@ -140,6 +143,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array getPages(array $args = []) {@command Shopify GetPages}
  * @method int getPageCount(array $args = []) {@command Shopify GetPageCount}
  * @method array getPage(array $args = []) {@command Shopify GetPage}
+ * @method array getPageMetafields(array $args = []) {@command Shopify GetPageMetafields}
  * @method array createPage(array $args = []) {@command Shopify CreatePage}
  * @method array updatePage(array $args = []) {@command Shopify UpdatePage}
  * @method array deletePage(array $args = []) {@command Shopify DeletePage}
@@ -149,6 +153,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array getProducts(array $args = []) {@command Shopify GetProducts}
  * @method int getProductCount(array $args = []) {@command Shopify GetProductCount}
  * @method array getProduct(array $args = []) {@command Shopify GetProduct}
+ * @method array getProductMetafields(array $args = []) {@command Shopify GetProductMetafields}
  * @method array createProduct(array $args = []) {@command Shopify CreateProduct}
  * @method array updateProduct(array $args = []) {@command Shopify UpdateProduct}
  * @method array deleteProduct(array $args = []) {@command Shopify DeleteProduct}
@@ -212,6 +217,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array getProductVariants(array $args = []) {@command Shopify GetProductVariants}
  * @method int getProductVariantCount(array $args = []) {@command Shopify GetProductVariantCount}
  * @method array getProductVariant(array $args = []) {@command Shopify GetProductVariant}
+ * @method array getProductVariantMetafields(array $args = []) {@command Shopify GetProductVariantMetafields}
  * @method array createProductVariant(array $args = []) {@command Shopify CreateProductVariant}
  * @method array updateProductVariant(array $args = []) {@command Shopify UpdateProductVariant}
  * @method array deleteProductVariant(array $args = []) {@command Shopify DeleteProductVariant}
