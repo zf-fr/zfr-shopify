@@ -105,6 +105,25 @@ return [
             ],
         ],
 
+        'GetArticleMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/articles/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for an article',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
+                'id' => [
+                    'description' => 'Article ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
         'GetBlogArticle' => [
             'httpMethod'       => 'GET',
             'uri'              => 'admin/blogs/{blog_id}/articles/{id}.json',
@@ -590,6 +609,25 @@ return [
                     'location'    => 'uri',
                     'type'        => 'integer',
                     'required'    => true,
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetCustomerMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/customers/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for a customer',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
+                'id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
                 ],
             ],
             'additionalParameters' => [
@@ -1124,6 +1162,25 @@ return [
             ],
         ],
 
+        'GetOrderMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/orders/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for an order',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
+                'id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
         'CreateOrder' => [
             'httpMethod'       => 'POST',
             'uri'              => 'admin/orders.json',
@@ -1242,6 +1299,25 @@ return [
             ],
         ],
 
+        'GetPageMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/pages/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for a page',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
+                'id' => [
+                    'description' => 'Page ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
         'CreatePage' => [
             'httpMethod'       => 'POST',
             'uri'              => 'admin/pages.json',
@@ -1337,6 +1413,25 @@ return [
             'summary'          => 'Retrieve specific product',
             'data'             => ['root_key' => 'product'],
             'parameters'       => [
+                'id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetProductMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/products/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for a product',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
                 'id' => [
                     'description' => 'Product ID',
                     'location'    => 'uri',
@@ -2002,6 +2097,25 @@ return [
             'summary'          => 'Retrieve a specific variant',
             'data'             => ['root_key' => 'variant'],
             'parameters'       => [
+                'id' => [
+                    'description' => 'Specific variant ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetProductVariantMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/variants/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for a variant',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
                 'id' => [
                     'description' => 'Specific variant ID',
                     'location'    => 'uri',
