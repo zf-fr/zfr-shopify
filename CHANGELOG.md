@@ -1,3 +1,7 @@
+# 3.3.0
+
+* Add dedicated metafields namespace (`getArticleMetafields`...)
+
 # 3.2.0
 
 * Add a new `count` endpoint for each resource. For instance you can get the number of orders this way:
