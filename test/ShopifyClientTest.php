@@ -89,7 +89,8 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
             $this->expectException(RuntimeException::class);
         }
 
-        new ShopifyClient($data);
+        $shopifyClient = new ShopifyClient($data);
+        $this->assertInstanceOf(ShopifyClient::class, $shopifyClient);
     }
 
     public function testStopRetryingAfterFiveAttempts()
