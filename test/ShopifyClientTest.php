@@ -90,7 +90,6 @@ class ShopifyClientTest extends \PHPUnit_Framework_TestCase
         }
 
         $shopifyClient = new ShopifyClient($data);
-        
         $this->assertInstanceOf(ShopifyClient::class, $shopifyClient);
     }
 
