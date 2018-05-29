@@ -1232,6 +1232,25 @@ return [
             ]
         ],
 
+        'UpdateOrder' => [
+          'httpMethod'           => 'PUT',
+          'uri'                  => 'admin/orders/{id}.json',
+          'responseModel'        => 'GenericModel',
+          'summary'              => 'Update an existing order',
+          'data'                 => ['root_key' => 'order'],
+          'parameters'           => [
+            'id' => [
+              'description' => 'Order ID',
+              'location'    => 'uri',
+              'type'        => 'integer',
+              'required'    => TRUE
+            ],
+          ],
+          'additionalParameters' => [
+            'location' => 'json',
+          ],
+        ],
+        
         'CancelOrder' => [
             'httpMethod'       => 'POST',
             'uri'              => 'admin/orders/{id}/cancel.json',
