@@ -2581,6 +2581,12 @@ return [
                     'location'    => 'json',
                     'type'        => 'number',
                     'required'    => true
+                ],
+                'recurring_charge_id' => [
+                    'description' => 'Recurring charge from which we need to extract usage charges',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
                 ]
             ]
         ],
