@@ -2570,6 +2570,12 @@ return [
             'summary'          => 'Create a new usage charge',
             'data'             => ['root_key' => 'usage_charge'],
             'parameters'       => [
+                'recurring_charge_id' => [
+                    'description' => 'Recurring charge from which we need to extract usage charges',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
                 'description' => [
                     'description' => 'Usage charge description',
                     'location'    => 'json',
@@ -2582,12 +2588,6 @@ return [
                     'type'        => 'number',
                     'required'    => true
                 ],
-                'recurring_charge_id' => [
-                    'description' => 'Recurring charge from which we need to extract usage charges',
-                    'location'    => 'uri',
-                    'type'        => 'integer',
-                    'required'    => true
-                ]
             ]
         ],
 
