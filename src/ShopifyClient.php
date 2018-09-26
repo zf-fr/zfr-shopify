@@ -379,7 +379,7 @@ class ShopifyClient
      * @param  array $args
      * @return array|Generator
      */
-    public function __call($method, $args = [])
+    public function __call($method, $args)
     {
         $args = $args[0] ?? [];
 
