@@ -1007,9 +1007,9 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
-         * INVENTORY RELATED METHODS
+         * INVENTORY ITEM RELATED METHODS
          *
-         * DOC: https://docs.shopify.com/api/reference/inventory
+         * DOC: https://docs.shopify.com/api/reference/inventory/inventoryitem
          * --------------------------------------------------------------------------------
          */
 
@@ -1081,64 +1081,13 @@ return [
             ],
         ],
 
-        'GetLocations' => [
-            'httpMethod'           => 'GET',
-            'uri'                  => 'admin/locations.json',
-            'responseModel'        => 'GenericModel',
-            'summary'              => 'Retrieve a list of locations',
-            'data'                 => ['root_key' => 'locations'],
-            'additionalParameters' => [
-                'location' => 'query',
-            ],
-        ],
-
-        'GetLocation' => [
-            'httpMethod'           => 'GET',
-            'uri'                  => 'admin/locations/{id}.json',
-            'responseModel'        => 'GenericModel',
-            'summary'              => 'Retrieve a specific location',
-            'data'                 => ['root_key' => 'location'],
-            'parameters'       => [
-                'id' => [
-                    'description' => 'Location ID',
-                    'location'    => 'uri',
-                    'type'        => 'integer',
-                    'required'    => true
-                ],
-            ],
-            'additionalParameters' => [
-                'location' => 'query',
-            ],
-        ],
-
-        'GetLocationCount' => [
-            'httpMethod'           => 'GET',
-            'uri'                  => 'admin/locations/count.json',
-            'responseModel'        => 'GenericModel',
-            'summary'              => 'Retrieve a count of locations',
-            'additionalParameters' => [
-                'location' => 'query',
-            ],
-        ],
-
-        'GetLocationInventoryLevels' => [
-            'httpMethod'           => 'GET',
-            'uri'                  => 'admin/locations/{id}/inventory_levels.json',
-            'responseModel'        => 'GenericModel',
-            'summary'              => 'Retrieve a specific location',
-            'data'                 => ['root_key' => 'inventory_levels'],
-            'parameters'       => [
-                'id' => [
-                    'description' => 'Location ID',
-                    'location'    => 'uri',
-                    'type'        => 'integer',
-                    'required'    => true
-                ],
-            ],
-            'additionalParameters' => [
-                'location' => 'query',
-            ],
-        ],
+        /**
+         * --------------------------------------------------------------------------------
+         * INVENTORY LEVEL RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/reference/inventory/inventorylevel
+         * --------------------------------------------------------------------------------
+         */
 
         'GetInventoryLevels' => [
             'httpMethod'           => 'GET',
@@ -1281,6 +1230,73 @@ return [
                     'required'    => false,
                 ],
             ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * LOCATION RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/reference/inventory/location
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetLocations' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/locations.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of locations',
+            'data'                 => ['root_key' => 'locations'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetLocation' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/locations/{id}.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a specific location',
+            'data'                 => ['root_key' => 'location'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Location ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetLocationCount' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/locations/count.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a count of locations',
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetLocationInventoryLevels' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/locations/{id}/inventory_levels.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a specific location',
+            'data'                 => ['root_key' => 'inventory_levels'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Location ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
         ],
 
         /**

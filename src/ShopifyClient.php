@@ -118,20 +118,26 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateGiftCard(array $args = []) {@command Shopify CreateGiftCard}
  * @method array disableGiftCard(array $args = []) {@command Shopify DisableGiftCard}
  *
- * INVENTORY RELATED METHODS:
+ * INVENTORY ITEM RELATED METHODS:
  *
  * @method array getInventoryItems(array $args = []) {@command Shopify GetInventoryItems}
  * @method array getInventoryItem(array $args = []) {@command Shopify GetInventoryItem}
  * @method array updateInventoryItem(array $args = []) {@command Shopify UpdateInventoryItem}
- * @method array getLocations(array $args = []) {@command Shopify GetLocations}
- * @method array getLocation(array $args = []) {@command Shopify GetLocation}
- * @method int getLocationCount(array $args = []) {@command Shopify GetLocationCount}
- * @method array getLocationInventoryLevels(array $args = []) {@command Shopify GetLocationInventoryLevels}
+ *
+ * INVENTORY LEVEL RELATED METHODS
+ *
  * @method array getInventoryLevels(array $args = []) {@command Shopify GetInventoryLevels}
  * @method array adjustInventoryLevel(array $args = []) {@command Shopify AdjustInventoryLevel}
  * @method array deleteInventoryLevel(array $args = []) {@command Shopify DeleteInventoryLevel}
  * @method array connectInventoryLevel(array $args = []) {@command Shopify ConnectInventoryLevel}
  * @method array setInventoryLevel(array $args = []) {@command Shopify SetInventoryLevel}
+ *
+ * LOCATION RELATED METHODS:
+ *
+ * @method array getLocations(array $args = []) {@command Shopify GetLocations}
+ * @method array getLocation(array $args = []) {@command Shopify GetLocation}
+ * @method int getLocationCount(array $args = []) {@command Shopify GetLocationCount}
+ * @method array getLocationInventoryLevels(array $args = []) {@command Shopify GetLocationInventoryLevels}
  *
  * METAFIELDS RELATED METHODS:
  * 
