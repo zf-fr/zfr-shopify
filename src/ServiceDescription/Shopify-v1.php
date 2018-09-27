@@ -1183,19 +1183,19 @@ return [
             'summary'          => 'Adjusts the inventory level of an inventory item at a single location',
             'data'             => ['root_key' => 'inventory_level'],
             'parameters'       => [
-                'inventory_item_id ' => [
+                'inventory_item_id' => [
                     'description' => 'The inventory item id',
                     'location'    => 'json',
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'location_id ' => [
+                'location_id' => [
                     'description' => 'The location id',
                     'location'    => 'json',
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'available_adjustment ' => [
+                'available_adjustment' => [
                     'description' => 'The amount to adjust the available inventory quantity',
                     'location'    => 'json',
                     'type'        => 'integer',
@@ -1209,13 +1209,13 @@ return [
             'uri'           => 'admin/inventory_levels.json',
             'responseModel' => 'GenericModel',
             'parameters'    => [
-                'inventory_item_id ' => [
+                'inventory_item_id' => [
                     'description' => 'The inventory item id',
                     'location'    => 'uri',
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'location_id ' => [
+                'location_id' => [
                     'description' => 'The location id',
                     'location'    => 'uri',
                     'type'        => 'integer',
@@ -1231,25 +1231,25 @@ return [
             'summary'          => 'Sets the inventory level for an inventory item at a location',
             'data'             => ['root_key' => 'inventory_level'],
             'parameters'       => [
-                'inventory_item_id ' => [
+                'inventory_item_id' => [
                     'description' => 'The inventory item id',
                     'location'    => 'json',
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'location_id ' => [
+                'location_id' => [
                     'description' => 'The location id',
                     'location'    => 'json',
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'available  ' => [
+                'available' => [
                     'description' => 'Sets the available inventory quantity',
                     'location'    => 'json',
                     'type'        => 'integer',
                     'required'    => true,
                 ],
-                'disconnect_if_necessary ' => [
+                'disconnect_if_necessary' => [
                     'description' => 'Whether inventory for any previously connected locations will be set to 0 and the locations disconnected',
                     'location'    => 'json',
                     'type'        => 'integer',
