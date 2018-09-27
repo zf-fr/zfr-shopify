@@ -1013,6 +1013,74 @@ return [
          * --------------------------------------------------------------------------------
          */
 
+        'GetInventoryItems' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/inventory_items.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of inventory items by passed identifiers',
+            'data'                 => ['root_key' => 'inventory_items'],
+            'parameters'       => [
+                'ids' => [
+                    'description' => 'Comma seperated list of IDs',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+                'limit' => [
+                    'description' => 'Amount of results',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'GetInventoryItem' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/inventory_items/{id}.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a specific inventory item',
+            'data'                 => ['root_key' => 'inventory_item'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Inventory Item ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'UpdateInventoryItem' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/inventory_items/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update a specific inventory item',
+            'data'             => ['root_key' => 'inventory_item'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Inventory Item ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
         'GetLocations' => [
             'httpMethod'           => 'GET',
             'uri'                  => 'admin/locations.json',
@@ -1070,6 +1138,124 @@ return [
             'additionalParameters' => [
                 'location' => 'query',
             ],
+        ],
+
+        'GetInventoryLevels' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/inventory_levels.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of inventory levels either by passed inventory item IDs, location IDs or both',
+            'data'                 => ['root_key' => 'inventory_levels'],
+            'parameters'       => [
+                'inventory_item_ids' => [
+                    'description' => 'Comma seperated list of inventory item IDs',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'location_ids' => [
+                    'description' => 'Comma seperated list of location IDs',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+                'limit' => [
+                    'description' => 'Amount of results',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'AdjustInventoryLevel' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/inventory_levels/adjust.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Adjusts the inventory level of an inventory item at a single location',
+            'data'             => ['root_key' => 'inventory_level'],
+            'parameters'       => [
+                'inventory_item_id ' => [
+                    'description' => 'The inventory item id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'location_id ' => [
+                    'description' => 'The location id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'available_adjustment ' => [
+                    'description' => 'The amount to adjust the available inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+            ]
+        ],
+
+        'DeleteInventoryLevel' => [
+            'httpMethod'    => 'DELETE',
+            'uri'           => 'admin/inventory_levels.json',
+            'responseModel' => 'GenericModel',
+            'parameters'    => [
+                'inventory_item_id ' => [
+                    'description' => 'The inventory item id',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'location_id ' => [
+                    'description' => 'The location id',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+            ]
+        ],
+
+        'SetInventoryLevel' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/inventory_levels/set.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Sets the inventory level for an inventory item at a location',
+            'data'             => ['root_key' => 'inventory_level'],
+            'parameters'       => [
+                'inventory_item_id ' => [
+                    'description' => 'The inventory item id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'location_id ' => [
+                    'description' => 'The location id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'available  ' => [
+                    'description' => 'Sets the available inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'disconnect_if_necessary ' => [
+                    'description' => 'Whether inventory for any previously connected locations will be set to 0 and the locations disconnected',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+            ]
         ],
 
         /**
