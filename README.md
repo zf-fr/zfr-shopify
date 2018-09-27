@@ -330,6 +330,21 @@ Here is a list of supported endpoints (more to come in the future):
 * array updateGiftCard(array $args = [])
 * array disableGiftCard(array $args = [])
 
+**INVENTORY RELATED METHODS:**
+
+* array getInventoryItems(array $args = [])
+* array getInventoryItem(array $args = [])
+* array updateInventoryItem(array $args = [])
+* array getLocations(array $args = [])
+* array getLocation(array $args = [])
+* int getLocationCount(array $args = [])
+* array getLocationInventoryLevels(array $args = [])
+* array getInventoryLevels(array $args = [])
+* array adjustInventoryLevel(array $args = [])
+* array deleteInventoryLevel(array $args = [])
+* array connectInventoryLevel(array $args = [])
+* array setInventoryLevel(array $args = [])
+
 **METAFIELDS RELATED METHODS:**
 
 * array getMetafields(array $args = [])

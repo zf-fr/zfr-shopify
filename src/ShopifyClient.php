@@ -125,7 +125,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateInventoryItem(array $args = []) {@command Shopify UpdateInventoryItem}
  * @method array getLocations(array $args = []) {@command Shopify GetLocations}
  * @method array getLocation(array $args = []) {@command Shopify GetLocation}
- * @method array getLocationCount(array $args = []) {@command Shopify GetLocationCount}
+ * @method int getLocationCount(array $args = []) {@command Shopify GetLocationCount}
  * @method array getLocationInventoryLevels(array $args = []) {@command Shopify GetLocationInventoryLevels}
  * @method array getInventoryLevels(array $args = []) {@command Shopify GetInventoryLevels}
  * @method array adjustInventoryLevel(array $args = []) {@command Shopify AdjustInventoryLevel}
