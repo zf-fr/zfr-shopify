@@ -118,6 +118,13 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateGiftCard(array $args = []) {@command Shopify CreateGiftCard}
  * @method array disableGiftCard(array $args = []) {@command Shopify DisableGiftCard}
  *
+ * INVENTORY RELATED METHODS:
+ *
+ * @method array getLocations(array $args = []) {@command Shopify GetLocations}
+ * @method array getLocation(array $args = []) {@command Shopify GetLocation}
+ * @method array getLocationCount(array $args = []) {@command Shopify GetLocationCount}
+ * @method array getLocationInventoryLevels(array $args = []) {@command Shopify GetLocationInventoryLevels}
+ *
  * METAFIELDS RELATED METHODS:
  * 
  * @method array getMetafields(array $args = []) {@command Shopify GetMetafields}
