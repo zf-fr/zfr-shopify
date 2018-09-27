@@ -1181,7 +1181,6 @@ return [
             'uri'              => 'admin/inventory_levels/adjust.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Adjusts the inventory level of an inventory item at a single location',
-            'data'             => ['root_key' => 'inventory_level'],
             'parameters'       => [
                 'inventory_item_id' => [
                     'description' => 'The inventory item id',
@@ -1229,7 +1228,6 @@ return [
             'uri'              => 'admin/inventory_levels/connect.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Connects an inventory item to a location by creating an inventory level at that location',
-            'data'             => ['root_key' => 'inventory_level'],
             'parameters'       => [
                 'inventory_item_id' => [
                     'description' => 'The inventory item id',
@@ -1257,7 +1255,6 @@ return [
             'uri'              => 'admin/inventory_levels/set.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Sets the inventory level for an inventory item at a location',
-            'data'             => ['root_key' => 'inventory_level'],
             'parameters'       => [
                 'inventory_item_id' => [
                     'description' => 'The inventory item id',
