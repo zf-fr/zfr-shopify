@@ -1211,15 +1211,43 @@ return [
             'parameters'    => [
                 'inventory_item_id' => [
                     'description' => 'The inventory item id',
-                    'location'    => 'uri',
+                    'location'    => 'query',
                     'type'        => 'integer',
                     'required'    => true,
                 ],
                 'location_id' => [
                     'description' => 'The location id',
-                    'location'    => 'uri',
+                    'location'    => 'query',
                     'type'        => 'integer',
                     'required'    => true,
+                ],
+            ]
+        ],
+
+        'ConnectInventoryLevel' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/inventory_levels/connect.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Connects an inventory item to a location by creating an inventory level at that location',
+            'data'             => ['root_key' => 'inventory_level'],
+            'parameters'       => [
+                'inventory_item_id' => [
+                    'description' => 'The inventory item id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'location_id' => [
+                    'description' => 'The location id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'relocate_if_necessary' => [
+                    'description' => 'The amount to adjust the available inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false,
                 ],
             ]
         ],
