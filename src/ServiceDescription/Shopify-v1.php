@@ -1048,7 +1048,6 @@ return [
             'uri'                  => 'admin/locations/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a count of locations',
-            'data'                 => ['root_key' => 'locations'],
             'additionalParameters' => [
                 'location' => 'query',
             ],
@@ -1059,7 +1058,7 @@ return [
             'uri'                  => 'admin/locations/{id}/inventory_levels.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a specific location',
-            'data'                 => ['root_key' => 'locations'],
+            'data'                 => ['root_key' => 'inventory_levels'],
             'parameters'       => [
                 'id' => [
                     'description' => 'Location ID',
