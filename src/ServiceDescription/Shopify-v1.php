@@ -1007,6 +1007,300 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * INVENTORY ITEM RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/reference/inventory/inventoryitem
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetInventoryItems' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/inventory_items.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of inventory items by passed identifiers',
+            'data'                 => ['root_key' => 'inventory_items'],
+            'parameters'       => [
+                'ids' => [
+                    'description' => 'Comma seperated list of IDs',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => true,
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+                'limit' => [
+                    'description' => 'Amount of results',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'GetInventoryItem' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/inventory_items/{id}.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a specific inventory item',
+            'data'                 => ['root_key' => 'inventory_item'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Inventory Item ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'UpdateInventoryItem' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/inventory_items/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update a specific inventory item',
+            'data'             => ['root_key' => 'inventory_item'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Inventory Item ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * INVENTORY LEVEL RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/reference/inventory/inventorylevel
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetInventoryLevels' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/inventory_levels.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of inventory levels either by passed inventory item IDs, location IDs or both',
+            'data'                 => ['root_key' => 'inventory_levels'],
+            'parameters'       => [
+                'inventory_item_ids' => [
+                    'description' => 'Comma seperated list of inventory item IDs',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'location_ids' => [
+                    'description' => 'Comma seperated list of location IDs',
+                    'location'    => 'query',
+                    'type'        => 'string',
+                    'required'    => false,
+                ],
+                'page' => [
+                    'description' => 'Page to show',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+                'limit' => [
+                    'description' => 'Amount of results',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'min'         => 1,
+                    'max'         => 250,
+                    'required'    => false,
+                ],
+            ],
+        ],
+
+        'AdjustInventoryLevel' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/inventory_levels/adjust.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Adjusts the inventory level of an inventory item at a single location',
+            'parameters'       => [
+                'inventory_item_id' => [
+                    'description' => 'The inventory item id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'location_id' => [
+                    'description' => 'The location id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'available_adjustment' => [
+                    'description' => 'The amount to adjust the available inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+            ]
+        ],
+
+        'DeleteInventoryLevel' => [
+            'httpMethod'    => 'DELETE',
+            'uri'           => 'admin/inventory_levels.json',
+            'responseModel' => 'GenericModel',
+            'parameters'    => [
+                'inventory_item_id' => [
+                    'description' => 'The inventory item id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'location_id' => [
+                    'description' => 'The location id',
+                    'location'    => 'query',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+            ]
+        ],
+
+        'ConnectInventoryLevel' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/inventory_levels/connect.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Connects an inventory item to a location by creating an inventory level at that location',
+            'parameters'       => [
+                'inventory_item_id' => [
+                    'description' => 'The inventory item id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'location_id' => [
+                    'description' => 'The location id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'relocate_if_necessary' => [
+                    'description' => 'The amount to adjust the available inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+            ]
+        ],
+
+        'SetInventoryLevel' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/inventory_levels/set.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Sets the inventory level for an inventory item at a location',
+            'parameters'       => [
+                'inventory_item_id' => [
+                    'description' => 'The inventory item id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'location_id' => [
+                    'description' => 'The location id',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'available' => [
+                    'description' => 'Sets the available inventory quantity',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'disconnect_if_necessary' => [
+                    'description' => 'Whether inventory for any previously connected locations will be set to 0 and the locations disconnected',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => false,
+                ],
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * LOCATION RELATED METHODS
+         *
+         * DOC: https://docs.shopify.com/api/reference/inventory/location
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetLocations' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/locations.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of locations',
+            'data'                 => ['root_key' => 'locations'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetLocation' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/locations/{id}.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a specific location',
+            'data'                 => ['root_key' => 'location'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Location ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetLocationCount' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/locations/count.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a count of locations',
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetLocationInventoryLevels' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/locations/{id}/inventory_levels.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a specific location',
+            'data'                 => ['root_key' => 'inventory_levels'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Location ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * METAFIELDS RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/metafield
