@@ -2969,7 +2969,7 @@ return [
                 ],
             ],
             'additionalParameters' => [
-                'location' => 'query',
+                'location' => 'json',
             ],
         ],
 
