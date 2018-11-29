@@ -73,6 +73,14 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateAsset(array $args = []) {@command Shopify UpdateAsset}
  * @method array deleteAsset(array $args = []) {@command Shopify DeleteAsset}
  *
+ * CARRIER SERVICE RELATED METHODS:
+ *
+ * @method array getCarrierServices(array $args = []) {@command Shopify GetCarrierServices}
+ * @method array getCarrierService(array $args = []) {@command Shopify GetCarrierService}
+ * @method array createCarrierService(array $args = []) {@command Shopify CreateCarrierService}
+ * @method array updateCarrierService(array $args = []) {@command Shopify UpdateCarrierService}
+ * @method array deleteCarrierService(array $args = []) {@command Shopify DeleteCarrierService}
+ *
  * CUSTOM COLLECTION RELATED METHODS:
  *
  * @method array getCustomCollections(array $args = []) {@command Shopify GetCustomCollections}
@@ -140,13 +148,13 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array getLocationInventoryLevels(array $args = []) {@command Shopify GetLocationInventoryLevels}
  *
  * METAFIELDS RELATED METHODS:
- * 
+ *
  * @method array getMetafields(array $args = []) {@command Shopify GetMetafields}
  * @method array getMetafield(array $args = []) {@command Shopify GetMetafield}
  * @method array createMetafield(array $args = []) {@command Shopify CreateMetafield}
  * @method array updateMetafield(array $args = []) {@command Shopify UpdateMetafield}
  * @method array deleteMetafield(array $args = []) {@command Shopify DeleteMetafield}
- * 
+ *
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}
@@ -215,7 +223,7 @@ use ZfrShopify\Exception\RuntimeException;
  * SHOP RELATED METHODS:
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}
- * 
+ *
  * SMART COLLECTION RELATED METHODS:
  *
  * @method array getSmartCollections(array $args = []) {@command Shopify GetSmartCollections}
@@ -264,7 +272,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array getUsageCharges(array $args = []) {@command Shopify GetUsageCharges}
  * @method array getUsageCharge(array $args = []) {@command Shopify GetUsageCharge}
  * @method array createUsageCharge(array $args = []) {@command Shopify CreateUsageCharge}
- * 
+ *
  * WEBHOOK RELATED METHODS:
  *
  * @method array getWebhooks(array $args = []) {@command Shopify GetWebhooks}
@@ -273,9 +281,9 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array createWebhook(array $args = []) {@command Shopify CreateWebhook}
  * @method array updateWebhook(array $args = []) {@command Shopify UpdateWebhook}
  * @method array deleteWebhook(array $args = []) {@command Shopify DeleteWebhook}
- * 
+ *
  * OTHER METHODS:
- * 
+ *
  * @method array createDelegateAccessToken(array $args = []) {@command Shopify CreateDelegateAccessToken}
  *
  * ITERATOR METHODS:
