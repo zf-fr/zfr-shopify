@@ -16,23 +16,24 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZfrShopify\Container;
-
-use GuzzleHttp\Client as HttpClient;
-use Psr\Container\ContainerInterface;
-use ZfrShopify\OAuth\TokenExchanger;
+namespace ZfrShopify\Exception;
 
 /**
+ * This exception is thrown when a GraphQL request contains any errors
+ *
  * @author Michaël Gallego
  */
-class TokenExchangerFactory
+class GraphQLErrorException extends RuntimeException implements ExceptionInterface
 {
-    /**
-     * @param  ContainerInterface $container
-     * @return TokenExchanger
-     */
-    public function __invoke(ContainerInterface $container): TokenExchanger
+    private $errors = [];
+
+    public function __construct(array $errors)
     {
-        return new TokenExchanger(new HttpClient());
+        $this->errors = $errors;
+    }
+
+    public function getErrors()
+    {
+        return $this->errors;
     }
 }

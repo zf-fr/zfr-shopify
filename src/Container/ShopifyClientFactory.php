@@ -18,7 +18,7 @@
 
 namespace ZfrShopify\Container;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\ShopifyClient;
 

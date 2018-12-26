@@ -17,12 +17,13 @@ ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.sho
 Installation of ZfrShopify is only officially supported using Composer:
 
 ```sh
-php composer.phar require 'zfr/zfr-shopify:3.0'
+php composer.phar require 'zfr/zfr-shopify:4.0'
 ```
 
-## Usage
+## REST API
 
-ZfrShopify provides a one-to-one mapping with API methods defined in [Shopify doc](https://docs.shopify.com/api/).
+ZfrShopify provides a one-to-one mapping with API methods defined in [Shopify doc](https://docs.shopify.com/api/). Since the version 4, it also
+supports a basic integration with the new GraphQL admin API.
 
 ### Private app
 
@@ -246,18 +247,204 @@ use GuzzleHttp\Command\Exception\CommandException;
 
 foreach ($results as $singleResult) {
    if ($singleResult instanceof CommandException) {
-     // Get the command that has failed, and eventually retry
-     $command = $singleResult->getCommand();
-     continue;
+      // Get the command that has failed, and eventually retry
+      $command = $singleResult->getCommand();
+      continue;
    }
    
    // Otherwise, $singleResult is just an array that contains the Shopify data
 }
 ```
 
+## GraphQL API
+
+In 2018, Shopify launched a new API, called the [GraphQL Admin API](https://help.shopify.com/en/api/graphql-admin-api). This new API comes with a lot of
+advantages compared to the REST API:
+
+* It allows to access more efficiently to the various Shopify resources (you can for instance get a collection, with all its products and variants, by
+using a single request).
+* It offers access to some resources that are not exposed through the REST API.
+
+The version 4 of ZfrShopify now ships with a basic GraphQL client. It does not yet support the following features, though:
+
+* Automatic pagination
+* Automatic handling of Shopify rate limits
+
+In order to use the client, you must instantiate it. Instead of the ShopifyClient, you must create a `ZfrShopify\ShopifyGraphQLClient`. If you are using
+a private app:
+
+```php
+$client = new ShopifyGraphQLClient([
+    'shop_domain' => 'test.myshopify.com',
+    'private_app' => true,
+    'password'    => 'YOUR PASSWORD'
+]);
+```
+
+If you are using a public app:
+
+```php
+$client = new ShopifyGraphQLClient([
+    'shop_domain'  => 'test.myshopify.com',
+    'private_app'  => false,
+    'access_token' => 'ACCESS TOKEN'
+]);
+```
+
+### Queries
+
+To perform query, simply enter your query as an heredoc. For instance, here is a GraphQL query that get the title and id of the first 5 collections,
+as well as the 5 first products within those collections (this used to require several queries in the REST API, while everything can be done very
+efficiently with GraphQL):
+
+```php
+$request = <<<EOT
+query
+{
+  collections(first: 5) {
+    edges {
+      node {
+        id
+        title
+        products(first: 5) {
+          edges {
+            node {
+              id
+              title
+            }
+          }
+        }
+      }
+    }
+  }
+}
+EOT;
+
+$result = $client->request($request);
+```
+
+ZfrShopify automatically unwrap the `data` top key from Shopify response, so you can retrieves the data like this:
+
+```php
+foreach ($result['collections']['edges'] as $collection) {
+    var_dump('Collection title: ' . $collection['node']['title']);
+
+    foreach ($collection['node']['products']['edges'] as $product) {
+        var_dump('Product title: ' . $product['node']['title']);
+    }
+}
+```
+
+As of now, ZfrShopify does not attempt to rewrite the payload returned from Shopify.
+
+#### Variables
+
+ZfrShopify also fully supports GraphQL variable. For instance, here is how you can retrieve a given product by its ID by
+using GraphQL variables:
+
+```php
+$request = <<<EOT
+query getProduct(\$id: ID!)
+{
+  product(id: \$id) {
+    id
+    title
+  }
+}
+EOT;
+
+$variables = [
+    'id' => 'gid://shopify/Product/827442593835'
+];
+
+$result = $client->request($request, $variables);
+
+var_dump($result);
+``` 
+
+> Make sure that you properly escape the variable name with backslash, otherwise the PHP interpreter will try to replace
+  it with the variable's value.
+
+### Mutations
+
+Similarly, ZfrShopify supports mutation. To do this, you simply need to use a mutation query. Here is an example that
+is creating a product:
+
+```php
+$request = <<<EOT
+mutation createProduct(\$product: ProductInput!)
+{
+  productCreate(input: \$product) {
+    userErrors {
+      field
+      message
+    }
+    product {
+      id
+    }
+  }
+}
+EOT;
+
+$variables = [
+    'product' => [
+        'title' => 'My product'
+    ]
+];
+
+$result = $client->request($request, $variables);
+
+var_dump($result);
+```
+
+This request will create a new product whose title is "My product", and will return the id of the product.
+
+> For better error handling, you should always include the userErrors object in your response.
+
+### Error handling
+
+When using GraphQL requests, there are two kinds of errors that you can catch.
+
+#### Request errors
+
+Those errors are for malformed GraphQL requests. You can catch them using the `\ZfrShopify\Exception\GraphQLErrorException` exception:
+
+```php
+try {
+    $result = $client->request($request);
+} catch (\ZfrShopify\Exception\GraphQLErrorException $exception) {
+    var_dump($exception->getErrors());
+}
+```
+
+#### User errors
+
+Those errors are for requests that are missing data (like incorrect data, missing data...). You can catch them using the 
+`\ZfrShopify\Exception\GraphQLUserErrorException` exception:
+
+```php
+try {
+    $result = $client->request($request);
+} catch (\ZfrShopify\Exception\GraphQLUserErrorException $exception) {
+    var_dump($exception->getErrors());
+}
+```
+
 ## Implemented endpoints
 
 Here is a list of supported endpoints (more to come in the future):
+
+**ACCESS SCOPE RELATED METHODS:**
+
+* array getAccessScopes(array $args = [])
+
+** APPLICATION CHARGE RELATED METHODS:**
+
+* array getApplicationCharges(array $args = [])
+* array getApplicationCharge(array $args = [])
+* array createApplicationCharge(array $args = [])
+* array activateApplicationCharge(array $args = [])
+* array deleteApplicationCharge(array $args = [])
 
 **ARTICLE RELATED METHODS:**
 
@@ -304,6 +491,13 @@ Here is a list of supported endpoints (more to come in the future):
 * array createCustomer(array $args = [])
 * array updateCustomer(array $args = [])
 * array deleteCustomer(array $args = [])
+
+**DISCOUNT CODE RELATED METHODS:**
+
+* array getDiscountCodes(array $args = [])
+* array getDiscountCode(array $args = [])
+* array createDiscountCode(array $args = [])
+* array deleteDiscountCode(array $args = [])
 
 **EVENT RELATED METHODS:**
 
@@ -380,6 +574,14 @@ Here is a list of supported endpoints (more to come in the future):
 * array createPage(array $args = [])
 * array updatePage(array $args = [])
 * array deletePage(array $args = [])
+
+**PRICE RULE RELATED METHODS:**
+
+* array getPriceRules(array $args = [])
+* array getPriceRule(array $args = [])
+* array createPriceRule(array $args = [])
+* array updatePriceRule(array $args = [])
+* array deletePriceRule(array $args = [])
 
 **PRODUCT RELATED METHODS:**
 

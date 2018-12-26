@@ -1,3 +1,34 @@
+# 4.0.0
+
+* Remove unused dev dependency
+* Allow to use Zend Diactoros 2.x
+* Update dependency to use PSR-11 interfaces instead of container interop
+* Add access scopes methods
+* Add application charge methods
+* Add new webhooks
+* Add discount code and price rules methods
+* Provide a basic client for the new GraphQL API
+
+# 3.5.0
+
+* Add missing updateOrder method to the descriptor
+
+# 3.4.1
+
+* Fix an issue where additional parameters couldn't be pass when creating webhooks
+
+# 3.4.0
+
+* Add support for inventory levels
+
+# 3.3.2
+
+* Remove default argument for __call
+
+# 3.3.1
+
+* Fix an issue with the CreateUsageCharge command
+
 # 3.3.0
 
 * Add dedicated metafields namespace (`getArticleMetafields`...)
