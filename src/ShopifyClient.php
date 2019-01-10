@@ -22,7 +22,6 @@ use Generator;
 use GuzzleHttp\Client;
 use GuzzleHttp\Command\CommandInterface;
 use GuzzleHttp\Command\Exception\CommandException;
-use GuzzleHttp\Command\Exception\CommandServerException;
 use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Guzzle\Serializer;
@@ -46,6 +45,17 @@ use ZfrShopify\Exception\RuntimeException;
  * as validating incoming request and webhooks
  *
  * @author Michaël Gallego
+ *
+ * ACCESS SCOPES METHODS:
+ *
+ * @method array getAccessScopes(array $args = []) {@command Shopify GetAccessScopes}
+ *
+ * APPLICATION CHARGE RELATED METHODS:
+ *
+ * @method array getApplicationCharges(array $args = []) {@command Shopify GetApplicationCharges}
+ * @method array getApplicationCharge(array $args = []) {@command Shopify GetApplicationCharge}
+ * @method array createApplicationCharge(array $args = []) {@command Shopify CreateApplicationCharge}
+ * @method array activateApplicationCharge(array $args = []) {@command Shopify ActivateApplicationCharge}
  *
  * ARTICLE RELATED METHODS:
  *
@@ -100,6 +110,13 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array createCustomer(array $args = []) {@command Shopify CreateCustomer}
  * @method array updateCustomer(array $args = []) {@command Shopify UpdateCustomer}
  * @method array deleteCustomer(array $args = []) {@command Shopify DeleteCustomer}
+ *
+ * DISCOUNT CODE RELATED METHODS:
+ *
+ * @method array getDiscountCodes(array $args = []) {@command Shopify GetDiscountCodes}
+ * @method int getDiscountCode(array $args = []) {@command Shopify GetDiscountCode}
+ * @method array createDiscountCode(array $args = []) {@command Shopify CreateDiscountCode}
+ * @method array deleteDiscountCode(array $args = []) {@command Shopify DeleteDiscountCode}
  *
  * EVENTS RELATED METHODS:
  *
@@ -176,6 +193,14 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array createPage(array $args = []) {@command Shopify CreatePage}
  * @method array updatePage(array $args = []) {@command Shopify UpdatePage}
  * @method array deletePage(array $args = []) {@command Shopify DeletePage}
+ *
+ * PRICE RULE RELATED METHODS:
+ *
+ * @method array getPriceRules(array $args = []) {@command Shopify GetPriceRules}
+ * @method int getPriceRule(array $args = []) {@command Shopify GetPriceRule}
+ * @method array createPriceRule(array $args = []) {@command Shopify CreatePriceRule}
+ * @method array updatePriceRule(array $args = []) {@command Shopify UpdatePriceRule}
+ * @method array deletePriceRule(array $args = []) {@command Shopify DeletePriceRule}
  *
  * PRODUCT RELATED METHODS:
  *
@@ -288,16 +313,19 @@ use ZfrShopify\Exception\RuntimeException;
  *
  * ITERATOR METHODS:
  *
+ * @method \Traversable getApplicationChargesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetApplicationCharges}
  * @method \Traversable getArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetArticles}
  * @method \Traversable getBlogArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetBlogArticles}
  * @method \Traversable getCustomCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomCollections}
  * @method \Traversable getCustomersIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomersIterator}
+ * @method \Traversable getDiscountCodesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetDiscountCodes}
  * @method \Traversable getEventsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetEvents}
  * @method \Traversable getFulfillmentsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetFulfillments}
  * @method \Traversable getGiftCardsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetGiftCards}
  * @method \Traversable getMetafieldsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetMetafields}
  * @method \Traversable getOrdersIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetOrders}
  * @method \Traversable getPagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetPages}
+ * @method \Traversable getPriceRulesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetPriceRules}
  * @method \Traversable getProductsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProducts}
  * @method \Traversable getProductImagesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetProductImages}
  * @method \Traversable getRecurringApplicationChargesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetRecurringApplicationCharges}

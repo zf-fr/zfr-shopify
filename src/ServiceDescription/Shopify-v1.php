@@ -22,6 +22,110 @@ return [
     'operations'  => [
         /**
          * --------------------------------------------------------------------------------
+         * ACCESS SCOPE RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/access/accessscope
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetAccessScopes' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/oauth/access_scopes.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of access scopes',
+            'data'                 => ['root_key' => 'access_scopes'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * APPLICATION CHARGES RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/billing/applicationcharge
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetApplicationCharges' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/application_charges.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of application charges',
+            'data'                 => ['root_key' => 'application_charges'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetApplicationCharge' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/application_charges/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve a specific application charge',
+            'data'             => ['root_key' => 'application_charge'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific application charge ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateApplicationCharge' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/application_charges.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a new application charge',
+            'data'             => ['root_key' => 'application_charge'],
+            'parameters'       => [
+                'name' => [
+                    'description' => 'Application charge name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'price' => [
+                    'description' => 'Price to charge',
+                    'location'    => 'json',
+                    'type'        => 'number',
+                    'required'    => true
+                ],
+                'return_url' => [
+                    'description' => 'URL where Shopify must return once the charge has been accepted',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'ActivateApplicationCharge' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/application_charges/{id}/activate.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Activate a previously accepted application charge',
+            'data'             => ['root_key' => 'application_charge'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific application charge ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * ARTICLE RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/article
@@ -795,6 +899,123 @@ return [
                     'required'    => true,
                 ],
             ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
+         * DISCOUNT CODE RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/discounts/discountcode
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetDiscountCodes' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/price_rules/{price_rule_id}/discount_codes.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of discount codes',
+            'data'                 => ['root_key' => 'discount_codes'],
+            'parameters'       => [
+                'price_rule_id' => [
+                    'description' => 'Price rule ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetDiscountCode' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/price_rules/{price_rule_id}/discount_codes/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve a specific discount code',
+            'data'             => ['root_key' => 'discount_code'],
+            'parameters'       => [
+                'price_rule_id' => [
+                    'description' => 'Price rule ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Specific discount code ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateDiscountCode' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/price_rules/{price_rule_id}/discount_codes.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a new discount code for the given price rule',
+            'data'             => ['root_key' => 'discount_code'],
+            'parameters'       => [
+                'price_rule_id' => [
+                    'description' => 'Price rule ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'code' => [
+                    'description' => 'Code',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'UpdateDiscountCode' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/price_rules/{price_rule_id}/discount_codes/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update an existing discount code',
+            'data'             => ['root_key' => 'discount_code'],
+            'parameters'       => [
+                'price_rule_id' => [
+                    'description' => 'Price rule ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Specific discount code ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'DeleteDiscountCode' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/price_rules/{price_rule_id}/discount_codes/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Delete an existing discount code',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific discount code ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
         ],
 
         /**
@@ -2457,6 +2678,145 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * PRICE RULE RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/discounts/pricerule
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetPriceRules' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/price_rules.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of price rules',
+            'data'                 => ['root_key' => 'price_rules'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetPriceRule' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/price_rules/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve a specific price rule',
+            'data'             => ['root_key' => 'price_rule'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific price rule ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreatePriceRule' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/price_rules.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a new price rule',
+            'data'             => ['root_key' => 'price_rule'],
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Price rule title',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'target_type' => [
+                    'description' => 'Price rule target type',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['line_item', 'shipping_line'],
+                ],
+                'target_selection' => [
+                    'description' => 'Price rule target selection',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['all', 'entitled'],
+                ],
+                'value_type' => [
+                    'description' => 'Price rule value type',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['fixed_amount', 'percentage'],
+                ],
+                'value' => [
+                    'description' => 'Price rule value',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ],
+                'allocation_method' => [
+                    'description' => 'Price rule allocation method',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['each', 'across']
+                ],
+                'starts_at' => [
+                    'description' => 'Price rule starts at date',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'format'      => 'date-time',
+                    'required'    => true
+                ],
+                'customer_selection' => [
+                    'description' => 'Price rule customer selection',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true,
+                    'enum'        => ['all', 'prerequisite']
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'UpdatePriceRule' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/price_rules/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update an existing price rule code',
+            'data'             => ['root_key' => 'price_rule'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Price rule ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'DeletePriceRule' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/price_rules/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Delete an existing price rule',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Specific price rule ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * PRODUCT VARIANT RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/product_variant
@@ -3075,12 +3435,16 @@ return [
                     'type'        => 'string',
                     'required'    => true,
                     'enum'        => [
-                        'orders/create', 'orders/delete', 'orders/updated', 'orders/paid', 'orders/cancelled', 'orders/fulfilled', 'orders/partially_fulfilled',
-                        'order_transactions/create', 'carts/create', 'carts/update', 'checkouts/create', 'checkouts/update', 'checkouts/delete', 'refunds/create',
-                        'products/create', 'products/update', 'products/delete', 'collections/create', 'collections/update', 'collections/delete',
-                        'customer_groups/create', 'customer_groups/update', 'customer_groups/delete', 'customers/create', 'customers/enable', 'customers/disable',
-                        'customers/update', 'customers/delete', 'fulfillments/create', 'fulfillments/update', 'fulfillment_events/create', 'fulfillment_events/update',
-                        'shop/update', 'disputes/create', 'disputes/update', 'themes/publish', 'app/uninstalled'
+                        'carts/create', 'carts/update', 'checkouts/create', 'checkouts/update', 'checkouts/delete', 'collections/create', 'collections/update',
+                        'collections/delete', 'collection_listings/add', 'collection_listings/remove', 'collection_listings/update', 'customers/create',
+                        'customers/enable', 'customers/disable', 'customers/update', 'customers/delete', 'customer_groups/create', 'customer_groups/update',
+                        'customer_groups/delete', 'draft_orders/create', 'draft_orders/update', 'draft_orders/delete', 'fulfillments/create', 'fulfillments/update',
+                        'fulfillment_events/create', 'fulfillment_events/delete', 'inventory_items/create', 'inventory_items/update', 'inventory_items/delete',
+                        'inventory_levels/connect', 'inventory_levels/update', 'inventory_levels/disconnect', 'locations/create', 'locations/update',
+                        'locations/delete', 'orders/cancelled', 'orders/create', 'orders/fulfilled', 'orders/paid', 'orders/partially_fulfilled',
+                        'orders/updated', 'orders/delete', 'order_transactions/create', 'products/create', 'products/update', 'products/delete',
+                        'product_listings/add', 'product_listings/remove', 'product_listings/update', 'refunds/create', 'app/uninstalled', 'shop/update',
+                        'themes/create', 'themes/publish', 'themes/update', 'themes/delete'
                     ]
                 ],
             ],
