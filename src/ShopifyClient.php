@@ -176,6 +176,17 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array openOrder(array $args = []) {@command Shopify OpenOrder}
  * @method array cancelOrder(array $args = []) {@command Shopify CancelOrder}
  *
+ * DRAFT ORDER RELATED METHODS:
+ *
+ * @method array getDraftOrders(array $args = []) {@command Shopify GetDraftOrders}
+ * @method int getDraftOrderCount(array $args = []) {@command Shopify GetDraftOrderCount}
+ * @method array createDraftOrder(array $args = []) {@command Shopify CreateDraftOrder}
+ * @method array updateDraftOrder(array $args = []) {@command Shopify UpdateDraftOrder}
+ * @method array getDraftOrder(array $args = []) {@command Shopify GetDraftOrder}
+ * @method array sendDraftOrderInvoice(array $args = []) {@command Shopify SendDraftOrderInvoice}
+ * @method array completeDraftOrder(array $args = []) {@command Shopify CompleteDraftOrder}
+ * @method array deleteDraftOrder(array $args = []) {@command Shopify DeleteDraftOrder}
+ *
  * PAGE RELATED METHODS:
  *
  * @method array getPages(array $args = []) {@command Shopify GetPages}

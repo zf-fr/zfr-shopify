@@ -1787,6 +1787,142 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * DRAFT ORDER RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/orders/draftorder
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetDraftOrders' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/draft_orders.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of draft orders',
+            'data'                 => ['root_key' => 'draft_orders'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetDraftOrderCount' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/draft_orders/count.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve the number of draft orders',
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetDraftOrder' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/draft_orders/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve specific draft order',
+            'data'             => ['root_key' => 'draft_order'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateDraftOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/draft_orders.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a new draft order',
+            'data'             => ['root_key' => 'draft_order'],
+            'parameters'       => [
+                'line_items' => [
+                    'description' => 'The draft order line items',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'SendDraftOrderInvoice' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/draft_orders/{id}/send_invoice.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Send an invoice for the draft order',
+            'data'             => ['root_key' => 'draft_order'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Draft order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'UpdateDraftOrder' => [
+            'httpMethod'           => 'PUT',
+            'uri'                  => 'admin/draft_orders/{id}.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Update an existing draft order',
+            'data'                 => ['root_key' => 'draft_order'],
+            'parameters'           => [
+                'id' => [
+                    'description' => 'Draft order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'DeleteDraftOrder' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/draft_orders/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Delete the draft order from the database',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Draft order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        'CompleteDraftOrder' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/draft_orders/{id}/complete.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Complete a draft order, marking it as paid',
+            'data'             => ['root_key' => 'draft_order'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * PAGE RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/page

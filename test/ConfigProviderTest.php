@@ -23,7 +23,7 @@ use ZfrShopify\ConfigProvider;
 /**
  * @author Daniel Gimenes
  */
-final class ConfigProviderTest extends \PHPUnit_Framework_TestCase
+final class ConfigProviderTest extends \PHPUnit\Framework\TestCase
 {
     public function testProvidesContainerConfig()
     {
