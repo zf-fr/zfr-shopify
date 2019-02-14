@@ -30,11 +30,12 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\ShopifyClient;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Michaël Gallego
  */
-class ShopifyClientTest extends \PHPUnit_Framework_TestCase
+class ShopifyClientTest extends TestCase
 {
     public function validationData()
     {

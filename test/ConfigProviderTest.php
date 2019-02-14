@@ -19,11 +19,12 @@
 namespace ZfrShopifyTest;
 
 use ZfrShopify\ConfigProvider;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Daniel Gimenes
  */
-final class ConfigProviderTest extends \PHPUnit_Framework_TestCase
+final class ConfigProviderTest extends TestCase
 {
     public function testProvidesContainerConfig()
     {

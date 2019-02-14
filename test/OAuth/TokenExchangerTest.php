@@ -22,11 +22,12 @@ use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\OAuth\TokenExchanger;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Michaël Gallego
  */
-class TokenExchangerTest extends \PHPUnit_Framework_TestCase
+class TokenExchangerTest extends TestCase
 {
     public function shopDomainProvider()
     {

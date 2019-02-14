@@ -565,6 +565,17 @@ Here is a list of supported endpoints (more to come in the future):
 * array openOrder(array $args = [])
 * array cancelOrder(array $args = [])
 
+**DRAFT ORDER RELATED METHODS:**
+
+* array getDraftOrders(array $args = [])
+* int getDraftOrderCount(array $args = [])
+* array createDraftOrder(array $args = [])
+* array updateDraftOrder(array $args = [])
+* array getDraftOrder(array $args = []) 
+* array sendDraftOrderInvoice(array $args = [])
+* array completeDraftOrder(array $args = [])
+* array deleteDraftOrder(array $args = [])
+
 **PAGE RELATED METHODS:**
 
 * array getPages(array $args = [])

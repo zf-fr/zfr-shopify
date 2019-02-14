@@ -19,11 +19,12 @@
 namespace ZfrShopifyTest\OAuth;
 
 use ZfrShopify\OAuth\AuthorizationRedirectResponse;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Michaël Gallego
  */
-class AuthorizationRedirectResponseTest extends \PHPUnit_Framework_TestCase
+class AuthorizationRedirectResponseTest extends TestCase
 {
     public function shopDomainProvider()
     {

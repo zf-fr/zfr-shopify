@@ -25,7 +25,7 @@ use ZfrShopify\Validator\WebhookValidator;
 /**
  * @author Michaël Gallego
  */
-class WebhookValidatorTest extends \PHPUnit_Framework_TestCase
+class WebhookValidatorTest extends \PHPUnit\Framework\TestCase
 {
     public function testThrowExceptionIfWebhookHeaderIsNotPresent()
     {

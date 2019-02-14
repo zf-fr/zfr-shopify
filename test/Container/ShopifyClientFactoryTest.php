@@ -21,11 +21,12 @@ namespace ZfrShopifyTest\Container;
 use Psr\Container\ContainerInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\Container\ShopifyClientFactory;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Michaël Gallego
  */
-class ShopifyClientFactoryTest extends \PHPUnit_Framework_TestCase
+class ShopifyClientFactoryTest extends TestCase
 {
     public function testThrowExceptionIfNoConfig()
     {

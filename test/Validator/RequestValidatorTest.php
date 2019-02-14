@@ -25,7 +25,7 @@ use ZfrShopify\Validator\RequestValidator;
 /**
  * @author Michaël Gallego
  */
-class RequestValidatorTest extends \PHPUnit_Framework_TestCase
+class RequestValidatorTest extends \PHPUnit\Framework\TestCase
 {
     public function shopHmacProvider()
     {

@@ -6,7 +6,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use ZfrShopify\Exception\InvalidApplicationProxyRequestException;
 use ZfrShopify\Validator\ApplicationProxyRequestValidator;
 
-class ApplicationProxyRequestValidatorTest extends \PHPUnit_Framework_TestCase
+class ApplicationProxyRequestValidatorTest extends \PHPUnit\Framework\TestCase
 {
     public function testValidateSignature()
     {

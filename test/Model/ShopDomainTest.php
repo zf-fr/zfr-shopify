@@ -20,8 +20,9 @@ namespace ZfrShopifyTest\Model;
 
 use ZfrShopify\Exception\InvalidArgumentException;
 use ZfrShopify\Model\ShopDomain;
+use PHPUnit\Framework\TestCase;
 
-class ShopDomainTest extends \PHPUnit_Framework_TestCase
+class ShopDomainTest extends TestCase
 {
     public function domainProvider()
     {
