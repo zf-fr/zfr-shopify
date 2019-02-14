@@ -20,11 +20,12 @@ namespace ZfrShopifyTest\Container;
 
 use Psr\Container\ContainerInterface;
 use ZfrShopify\Container\TokenExchangerFactory;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Michaël Gallego
  */
-class TokenExchangerFactoryTest extends \PHPUnit_Framework_TestCase
+class TokenExchangerFactoryTest extends TestCase
 {
     public function testFactory()
     {

@@ -35,7 +35,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @author Michaël Gallego
  */
-class ShopifyClientTest extends \PHPUnit\Framework\TestCase
+class ShopifyClientTest extends TestCase
 {
     public function validationData()
     {
