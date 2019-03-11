@@ -3156,7 +3156,7 @@ return [
             'uri'              => 'admin/script_tags.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new script tags',
-            'data'             => ['root_key' => 'script_tags'],
+            'data'             => ['root_key' => 'script_tag'],
             'parameters'       => [
                 'event' => [
                     'description' => 'Event value when the script tag is loaded',
