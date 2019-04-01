@@ -83,6 +83,14 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateAsset(array $args = []) {@command Shopify UpdateAsset}
  * @method array deleteAsset(array $args = []) {@command Shopify DeleteAsset}
  *
+ * BLOG RELATED METHODS:
+ *
+ * @method array getBlogs(array $args = []) {@command Shopify GetBlogs}
+ * @method array getBlog(array $args = []) {@command Shopify GetBlog}
+ * @method array createBlog(array $args = []) {@command Shopify CreateBlog}
+ * @method array updateBlog(array $args = []) {@command Shopify UpdateBlog}
+ * @method array deleteBlog(array $args = []) {@command Shopify DeleteBlog}
+ *
  * CUSTOM COLLECTION RELATED METHODS:
  *
  * @method array getCustomCollections(array $args = []) {@command Shopify GetCustomCollections}

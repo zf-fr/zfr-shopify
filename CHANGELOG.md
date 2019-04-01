@@ -1,3 +1,7 @@
+# 4.2.0
+
+* Add blog methods
+
 # 4.1.0
 
 * Add draft order methods

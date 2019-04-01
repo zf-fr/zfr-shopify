@@ -531,6 +531,97 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * BLOGS RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/online-store/blog
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetBlogs' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/blogs.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve a list of blogs',
+            'data'             => ['root_key' => 'blogs'],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetBlog' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/blogs/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve a single blog',
+            'data'             => ['root_key' => 'blog'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Blog to get',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateBlog' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/blogs.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a new blog',
+            'data'             => ['root_key' => 'blog'],
+            'parameters'       => [
+                'title' => [
+                    'description' => 'Blog title',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'UpdateBlog' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/blogs/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update an existing blog',
+            'data'             => ['root_key' => 'blog'],
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Blog to update',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'DeleteBlog' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/blogs/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Delete an existing blog',
+            'parameters'       => [
+                'id' => [
+                    'description' => 'Blog id',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * CUSTOM COLLECTION RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/customcollection
