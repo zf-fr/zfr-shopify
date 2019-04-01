@@ -298,7 +298,7 @@ as well as the 5 first products within those collections (this used to require s
 efficiently with GraphQL):
 
 ```php
-$request = <<<EOT
+$request = <<<'EOT'
 query
 {
   collections(first: 5) {
@@ -318,7 +318,7 @@ query
     }
   }
 }
-EOT;
+'EOT';
 
 $result = $client->request($request);
 ```
@@ -343,15 +343,15 @@ ZfrShopify also fully supports GraphQL variable. For instance, here is how you c
 using GraphQL variables:
 
 ```php
-$request = <<<EOT
-query getProduct(\$id: ID!)
+$request = <<<'EOT'
+query getProduct($id: ID!)
 {
-  product(id: \$id) {
+  product(id: $id) {
     id
     title
   }
 }
-EOT;
+'EOT';
 
 $variables = [
     'id' => 'gid://shopify/Product/827442593835'
@@ -362,19 +362,16 @@ $result = $client->request($request, $variables);
 var_dump($result);
 ``` 
 
-> Make sure that you properly escape the variable name with backslash, otherwise the PHP interpreter will try to replace
-  it with the variable's value.
-
 ### Mutations
 
 Similarly, ZfrShopify supports mutation. To do this, you simply need to use a mutation query. Here is an example that
 is creating a product:
 
 ```php
-$request = <<<EOT
-mutation createProduct(\$product: ProductInput!)
+$request = <<<'EOT'
+mutation createProduct($product: ProductInput!)
 {
-  productCreate(input: \$product) {
+  productCreate(input: $product) {
     userErrors {
       field
       message
@@ -384,7 +381,7 @@ mutation createProduct(\$product: ProductInput!)
     }
   }
 }
-EOT;
+'EOT';
 
 $variables = [
     'product' => [
@@ -471,6 +468,14 @@ Here is a list of supported endpoints (more to come in the future):
 * array createAsset(array $args = [])
 * array updateAsset(array $args = [])
 * array deleteAsset(array $args = [])
+
+**BLOG RELATED METHODS:**
+
+* array getBlogs(array $args = [])
+* array getBlog(array $args = [])
+* array createBlog(array $args = [])
+* array updateBlog(array $args = [])
+* array deleteBlog(array $args = [])
 
 **CUSTOM COLLECTION RELATED METHODS:**
 

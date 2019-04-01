@@ -49,15 +49,21 @@ class ShopifyGraphQLClient
     private function validateConnectionOptions(array $connectionOptions)
     {
         if (!isset($connectionOptions['shop'], $connectionOptions['private_app'])) {
-            throw new RuntimeException('"shop" and "private_app" must be provided when instantiating the Shopify client');
+            throw new RuntimeException(
+                '"shop" and "private_app" must be provided when instantiating the Shopify client'
+            );
         }
 
         if ($connectionOptions['private_app'] && !isset($connectionOptions['password'])) {
-            throw new RuntimeException('You must specify the "password" option when instantiating the Shopify client for a private app');
+            throw new RuntimeException(
+                'You must specify the "password" option when instantiating the Shopify client for a private app'
+            );
         }
 
         if (!$connectionOptions['private_app'] && !isset($connectionOptions['access_token'])) {
-            throw new RuntimeException('You must specify the "access_token" option when instantiating the Shopify client for a public app');
+            throw new RuntimeException(
+                'You must specify the "access_token" option when instantiating the Shopify client for a public app'
+            );
         }
     }
 
@@ -77,7 +83,10 @@ class ShopifyGraphQLClient
             'handler'  => $handlerStack,
             'headers'  => [
                 'Content-Type'           => 'application/json',
-                'X-Shopify-Access-Token' => ($this->connectionOptions['private_app'] ? $this->connectionOptions['password'] : $this->connectionOptions['access_token']),
+                'X-Shopify-Access-Token' => ($this->connectionOptions['private_app']
+                    ? $this->connectionOptions['password']
+                    : $this->connectionOptions['access_token']
+                ),
             ]
         ]);
 
@@ -103,14 +112,15 @@ class ShopifyGraphQLClient
 
         $result = json_decode($response->getBody()->getContents(), true);
 
-        // Shopify GraphQL API always returns 200, even in case of errors. We therefore inspect the result of the request and check
-        // if there are any errors
+        // Shopify GraphQL API always returns 200, even in case of errors. We therefore inspect the result of the
+        // request and check if there are any errors
 
         if (isset($result['errors'])) {
             throw new GraphQLErrorException($result['errors']);
         }
 
-        // We also check for "userErrors" (this requires that they are part of the request though) to throw a specific exception
+        // We also check for "userErrors" (this requires that they are part of the request though) to throw a
+        // specific exception
 
         foreach (current($result['data']) as $key => $value) {
             if ($key === 'userErrors' && !empty($value)) {
