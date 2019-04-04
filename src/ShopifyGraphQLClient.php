@@ -76,8 +76,6 @@ class ShopifyGraphQLClient
 
         $handlerStack = HandlerStack::create(new CurlHandler());
 
-        // @TODO: implement retry policy, as for REST client
-
         $httpClient = new Client([
             'base_uri' => $baseUri,
             'handler'  => $handlerStack,
@@ -128,6 +126,28 @@ class ShopifyGraphQLClient
             }
         }
 
-        return $result['data'];
+        $resultData = $result['data'];
+
+        $this->removeKeys($resultData);
+
+        return $resultData;
+    }
+
+    /**
+     * Simplify the structure of the GraphQL response by removing any "edges" and "node" top keys
+     *
+     * @param $arr
+     */
+    private function removeKeys(&$arr)
+    {
+        foreach ($arr as $key => &$value) {
+            if ($key === 'edges' || $key === 'node') {
+                $arr = $value;
+            }
+
+            if (is_array($value)) {
+                $this->removeKeys($value);
+            }
+        }
     }
 }

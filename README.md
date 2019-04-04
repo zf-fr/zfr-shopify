@@ -326,16 +326,16 @@ $result = $client->request($request);
 ZfrShopify automatically unwrap the `data` top key from Shopify response, so you can retrieves the data like this:
 
 ```php
-foreach ($result['collections']['edges'] as $collection) {
-    var_dump('Collection title: ' . $collection['node']['title']);
+foreach ($result['collections'] as $collection) {
+    var_dump('Collection title: ' . $collection['title']);
 
-    foreach ($collection['node']['products']['edges'] as $product) {
-        var_dump('Product title: ' . $product['node']['title']);
+    foreach ($collection['products']- as $product) {
+        var_dump('Product title: ' . $product['title']);
     }
 }
 ```
 
-As of now, ZfrShopify does not attempt to rewrite the payload returned from Shopify.
+Note that ZfrShopify automatically removes "edges" and "node" key to make the traversal easier.
 
 #### Variables
 

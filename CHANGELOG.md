@@ -1,3 +1,43 @@
+# 5.0.0
+
+* GraphQLClient has been improved to remove unneeded keys, hence simplifying traversal. For the given request:
+
+```php
+$requestQuery = <<<'QL'
+{
+    products(first: 10, query: "a") {
+        edges {
+            node {
+                title,
+                handle
+            }
+        }
+}
+QL;
+
+$results = $shopifyGraphQLClient->request($requestQuery);
+```
+
+Before:
+
+```php
+foreach ($results['products'] as $edges) {
+    foreach ($edges['edges'] as $edge) {
+        $edge['node']['title'];
+    }
+}
+```
+
+After:
+
+```php
+foreach ($results['products'] as $product) {
+    $product['title'];
+}
+```
+
+ZfrShopify processes it recursively for even if you have nested nodes it will work the same.
+
 # 4.2.0
 
 * Add blog methods
