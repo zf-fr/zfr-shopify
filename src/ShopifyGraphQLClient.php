@@ -126,28 +126,6 @@ class ShopifyGraphQLClient
             }
         }
 
-        $resultData = $result['data'];
-
-        $this->removeKeys($resultData);
-
-        return $resultData;
-    }
-
-    /**
-     * Simplify the structure of the GraphQL response by removing any "edges" and "node" top keys
-     *
-     * @param $arr
-     */
-    private function removeKeys(&$arr)
-    {
-        foreach ($arr as $key => &$value) {
-            if ($key === 'edges' || $key === 'node') {
-                $arr = $value;
-            }
-
-            if (is_array($value)) {
-                $this->removeKeys($value);
-            }
-        }
+        return $result['data'];
     }
 }
