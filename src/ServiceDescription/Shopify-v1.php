@@ -49,7 +49,7 @@ return [
 
         'GetApplicationCharges' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/application_charges.json',
+            'uri'                  => 'admin/{version}/application_charges.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of application charges',
             'data'                 => ['root_key' => 'application_charges'],
@@ -60,7 +60,7 @@ return [
 
         'GetApplicationCharge' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/application_charges/{id}.json',
+            'uri'              => 'admin/{version}/application_charges/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific application charge',
             'data'             => ['root_key' => 'application_charge'],
@@ -79,7 +79,7 @@ return [
 
         'CreateApplicationCharge' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/application_charges.json',
+            'uri'              => 'admin/{version}/application_charges.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new application charge',
             'data'             => ['root_key' => 'application_charge'],
@@ -110,7 +110,7 @@ return [
 
         'ActivateApplicationCharge' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/application_charges/{id}/activate.json',
+            'uri'              => 'admin/{version}/application_charges/{id}/activate.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Activate a previously accepted application charge',
             'data'             => ['root_key' => 'application_charge'],
@@ -134,7 +134,7 @@ return [
 
         'GetArticles' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/articles.json',
+            'uri'                  => 'admin/{version}/articles.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of articles',
             'data'                 => ['root_key' => 'articles'],
@@ -145,7 +145,7 @@ return [
 
         'GetArticleCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/articles/count.json',
+            'uri'                  => 'admin/{version}/articles/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of articles (for all blogs)',
             'additionalParameters' => [
@@ -155,7 +155,7 @@ return [
 
         'GetBlogArticles' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/blogs/{blog_id}/articles.json',
+            'uri'              => 'admin/{version}/blogs/{blog_id}/articles.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a list of articles for a given blog',
             'data'             => ['root_key' => 'articles'],
@@ -174,7 +174,7 @@ return [
 
         'GetBlogArticleCount' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/blogs/{blog_id}/articles/count.json',
+            'uri'           => 'admin/{version}/blogs/{blog_id}/articles/count.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve the number of articles (for a single blog)',
             'parameters'    => [
@@ -192,7 +192,7 @@ return [
 
         'GetArticle' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/articles/{id}.json',
+            'uri'              => 'admin/{version}/articles/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific article',
             'data'             => ['root_key' => 'article'],
@@ -211,7 +211,7 @@ return [
 
         'GetArticleMetafields' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/articles/{id}/metafields.json',
+            'uri'           => 'admin/{version}/articles/{id}/metafields.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve a list of metafields for an article',
             'data'          => ['root_key' => 'metafields'],
@@ -230,7 +230,7 @@ return [
 
         'GetBlogArticle' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/blogs/{blog_id}/articles/{id}.json',
+            'uri'              => 'admin/{version}/blogs/{blog_id}/articles/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific article from a given blog',
             'data'             => ['root_key' => 'article'],
@@ -255,7 +255,7 @@ return [
 
         'GetArticlesAuthors' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/articles/authors.json',
+            'uri'           => 'admin/{version}/articles/authors.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve list of all article authors',
             'data'          => ['root_key' => 'authors'],
@@ -263,7 +263,7 @@ return [
 
         'GetArticlesTags' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/blogs/{blog_id}/articles/tags.json',
+            'uri'              => 'admin/{version}/blogs/{blog_id}/articles/tags.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve all tags for a given blog',
             'data'             => ['root_key' => 'tags'],
@@ -282,7 +282,7 @@ return [
 
         'CreateArticle' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/articles.json',
+            'uri'              => 'admin/{version}/articles.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new article',
             'data'             => ['root_key' => 'article'],
@@ -301,7 +301,7 @@ return [
 
         'CreateBlogArticle' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/blogs/{blog_id}/articles.json',
+            'uri'              => 'admin/{version}/blogs/{blog_id}/articles.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new article',
             'data'             => ['root_key' => 'article'],
@@ -326,7 +326,7 @@ return [
 
         'UpdateArticle' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/articles/{id}.json',
+            'uri'              => 'admin/{version}/articles/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing article',
             'data'             => ['root_key' => 'article'],
@@ -345,7 +345,7 @@ return [
 
         'UpdateBlogArticle' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/blogs/{blog_id}/articles/{id}.json',
+            'uri'              => 'admin/{version}/blogs/{blog_id}/articles/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing article',
             'data'             => ['root_key' => 'article'],
@@ -370,7 +370,7 @@ return [
 
         'DeleteArticle' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/articles/{id}.json',
+            'uri'              => 'admin/{version}/articles/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing article',
             'parameters'       => [
@@ -385,7 +385,7 @@ return [
 
         'DeleteBlogArticle' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/blogs/{blog_id}/articles/{id}.json',
+            'uri'              => 'admin/{version}/blogs/{blog_id}/articles/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing article',
             'parameters'       => [
@@ -414,7 +414,7 @@ return [
 
         'GetAssets' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/themes/{theme_id}/assets.json',
+            'uri'              => 'admin/{version}/themes/{theme_id}/assets.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a list of assets for a given theme',
             'data'             => ['root_key' => 'assets'],
@@ -433,7 +433,7 @@ return [
 
         'GetAsset' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/themes/{theme_id}/assets.json',
+            'uri'              => 'admin/{version}/themes/{theme_id}/assets.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a single asset',
             'data'             => ['root_key' => 'asset'],
@@ -459,7 +459,7 @@ return [
 
         'CreateAsset' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/themes/{theme_id}/assets.json',
+            'uri'              => 'admin/{version}/themes/{theme_id}/assets.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new asset in the given theme',
             'data'             => ['root_key' => 'asset'],
@@ -484,7 +484,7 @@ return [
 
         'UpdateAsset' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/themes/{theme_id}/assets.json',
+            'uri'              => 'admin/{version}/themes/{theme_id}/assets.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new asset in the given theme',
             'data'             => ['root_key' => 'asset'],
@@ -509,7 +509,7 @@ return [
 
         'DeleteAsset' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/themes/{theme_id}/assets.json',
+            'uri'              => 'admin/{version}/themes/{theme_id}/assets.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing asset',
             'parameters'       => [
@@ -539,7 +539,7 @@ return [
 
         'GetBlogs' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/blogs.json',
+            'uri'              => 'admin/{version}/blogs.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a list of blogs',
             'data'             => ['root_key' => 'blogs'],
@@ -550,7 +550,7 @@ return [
 
         'GetBlog' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/blogs/{id}.json',
+            'uri'              => 'admin/{version}/blogs/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a single blog',
             'data'             => ['root_key' => 'blog'],
@@ -569,7 +569,7 @@ return [
 
         'CreateBlog' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/blogs.json',
+            'uri'              => 'admin/{version}/blogs.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new blog',
             'data'             => ['root_key' => 'blog'],
@@ -588,7 +588,7 @@ return [
 
         'UpdateBlog' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/blogs/{id}.json',
+            'uri'              => 'admin/{version}/blogs/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing blog',
             'data'             => ['root_key' => 'blog'],
@@ -607,7 +607,7 @@ return [
 
         'DeleteBlog' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/blogs/{id}.json',
+            'uri'              => 'admin/{version}/blogs/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing blog',
             'parameters'       => [
@@ -630,7 +630,7 @@ return [
 
         'GetCustomCollections' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/custom_collections.json',
+            'uri'                  => 'admin/{version}/custom_collections.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of custom collections',
             'data'                 => ['root_key' => 'custom_collections'],
@@ -641,7 +641,7 @@ return [
 
         'GetCustomCollectionCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/custom_collections/count.json',
+            'uri'                  => 'admin/{version}/custom_collections/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of custom collections',
             'additionalParameters' => [
@@ -651,7 +651,7 @@ return [
 
         'GetCustomCollection' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/custom_collections/{id}.json',
+            'uri'              => 'admin/{version}/custom_collections/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific custom collection',
             'data'             => ['root_key' => 'custom_collection'],
@@ -670,7 +670,7 @@ return [
 
         'CreateCustomCollection' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/custom_collections.json',
+            'uri'              => 'admin/{version}/custom_collections.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a custom collection',
             'data'             => ['root_key' => 'custom_collection'],
@@ -689,7 +689,7 @@ return [
 
         'UpdateCustomCollection' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/custom_collections/{id}.json',
+            'uri'              => 'admin/{version}/custom_collections/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update a custom collection',
             'data'             => ['root_key' => 'custom_collection'],
@@ -708,7 +708,7 @@ return [
 
         'DeleteCustomCollection' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/custom_collections/{id}.json',
+            'uri'              => 'admin/{version}/custom_collections/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete a custom collection',
             'parameters'       => [
@@ -731,7 +731,7 @@ return [
 
         'GetCustomers' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/customers.json',
+            'uri'                  => 'admin/{version}/customers.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of customers',
             'data'                 => ['root_key' => 'customers'],
@@ -742,7 +742,7 @@ return [
 
         'GetCustomerCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/customers/count.json',
+            'uri'                  => 'admin/{version}/customers/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of customers',
             'additionalParameters' => [
@@ -752,7 +752,7 @@ return [
 
         'SearchCustomers' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/customers/search.json',
+            'uri'           => 'admin/{version}/customers/search.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Searches for customers',
             'data'          => ['root_key' => 'customers'],
@@ -794,7 +794,7 @@ return [
 
         'GetCustomer' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/customers/{id}.json',
+            'uri'           => 'admin/{version}/customers/{id}.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Receive a single customer',
             'data'          => ['root_key' => 'customer'],
@@ -813,7 +813,7 @@ return [
 
         'GetCustomerMetafields' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/customers/{id}/metafields.json',
+            'uri'           => 'admin/{version}/customers/{id}/metafields.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve a list of metafields for a customer',
             'data'          => ['root_key' => 'metafields'],
@@ -832,7 +832,7 @@ return [
 
         'CreateCustomer' => [
             'httpMethod'    => 'POST',
-            'uri'           => 'admin/customers.json',
+            'uri'           => 'admin/{version}/customers.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Create a new customer',
             'data'          => ['root_key' => 'customer'],
@@ -863,7 +863,7 @@ return [
 
         'UpdateCustomer' => [
             'httpMethod'    => 'PUT',
-            'uri'           => 'admin/customers/{id}.json',
+            'uri'           => 'admin/{version}/customers/{id}.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Modify an existing customer',
             'data'          => ['root_key' => 'customer'],
@@ -882,7 +882,7 @@ return [
 
         'DeleteCustomer' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/customers/{id}.json',
+            'uri'              => 'admin/{version}/customers/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Remove a customer from the database',
             'parameters'       => [
@@ -905,7 +905,7 @@ return [
 
         'GetDiscountCodes' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/price_rules/{price_rule_id}/discount_codes.json',
+            'uri'                  => 'admin/{version}/price_rules/{price_rule_id}/discount_codes.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of discount codes',
             'data'                 => ['root_key' => 'discount_codes'],
@@ -924,7 +924,7 @@ return [
 
         'GetDiscountCode' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/price_rules/{price_rule_id}/discount_codes/{id}.json',
+            'uri'              => 'admin/{version}/price_rules/{price_rule_id}/discount_codes/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific discount code',
             'data'             => ['root_key' => 'discount_code'],
@@ -949,7 +949,7 @@ return [
 
         'CreateDiscountCode' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/price_rules/{price_rule_id}/discount_codes.json',
+            'uri'              => 'admin/{version}/price_rules/{price_rule_id}/discount_codes.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new discount code for the given price rule',
             'data'             => ['root_key' => 'discount_code'],
@@ -974,7 +974,7 @@ return [
 
         'UpdateDiscountCode' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/price_rules/{price_rule_id}/discount_codes/{id}.json',
+            'uri'              => 'admin/{version}/price_rules/{price_rule_id}/discount_codes/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing discount code',
             'data'             => ['root_key' => 'discount_code'],
@@ -999,7 +999,7 @@ return [
 
         'DeleteDiscountCode' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/price_rules/{price_rule_id}/discount_codes/{id}.json',
+            'uri'              => 'admin/{version}/price_rules/{price_rule_id}/discount_codes/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing discount code',
             'parameters'       => [
@@ -1022,7 +1022,7 @@ return [
 
         'GetEvents' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/events.json',
+            'uri'                  => 'admin/{version}/events.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of events',
             'data'                 => ['root_key' => 'events'],
@@ -1033,7 +1033,7 @@ return [
 
         'GetEventCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/events/count.json',
+            'uri'                  => 'admin/{version}/events/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of events',
             'additionalParameters' => [
@@ -1043,7 +1043,7 @@ return [
 
         'GetEvent' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/events/{id}.json',
+            'uri'              => 'admin/{version}/events/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific event',
             'data'             => ['root_key' => 'event'],
@@ -1070,7 +1070,7 @@ return [
 
         'GetFulfillments' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/orders/{order_id}/fulfillments.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/fulfillments.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a list of fulfillments for a given order',
             'data'             => ['root_key' => 'fulfillments'],
@@ -1089,7 +1089,7 @@ return [
 
         'GetFulfillmentCount' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/orders/{order_id}/fulfillments/count.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/fulfillments/count.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve the number of fulfillments',
             'parameters'       => [
@@ -1107,7 +1107,7 @@ return [
 
         'GetFulfillment' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/orders/{order_id}/fulfillments/{id}.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/fulfillments/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific order',
             'data'             => ['root_key' => 'fulfillment'],
@@ -1132,7 +1132,7 @@ return [
 
         'CreateFulfillment' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders/{order_id}/fulfillments.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/fulfillments.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a fulfillment for a given order',
             'data'             => ['root_key' => 'fulfillment'],
@@ -1151,7 +1151,7 @@ return [
 
         'UpdateFulfillment' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/orders/{order_id}/fulfillments/{id}.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/fulfillments/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update a fulfillment for a given order',
             'data'             => ['root_key' => 'fulfillment'],
@@ -1176,7 +1176,7 @@ return [
 
         'CompleteFulfillment' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders/{order_id}/fulfillments/{id}/complete.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/fulfillments/{id}/complete.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Complete a pending fulfillment',
             'data'             => ['root_key' => 'fulfillment'],
@@ -1198,7 +1198,7 @@ return [
 
         'CancelFulfillment' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders/{order_id}/fulfillments/{id}/cancel.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/fulfillments/{id}/cancel.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Cancel a pending fulfillment',
             'data'             => ['root_key' => 'fulfillment'],
@@ -1228,7 +1228,7 @@ return [
 
         'GetGiftCards' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/gift_cards.json',
+            'uri'                  => 'admin/{version}/gift_cards.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Receive a list of all Gift Cards',
             'data'                 => ['root_key' => 'gift_cards'],
@@ -1239,7 +1239,7 @@ return [
 
         'GetGiftCardCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/gift_cards/count.json',
+            'uri'                  => 'admin/{version}/gift_cards/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of gift cards',
             'additionalParameters' => [
@@ -1249,7 +1249,7 @@ return [
 
         'GetGiftCard' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/gift_cards/{id}.json',
+            'uri'              => 'admin/{version}/gift_cards/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Receive a single Gift Card',
             'data'             => ['root_key' => 'gift_card'],
@@ -1265,7 +1265,7 @@ return [
 
         'CreateGiftCard' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/gift_cards.json',
+            'uri'              => 'admin/{version}/gift_cards.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new Gift Card',
             'data'             => ['root_key' => 'gift_card'],
@@ -1284,7 +1284,7 @@ return [
 
         'UpdateGiftCard' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/gift_cards/{id}.json',
+            'uri'              => 'admin/{version}/gift_cards/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update the Gift Card',
             'data'             => ['root_key' => 'gift_card'],
@@ -1303,7 +1303,7 @@ return [
 
         'DisableGiftCard' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/gift_cards/{id}/disable.json',
+            'uri'              => 'admin/{version}/gift_cards/{id}/disable.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Disabling a Gift Card is permanent and cannot be undone',
             'data'             => ['root_key' => 'gift_card'],
@@ -1327,7 +1327,7 @@ return [
 
         'GetInventoryItems' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/inventory_items.json',
+            'uri'                  => 'admin/{version}/inventory_items.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of inventory items by passed identifiers',
             'data'                 => ['root_key' => 'inventory_items'],
@@ -1357,7 +1357,7 @@ return [
 
         'GetInventoryItem' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/inventory_items/{id}.json',
+            'uri'                  => 'admin/{version}/inventory_items/{id}.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a specific inventory item',
             'data'                 => ['root_key' => 'inventory_item'],
@@ -1376,7 +1376,7 @@ return [
 
         'UpdateInventoryItem' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/inventory_items/{id}.json',
+            'uri'              => 'admin/{version}/inventory_items/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update a specific inventory item',
             'data'             => ['root_key' => 'inventory_item'],
@@ -1403,7 +1403,7 @@ return [
 
         'GetInventoryLevels' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/inventory_levels.json',
+            'uri'                  => 'admin/{version}/inventory_levels.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of inventory levels either by passed inventory item IDs, location IDs or both',
             'data'                 => ['root_key' => 'inventory_levels'],
@@ -1439,7 +1439,7 @@ return [
 
         'AdjustInventoryLevel' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/inventory_levels/adjust.json',
+            'uri'              => 'admin/{version}/inventory_levels/adjust.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Adjusts the inventory level of an inventory item at a single location',
             'parameters'       => [
@@ -1466,7 +1466,7 @@ return [
 
         'DeleteInventoryLevel' => [
             'httpMethod'    => 'DELETE',
-            'uri'           => 'admin/inventory_levels.json',
+            'uri'           => 'admin/{version}/inventory_levels.json',
             'responseModel' => 'GenericModel',
             'parameters'    => [
                 'inventory_item_id' => [
@@ -1486,7 +1486,7 @@ return [
 
         'ConnectInventoryLevel' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/inventory_levels/connect.json',
+            'uri'              => 'admin/{version}/inventory_levels/connect.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Connects an inventory item to a location by creating an inventory level at that location',
             'parameters'       => [
@@ -1513,7 +1513,7 @@ return [
 
         'SetInventoryLevel' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/inventory_levels/set.json',
+            'uri'              => 'admin/{version}/inventory_levels/set.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Sets the inventory level for an inventory item at a location',
             'parameters'       => [
@@ -1554,7 +1554,7 @@ return [
 
         'GetLocations' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/locations.json',
+            'uri'                  => 'admin/{version}/locations.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of locations',
             'data'                 => ['root_key' => 'locations'],
@@ -1565,7 +1565,7 @@ return [
 
         'GetLocation' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/locations/{id}.json',
+            'uri'                  => 'admin/{version}/locations/{id}.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a specific location',
             'data'                 => ['root_key' => 'location'],
@@ -1584,7 +1584,7 @@ return [
 
         'GetLocationCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/locations/count.json',
+            'uri'                  => 'admin/{version}/locations/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a count of locations',
             'additionalParameters' => [
@@ -1594,7 +1594,7 @@ return [
 
         'GetLocationInventoryLevels' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/locations/{id}/inventory_levels.json',
+            'uri'                  => 'admin/{version}/locations/{id}/inventory_levels.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a specific location',
             'data'                 => ['root_key' => 'inventory_levels'],
@@ -1621,7 +1621,7 @@ return [
 
         'GetMetafields' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/metafields.json',
+            'uri'                  => 'admin/{version}/metafields.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of metafields',
             'data'                 => ['root_key' => 'metafields'],
@@ -1632,7 +1632,7 @@ return [
 
         'GetMetafield' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/metafields/{id}.json',
+            'uri'              => 'admin/{version}/metafields/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific metafield',
             'data'             => ['root_key' => 'metafield'],
@@ -1651,7 +1651,7 @@ return [
 
         'CreateMetafield' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/metafields.json',
+            'uri'              => 'admin/{version}/metafields.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new metafield',
             'data'             => ['root_key' => 'metafield'],
@@ -1682,7 +1682,7 @@ return [
 
         'UpdateMetafield' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/metafields/{id}.json',
+            'uri'              => 'admin/{version}/metafields/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update a specific metafield',
             'data'             => ['root_key' => 'metafield'],
@@ -1707,7 +1707,7 @@ return [
 
         'DeleteMetafield' => [
             'httpMethod'    => 'DELETE',
-            'uri'           => 'admin/metafields/{id}.json',
+            'uri'           => 'admin/{version}/metafields/{id}.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Delete specific metafield',
             'parameters'    => [
@@ -1730,7 +1730,7 @@ return [
 
         'GetOrders' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/orders.json',
+            'uri'                  => 'admin/{version}/orders.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of orders',
             'data'                 => ['root_key' => 'orders'],
@@ -1741,7 +1741,7 @@ return [
 
         'GetOrderCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/orders/count.json',
+            'uri'                  => 'admin/{version}/orders/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of orders',
             'additionalParameters' => [
@@ -1751,7 +1751,7 @@ return [
 
         'GetOrder' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/orders/{id}.json',
+            'uri'              => 'admin/{version}/orders/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific order',
             'data'             => ['root_key' => 'order'],
@@ -1770,7 +1770,7 @@ return [
 
         'GetOrderMetafields' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/orders/{id}/metafields.json',
+            'uri'           => 'admin/{version}/orders/{id}/metafields.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve a list of metafields for an order',
             'data'          => ['root_key' => 'metafields'],
@@ -1789,7 +1789,7 @@ return [
 
         'CreateOrder' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders.json',
+            'uri'              => 'admin/{version}/orders.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new order',
             'data'             => ['root_key' => 'order'],
@@ -1808,7 +1808,7 @@ return [
 
         'CloseOrder' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders/{id}/close.json',
+            'uri'              => 'admin/{version}/orders/{id}/close.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Close a specific order',
             'data'             => ['root_key' => 'order'],
@@ -1824,7 +1824,7 @@ return [
 
         'OpenOrder' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders/{id}/open.json',
+            'uri'              => 'admin/{version}/orders/{id}/open.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Re-open a closed order',
             'data'             => ['root_key' => 'order'],
@@ -1840,7 +1840,7 @@ return [
 
         'UpdateOrder' => [
           'httpMethod'           => 'PUT',
-          'uri'                  => 'admin/orders/{id}.json',
+          'uri'                  => 'admin/{version}/orders/{id}.json',
           'responseModel'        => 'GenericModel',
           'summary'              => 'Update an existing order',
           'data'                 => ['root_key' => 'order'],
@@ -1859,7 +1859,7 @@ return [
         
         'CancelOrder' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders/{id}/cancel.json',
+            'uri'              => 'admin/{version}/orders/{id}/cancel.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Cancel a given order',
             'data'             => ['root_key' => 'order'],
@@ -1886,7 +1886,7 @@ return [
 
         'GetDraftOrders' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/draft_orders.json',
+            'uri'                  => 'admin/{version}/draft_orders.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of draft orders',
             'data'                 => ['root_key' => 'draft_orders'],
@@ -1897,7 +1897,7 @@ return [
 
         'GetDraftOrderCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/draft_orders/count.json',
+            'uri'                  => 'admin/{version}/draft_orders/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of draft orders',
             'additionalParameters' => [
@@ -1907,7 +1907,7 @@ return [
 
         'GetDraftOrder' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/draft_orders/{id}.json',
+            'uri'              => 'admin/{version}/draft_orders/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific draft order',
             'data'             => ['root_key' => 'draft_order'],
@@ -1926,7 +1926,7 @@ return [
 
         'CreateDraftOrder' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/draft_orders.json',
+            'uri'              => 'admin/{version}/draft_orders.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new draft order',
             'data'             => ['root_key' => 'draft_order'],
@@ -1945,7 +1945,7 @@ return [
 
         'SendDraftOrderInvoice' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/draft_orders/{id}/send_invoice.json',
+            'uri'              => 'admin/{version}/draft_orders/{id}/send_invoice.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Send an invoice for the draft order',
             'data'             => ['root_key' => 'draft_order'],
@@ -1964,7 +1964,7 @@ return [
 
         'UpdateDraftOrder' => [
             'httpMethod'           => 'PUT',
-            'uri'                  => 'admin/draft_orders/{id}.json',
+            'uri'                  => 'admin/{version}/draft_orders/{id}.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Update an existing draft order',
             'data'                 => ['root_key' => 'draft_order'],
@@ -1983,7 +1983,7 @@ return [
 
         'DeleteDraftOrder' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/draft_orders/{id}.json',
+            'uri'              => 'admin/{version}/draft_orders/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete the draft order from the database',
             'parameters'       => [
@@ -1998,7 +1998,7 @@ return [
 
         'CompleteDraftOrder' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/draft_orders/{id}/complete.json',
+            'uri'              => 'admin/{version}/draft_orders/{id}/complete.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Complete a draft order, marking it as paid',
             'data'             => ['root_key' => 'draft_order'],
@@ -2022,7 +2022,7 @@ return [
 
         'GetPages' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/pages.json',
+            'uri'                  => 'admin/{version}/pages.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of pages',
             'data'                 => ['root_key' => 'pages'],
@@ -2033,7 +2033,7 @@ return [
 
         'GetPageCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/pages/count.json',
+            'uri'                  => 'admin/{version}/pages/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of pages',
             'additionalParameters' => [
@@ -2043,7 +2043,7 @@ return [
 
         'GetPage' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/pages/{id}.json',
+            'uri'              => 'admin/{version}/pages/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific page',
             'data'             => ['root_key' => 'page'],
@@ -2062,7 +2062,7 @@ return [
 
         'GetPageMetafields' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/pages/{id}/metafields.json',
+            'uri'           => 'admin/{version}/pages/{id}/metafields.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve a list of metafields for a page',
             'data'          => ['root_key' => 'metafields'],
@@ -2081,7 +2081,7 @@ return [
 
         'CreatePage' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/pages.json',
+            'uri'              => 'admin/{version}/pages.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new page',
             'data'             => ['root_key' => 'page'],
@@ -2106,7 +2106,7 @@ return [
 
         'UpdatePage' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/pages/{id}.json',
+            'uri'              => 'admin/{version}/pages/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing page',
             'data'             => ['root_key' => 'page'],
@@ -2125,7 +2125,7 @@ return [
 
         'DeletePage' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/pages/{id}.json',
+            'uri'              => 'admin/{version}/pages/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing page',
             'parameters'       => [
@@ -2148,7 +2148,7 @@ return [
 
         'GetProducts' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/products.json',
+            'uri'                  => 'admin/{version}/products.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of products',
             'data'                 => ['root_key' => 'products'],
@@ -2159,7 +2159,7 @@ return [
 
         'GetProductCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/products/count.json',
+            'uri'                  => 'admin/{version}/products/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of products',
             'additionalParameters' => [
@@ -2169,7 +2169,7 @@ return [
 
         'GetProduct' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/products/{id}.json',
+            'uri'              => 'admin/{version}/products/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific product',
             'data'             => ['root_key' => 'product'],
@@ -2188,7 +2188,7 @@ return [
 
         'GetProductMetafields' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/products/{id}/metafields.json',
+            'uri'           => 'admin/{version}/products/{id}/metafields.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve a list of metafields for a product',
             'data'          => ['root_key' => 'metafields'],
@@ -2207,7 +2207,7 @@ return [
 
         'CreateProduct' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/products.json',
+            'uri'              => 'admin/{version}/products.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new product',
             'data'             => ['root_key' => 'product'],
@@ -2226,7 +2226,7 @@ return [
 
         'UpdateProduct' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/products/{id}.json',
+            'uri'              => 'admin/{version}/products/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing product',
             'data'             => ['root_key' => 'product'],
@@ -2245,7 +2245,7 @@ return [
 
         'DeleteProduct' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/products/{id}.json',
+            'uri'              => 'admin/{version}/products/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing product',
             'parameters'       => [
@@ -2268,7 +2268,7 @@ return [
 
         'GetProductImages' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/products/{product_id}/images.json',
+            'uri'              => 'admin/{version}/products/{product_id}/images.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a list of product images',
             'data'             => ['root_key' => 'images'],
@@ -2287,7 +2287,7 @@ return [
 
         'GetProductImageCount' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/products/{product_id}/images/count.json',
+            'uri'              => 'admin/{version}/products/{product_id}/images/count.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve the number of images for a given product',
             'parameters'       => [
@@ -2305,7 +2305,7 @@ return [
 
         'GetProductImage' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/products/{product_id}/images/{id}.json',
+            'uri'              => 'admin/{version}/products/{product_id}/images/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific product image',
             'data'             => ['root_key' => 'image'],
@@ -2330,7 +2330,7 @@ return [
 
         'CreateProductImage' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/products/{product_id}/images.json',
+            'uri'              => 'admin/{version}/products/{product_id}/images.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new product image',
             'data'             => ['root_key' => 'image'],
@@ -2349,7 +2349,7 @@ return [
 
         'UpdateProductImage' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/products/{product_id}/images/{id}.json',
+            'uri'              => 'admin/{version}/products/{product_id}/images/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing product image',
             'data'             => ['root_key' => 'image'],
@@ -2374,7 +2374,7 @@ return [
 
         'DeleteProductImage' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/products/{product_id}/images/{id}.json',
+            'uri'              => 'admin/{version}/products/{product_id}/images/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing product image',
             'parameters'       => [
@@ -2403,7 +2403,7 @@ return [
 
         'GetRecurringApplicationCharges' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/recurring_application_charges.json',
+            'uri'                  => 'admin/{version}/recurring_application_charges.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of recurring application charges',
             'data'                 => ['root_key' => 'recurring_application_charges'],
@@ -2414,7 +2414,7 @@ return [
 
         'GetRecurringApplicationCharge' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/recurring_application_charges/{id}.json',
+            'uri'              => 'admin/{version}/recurring_application_charges/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific recurring application charge',
             'data'             => ['root_key' => 'recurring_application_charge'],
@@ -2433,7 +2433,7 @@ return [
 
         'CreateRecurringApplicationCharge' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/recurring_application_charges.json',
+            'uri'              => 'admin/{version}/recurring_application_charges.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new recurring application charge',
             'data'             => ['root_key' => 'recurring_application_charge'],
@@ -2464,7 +2464,7 @@ return [
 
         'ActivateRecurringApplicationCharge' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/recurring_application_charges/{id}/activate.json',
+            'uri'              => 'admin/{version}/recurring_application_charges/{id}/activate.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Activate a previously accepted recurring application charge',
             'data'             => ['root_key' => 'recurring_application_charge'],
@@ -2480,7 +2480,7 @@ return [
 
         'DeleteRecurringApplicationCharge' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/recurring_application_charges/{id}.json',
+            'uri'              => 'admin/{version}/recurring_application_charges/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing recurring application charge',
             'parameters'       => [
@@ -2503,7 +2503,7 @@ return [
 
         'GetRefunds' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/orders/{order_id}/refunds.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/refunds.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a list of Refunds for an Order',
             'data'             => ['root_key' => 'refunds'],
@@ -2522,7 +2522,7 @@ return [
 
         'GetRefund' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/orders/{order_id}/refunds/{id}.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/refunds/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific refund',
             'data'             => ['root_key' => 'refund'],
@@ -2547,7 +2547,7 @@ return [
 
         'CalculateRefund' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders/{order_id}/refunds/calculate.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/refunds/calculate.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Calculate refund transactions based on line items and shipping',
             'data'             => ['root_key' => 'refund'],
@@ -2566,7 +2566,7 @@ return [
 
         'CreateRefund' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/orders/{order_id}/refunds.json',
+            'uri'              => 'admin/{version}/orders/{order_id}/refunds.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a Refund for an existing Order',
             'data'             => ['root_key' => 'refund'],
@@ -2593,7 +2593,7 @@ return [
 
         'GetShop' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/shop.json',
+            'uri'                  => 'admin/{version}/shop.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Get data about a single shop',
             'data'                 => ['root_key' => 'shop'],
@@ -2612,7 +2612,7 @@ return [
 
         'GetSmartCollections' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/smart_collections.json',
+            'uri'                  => 'admin/{version}/smart_collections.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of smart collections',
             'data'                 => ['root_key' => 'smart_collections'],
@@ -2623,7 +2623,7 @@ return [
 
         'GetSmartCollectionCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/smart_collections/count.json',
+            'uri'                  => 'admin/{version}/smart_collections/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of smart collections',
             'additionalParameters' => [
@@ -2633,7 +2633,7 @@ return [
 
         'GetSmartCollection' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/smart_collections/{id}.json',
+            'uri'              => 'admin/{version}/smart_collections/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific smart collection',
             'data'             => ['root_key' => 'smart_collection'],
@@ -2652,7 +2652,7 @@ return [
 
         'CreateSmartCollection' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/smart_collections.json',
+            'uri'              => 'admin/{version}/smart_collections.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a smart collection',
             'data'             => ['root_key' => 'smart_collection'],
@@ -2671,7 +2671,7 @@ return [
 
         'UpdateSmartCollection' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/smart_collections/{id}.json',
+            'uri'              => 'admin/{version}/smart_collections/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update a smart collection',
             'data'             => ['root_key' => 'smart_collection'],
@@ -2690,7 +2690,7 @@ return [
 
         'DeleteSmartCollection' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/smart_collections/{id}.json',
+            'uri'              => 'admin/{version}/smart_collections/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete a smart collection',
             'parameters'       => [
@@ -2713,7 +2713,7 @@ return [
 
         'GetThemes' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/themes.json',
+            'uri'                  => 'admin/{version}/themes.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of themes',
             'data'                 => ['root_key' => 'themes'],
@@ -2724,7 +2724,7 @@ return [
 
         'GetTheme' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/themes/{id}.json',
+            'uri'              => 'admin/{version}/themes/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific theme',
             'data'             => ['root_key' => 'theme'],
@@ -2743,7 +2743,7 @@ return [
 
         'CreateTheme' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/themes.json',
+            'uri'              => 'admin/{version}/themes.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new theme',
             'data'             => ['root_key' => 'theme'],
@@ -2768,7 +2768,7 @@ return [
 
         'UpdateTheme' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/themes/{id}.json',
+            'uri'              => 'admin/{version}/themes/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing theme',
             'data'             => ['root_key' => 'theme'],
@@ -2793,7 +2793,7 @@ return [
 
         'DeleteTheme' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/themes/{id}.json',
+            'uri'              => 'admin/{version}/themes/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing theme',
             'parameters'       => [
@@ -2816,7 +2816,7 @@ return [
 
         'GetPriceRules' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/price_rules.json',
+            'uri'                  => 'admin/{version}/price_rules.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of price rules',
             'data'                 => ['root_key' => 'price_rules'],
@@ -2827,7 +2827,7 @@ return [
 
         'GetPriceRule' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/price_rules/{id}.json',
+            'uri'              => 'admin/{version}/price_rules/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific price rule',
             'data'             => ['root_key' => 'price_rule'],
@@ -2846,7 +2846,7 @@ return [
 
         'CreatePriceRule' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/price_rules.json',
+            'uri'              => 'admin/{version}/price_rules.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new price rule',
             'data'             => ['root_key' => 'price_rule'],
@@ -2913,7 +2913,7 @@ return [
 
         'UpdatePriceRule' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/price_rules/{id}.json',
+            'uri'              => 'admin/{version}/price_rules/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing price rule code',
             'data'             => ['root_key' => 'price_rule'],
@@ -2932,7 +2932,7 @@ return [
 
         'DeletePriceRule' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/price_rules/{id}.json',
+            'uri'              => 'admin/{version}/price_rules/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing price rule',
             'parameters'       => [
@@ -2955,7 +2955,7 @@ return [
 
         'GetProductVariants' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/products/{product_id}/variants.json',
+            'uri'              => 'admin/{version}/products/{product_id}/variants.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Get all variants for the given product',
             'data'             => ['root_key' => 'variants'],
@@ -2974,7 +2974,7 @@ return [
 
         'GetProductVariantCount' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/products/{product_id}/variants/count.json',
+            'uri'              => 'admin/{version}/products/{product_id}/variants/count.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve the number of variants for a given product',
             'parameters'       => [
@@ -2992,7 +2992,7 @@ return [
 
         'GetProductVariant' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/variants/{id}.json',
+            'uri'              => 'admin/{version}/variants/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific variant',
             'data'             => ['root_key' => 'variant'],
@@ -3011,7 +3011,7 @@ return [
 
         'GetProductVariantMetafields' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/variants/{id}/metafields.json',
+            'uri'           => 'admin/{version}/variants/{id}/metafields.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve a list of metafields for a variant',
             'data'          => ['root_key' => 'metafields'],
@@ -3030,7 +3030,7 @@ return [
 
         'CreateProductVariant' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/products/{product_id}/variants.json',
+            'uri'              => 'admin/{version}/products/{product_id}/variants.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new variant',
             'data'             => ['root_key' => 'variant'],
@@ -3049,7 +3049,7 @@ return [
 
         'UpdateProductVariant' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/variants/{id}.json',
+            'uri'              => 'admin/{version}/variants/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing variant',
             'data'             => ['root_key' => 'variant'],
@@ -3068,7 +3068,7 @@ return [
 
         'DeleteProductVariant' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/products/{product_id}/variants/{id}.json',
+            'uri'              => 'admin/{version}/products/{product_id}/variants/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing variant for the given product',
             'parameters'       => [
@@ -3097,7 +3097,7 @@ return [
 
         'GetRedirects' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/redirects.json',
+            'uri'                  => 'admin/{version}/redirects.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of redirects',
             'data'                 => ['root_key' => 'redirects'],
@@ -3108,7 +3108,7 @@ return [
 
         'GetRedirectCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/redirects/count.json',
+            'uri'                  => 'admin/{version}/redirects/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of redirects',
             'additionalParameters' => [
@@ -3118,7 +3118,7 @@ return [
 
         'GetRedirect' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/redirects/{id}.json',
+            'uri'              => 'admin/{version}/redirects/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific redirect',
             'data'             => ['root_key' => 'redirect'],
@@ -3137,7 +3137,7 @@ return [
 
         'CreateRedirect' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/redirects.json',
+            'uri'              => 'admin/{version}/redirects.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a redirect',
             'data'             => ['root_key' => 'redirect'],
@@ -3159,7 +3159,7 @@ return [
 
         'UpdateRedirect' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/redirects/{id}.json',
+            'uri'              => 'admin/{version}/redirects/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing redirect',
             'data'             => ['root_key' => 'redirect'],
@@ -3181,7 +3181,7 @@ return [
 
         'DeleteRedirect' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/redirects/{id}.json',
+            'uri'              => 'admin/{version}/redirects/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing redirect',
             'parameters'       => [
@@ -3204,7 +3204,7 @@ return [
 
         'GetScriptTags' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/script_tags.json',
+            'uri'                  => 'admin/{version}/script_tags.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of installed script tags',
             'data'                 => ['root_key' => 'script_tags'],
@@ -3215,7 +3215,7 @@ return [
 
         'GetScriptTagCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/script_tags/count.json',
+            'uri'                  => 'admin/{version}/script_tags/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of script tags',
             'additionalParameters' => [
@@ -3225,7 +3225,7 @@ return [
 
         'GetScriptTag' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/script_tags/{id}.json',
+            'uri'              => 'admin/{version}/script_tags/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a single script tag',
             'data'             => ['root_key' => 'script_tag'],
@@ -3244,7 +3244,7 @@ return [
 
         'CreateScriptTag' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/script_tags.json',
+            'uri'              => 'admin/{version}/script_tags.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new script tags',
             'data'             => ['root_key' => 'script_tag'],
@@ -3270,7 +3270,7 @@ return [
 
         'UpdateScriptTag' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/script_tags/{id}.json',
+            'uri'              => 'admin/{version}/script_tags/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing script tag',
             'data'             => ['root_key' => 'script_tag'],
@@ -3302,7 +3302,7 @@ return [
 
         'DeleteScriptTag' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/script_tags/{id}.json',
+            'uri'              => 'admin/{version}/script_tags/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing script tag',
             'parameters'       => [
@@ -3325,7 +3325,7 @@ return [
 
         'GetTransactions' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/orders/{order_id}/transactions.json',
+            'uri'           => 'admin/{version}/orders/{order_id}/transactions.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve a list of transactions for a given order',
             'data'          => ['root_key' => 'transactions'],
@@ -3344,7 +3344,7 @@ return [
 
         'GetTransactionCount' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/orders/{order_id}/transactions/count.json',
+            'uri'           => 'admin/{version}/orders/{order_id}/transactions/count.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve the number of script tags',
             'parameters'    => [
@@ -3362,7 +3362,7 @@ return [
 
         'GetTransaction' => [
             'httpMethod'    => 'GET',
-            'uri'           => 'admin/orders/{order_id}/transactions/{id}.json',
+            'uri'           => 'admin/{version}/orders/{order_id}/transactions/{id}.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Retrieve a specific transaction',
             'data'          => ['root_key' => 'transaction'],
@@ -3387,7 +3387,7 @@ return [
 
         'CreateTransaction' => [
             'httpMethod'    => 'POST',
-            'uri'           => 'admin/orders/{order_id}/transactions.json',
+            'uri'           => 'admin/{version}/orders/{order_id}/transactions.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Create a new transaction for a given order',
             'data'          => ['root_key' => 'transaction'],
@@ -3421,7 +3421,7 @@ return [
 
         'GetUsageCharges' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/recurring_application_charges/{recurring_charge_id}/usage_charges.json',
+            'uri'              => 'admin/{version}/recurring_application_charges/{recurring_charge_id}/usage_charges.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a list of usage charges for the given recurring application charges',
             'data'             => ['root_key' => 'usage_charges'],
@@ -3440,7 +3440,7 @@ return [
 
         'GetUsageCharge' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/recurring_application_charges/{recurring_charge_id}/usage_charges/{id}.json',
+            'uri'              => 'admin/{version}/recurring_application_charges/{recurring_charge_id}/usage_charges/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific usage charge',
             'data'             => ['root_key' => 'usage_charge'],
@@ -3465,7 +3465,7 @@ return [
 
         'CreateUsageCharge' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/recurring_application_charges/{recurring_charge_id}/usage_charges.json',
+            'uri'              => 'admin/{version}/recurring_application_charges/{recurring_charge_id}/usage_charges.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new usage charge',
             'data'             => ['root_key' => 'usage_charge'],
@@ -3501,7 +3501,7 @@ return [
 
         'GetWebhooks' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/webhooks.json',
+            'uri'                  => 'admin/{version}/webhooks.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of webhooks',
             'data'                 => ['root_key' => 'webhooks'],
@@ -3512,7 +3512,7 @@ return [
 
         'GetWebhookCount' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/webhooks/count.json',
+            'uri'                  => 'admin/{version}/webhooks/count.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve the number of webhooks',
             'additionalParameters' => [
@@ -3522,7 +3522,7 @@ return [
 
         'GetWebhook' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/webhooks/{id}.json',
+            'uri'              => 'admin/{version}/webhooks/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve a specific webhook',
             'data'             => ['root_key' => 'webhook'],
@@ -3541,7 +3541,7 @@ return [
 
         'CreateWebhook' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/webhooks.json',
+            'uri'              => 'admin/{version}/webhooks.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new webhook',
             'data'             => ['root_key' => 'webhook'],
@@ -3585,7 +3585,7 @@ return [
 
         'UpdateWebhook' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/webhooks/{id}.json',
+            'uri'              => 'admin/{version}/webhooks/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update an existing webhook',
             'data'             => ['root_key' => 'webhook'],
@@ -3604,7 +3604,7 @@ return [
 
         'DeleteWebhook' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/webhooks/{id}.json',
+            'uri'              => 'admin/{version}/webhooks/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete an existing webhook',
             'parameters'       => [
@@ -3625,7 +3625,7 @@ return [
 
         'CreateDelegateAccessToken' => [
             'httpMethod'    => 'POST',
-            'uri'           => 'admin/access_tokens/delegate.json',
+            'uri'           => 'admin/{version}/access_tokens/delegate.json',
             'responseModel' => 'GenericModel',
             'summary'       => 'Create a new delegate access token',
             'parameters'    => [

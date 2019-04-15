@@ -48,9 +48,9 @@ class ShopifyGraphQLClient
      */
     private function validateConnectionOptions(array $connectionOptions)
     {
-        if (!isset($connectionOptions['shop'], $connectionOptions['private_app'])) {
+        if (!isset($connectionOptions['shop'], $connectionOptions['version'], $connectionOptions['private_app'])) {
             throw new RuntimeException(
-                '"shop" and "private_app" must be provided when instantiating the Shopify client'
+                '"shop", "version" and "private_app" must be provided when instantiating the Shopify client'
             );
         }
 
@@ -101,7 +101,9 @@ class ShopifyGraphQLClient
      */
     public function request(string $query, array $variables = []): array
     {
-        $response = $this->guzzleClient->request('POST', 'admin/api/graphql.json', [
+        $url = sprintf('admin/api/%s/graphql.json', $this->connectionOptions['version']);
+
+        $response = $this->guzzleClient->request('POST', $url, [
             'body' => json_encode([
                 'query'     => $query,
                 'variables' => $variables ? $variables : null

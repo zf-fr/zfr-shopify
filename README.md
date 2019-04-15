@@ -34,9 +34,12 @@ $shopifyClient = new ShopifyClient([
     'private_app' => true,
     'api_key'     => 'YOUR_API_KEY',
     'password'    => 'YOUR_PASSWORD',
-    'shop'        => 'domain.myshopify.com'
+    'shop'        => 'domain.myshopify.com',
+    'version'     => '2019-04'
 ]);
 ```
+
+> Make sure to always include a version. [More info about Shopify versioning](https://help.shopify.com/en/api/versioning)
 
 ### Public app
 
@@ -47,9 +50,12 @@ $shopifyClient = new ShopifyClient([
     'private_app'   => false,
     'api_key'       => 'YOUR_API_KEY', // In public app, this is the app ID
     'access_token'  => 'MERCHANT_TOKEN',
-    'shop'          => 'merchant.myshopify.com'
+    'shop'          => 'merchant.myshopify.com',
+    'version'       => '2019-04'
 ]);
 ```
+
+> Make sure to always include a version. [More info about Shopify versioning](https://help.shopify.com/en/api/versioning)
 
 ### Using a container
 
@@ -275,21 +281,27 @@ a private app:
 
 ```php
 $client = new ShopifyGraphQLClient([
-    'shop_domain' => 'test.myshopify.com',
+    'shop'        => 'test.myshopify.com',
+    'version'     => '2019-04',
     'private_app' => true,
     'password'    => 'YOUR PASSWORD'
 ]);
 ```
 
+> Make sure to always include a version. [More info about Shopify versioning](https://help.shopify.com/en/api/versioning)
+
 If you are using a public app:
 
 ```php
 $client = new ShopifyGraphQLClient([
-    'shop_domain'  => 'test.myshopify.com',
+    'shop'         => 'test.myshopify.com',
+    'version'      => '2019-04',
     'private_app'  => false,
     'access_token' => 'ACCESS TOKEN'
 ]);
 ```
+
+> Make sure to always include a version. [More info about Shopify versioning](https://help.shopify.com/en/api/versioning)
 
 ### Queries
 

@@ -1,5 +1,7 @@
 # 5.0.0
 
+* [BC] Add support for the new "version". You are now required to pass a version when creating a client (both admin
+  and GraphQL API).
 * Fix GraphQL doc
 
 # 4.2.0

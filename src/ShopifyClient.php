@@ -381,6 +381,10 @@ class ShopifyClient
      */
     public function getCommand(string $method, $args = []): CommandInterface
     {
+        // Add the mandatory version
+
+        $args = array_merge($args, ['version' => $this->connectionOptions['version']]);
+
         // Add authentication parameters to each command based on the Shopify app type
 
         if ($this->connectionOptions['private_app']) {
@@ -539,8 +543,8 @@ class ShopifyClient
      */
     private function validateConnectionOptions(array $connectionOptions)
     {
-        if (!isset($connectionOptions['shop'], $connectionOptions['api_key'], $connectionOptions['private_app'])) {
-            throw new RuntimeException('"shop", "private_app" and/or "api_key" must be provided when instantiating the Shopify client');
+        if (!isset($connectionOptions['shop'], $connectionOptions['version'], $connectionOptions['api_key'], $connectionOptions['private_app'])) {
+            throw new RuntimeException('"shop", "version", "private_app" and/or "api_key" must be provided when instantiating the Shopify client');
         }
 
         if ($connectionOptions['private_app'] && !isset($connectionOptions['password'])) {
