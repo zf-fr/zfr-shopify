@@ -17,7 +17,7 @@ ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.sho
 Installation of ZfrShopify is only officially supported using Composer:
 
 ```sh
-php composer.phar require 'zfr/zfr-shopify:4.0'
+php composer.phar require 'zfr/zfr-shopify:5.0'
 ```
 
 ## REST API
@@ -34,9 +34,12 @@ $shopifyClient = new ShopifyClient([
     'private_app' => true,
     'api_key'     => 'YOUR_API_KEY',
     'password'    => 'YOUR_PASSWORD',
-    'shop'        => 'domain.myshopify.com'
+    'shop'        => 'domain.myshopify.com',
+    'version'     => '2019-04'
 ]);
 ```
+
+> Make sure to always include a version. [More info about Shopify versioning](https://help.shopify.com/en/api/versioning)
 
 ### Public app
 
@@ -47,9 +50,12 @@ $shopifyClient = new ShopifyClient([
     'private_app'   => false,
     'api_key'       => 'YOUR_API_KEY', // In public app, this is the app ID
     'access_token'  => 'MERCHANT_TOKEN',
-    'shop'          => 'merchant.myshopify.com'
+    'shop'          => 'merchant.myshopify.com',
+    'version'       => '2019-04'
 ]);
 ```
+
+> Make sure to always include a version. [More info about Shopify versioning](https://help.shopify.com/en/api/versioning)
 
 ### Using a container
 
@@ -275,21 +281,27 @@ a private app:
 
 ```php
 $client = new ShopifyGraphQLClient([
-    'shop_domain' => 'test.myshopify.com',
+    'shop'        => 'test.myshopify.com',
+    'version'     => '2019-04',
     'private_app' => true,
     'password'    => 'YOUR PASSWORD'
 ]);
 ```
 
+> Make sure to always include a version. [More info about Shopify versioning](https://help.shopify.com/en/api/versioning)
+
 If you are using a public app:
 
 ```php
 $client = new ShopifyGraphQLClient([
-    'shop_domain'  => 'test.myshopify.com',
+    'shop'         => 'test.myshopify.com',
+    'version'      => '2019-04',
     'private_app'  => false,
     'access_token' => 'ACCESS TOKEN'
 ]);
 ```
+
+> Make sure to always include a version. [More info about Shopify versioning](https://help.shopify.com/en/api/versioning)
 
 ### Queries
 
@@ -318,7 +330,7 @@ query
     }
   }
 }
-'EOT';
+EOT;
 
 $result = $client->request($request);
 ```
@@ -335,7 +347,7 @@ foreach ($result['collections']['edges'] as $collection) {
 }
 ```
 
-As of now, ZfrShopify does not attempt to rewrite the payload returned from Shopify.
+ZfrShopify does not attempt to re-write the GraphQL response.
 
 #### Variables
 
@@ -351,7 +363,7 @@ query getProduct($id: ID!)
     title
   }
 }
-'EOT';
+EOT;
 
 $variables = [
     'id' => 'gid://shopify/Product/827442593835'
@@ -381,7 +393,7 @@ mutation createProduct($product: ProductInput!)
     }
   }
 }
-'EOT';
+EOT;
 
 $variables = [
     'product' => [

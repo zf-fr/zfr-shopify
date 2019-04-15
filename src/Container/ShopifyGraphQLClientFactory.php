@@ -21,11 +21,12 @@ namespace ZfrShopify\Container;
 use Psr\Container\ContainerInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\ShopifyClient;
+use ZfrShopify\ShopifyGraphQLClient;
 
 /**
  * Create and return an instance of the Shopify client.
  *
- * Register this factory for the `Zfr\Shopify\ShopifyClient` factory, and make sure to include the "config"
+ * Register this factory for the `Zfr\Shopify\ShopifyGraphQLClient` factory, and make sure to include the "config"
  * service (that must contains a "zfr_shopify" key). Supported configuration is:
  *
  * <code>
@@ -41,13 +42,13 @@ use ZfrShopify\ShopifyClient;
  *
  * @author Michaël Gallego
  */
-class ShopifyClientFactory
+class ShopifyGraphQLClientFactory
 {
     /**
      * @param  ContainerInterface $container
      * @return ShopifyClient
      */
-    public function __invoke(ContainerInterface $container): ShopifyClient
+    public function __invoke(ContainerInterface $container): ShopifyGraphQLClient
     {
         $config = $container->has('config') ? $container->get('config') : [];
 
@@ -55,6 +56,6 @@ class ShopifyClientFactory
             throw new RuntimeException('Container config does not have a "zfr_shopify" key');
         }
 
-        return new ShopifyClient($config['zfr_shopify']);
+        return new ShopifyGraphQLClient($config['zfr_shopify']);
     }
 }

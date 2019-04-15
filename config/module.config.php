@@ -21,16 +21,18 @@ use ZfrShopify\Container\ShopifyClientFactory;
 use ZfrShopify\Container\TokenExchangerFactory;
 use ZfrShopify\OAuth\TokenExchanger;
 use ZfrShopify\ShopifyClient;
+use ZfrShopify\ShopifyGraphQLClient;
 use ZfrShopify\Validator\RequestValidator;
 use ZfrShopify\Validator\WebhookValidator;
 
 return [
     'dependencies' => [
         'factories' => [
-            RequestValidator::class => InvokableFactory::class,
-            WebhookValidator::class => InvokableFactory::class,
-            ShopifyClient::class    => ShopifyClientFactory::class,
-            TokenExchanger::class   => TokenExchangerFactory::class,
+            RequestValidator::class     => InvokableFactory::class,
+            WebhookValidator::class     => InvokableFactory::class,
+            ShopifyClient::class        => ShopifyClientFactory::class,
+            ShopifyGraphQLClient::class => ShopifyGraphQLClient::class,
+            TokenExchanger::class       => TokenExchangerFactory::class,
         ],
     ],
 ];

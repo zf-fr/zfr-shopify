@@ -63,6 +63,7 @@ class ShopifyClientTest extends TestCase
             [
                 [
                     'shop'        => 'test.myshopify.com',
+                    'version'     => '2019-04',
                     'api_key'     => 'key_123',
                     'private_app' => true,
                     'password'    => 'pass_123'
@@ -72,6 +73,7 @@ class ShopifyClientTest extends TestCase
             [
                 [
                     'shop'         => 'test.myshopify.com',
+                    'version'      => '2019-04',
                     'api_key'      => 'key_123',
                     'private_app'  => false,
                     'access_token' => 'token_123'
@@ -165,8 +167,9 @@ class ShopifyClientTest extends TestCase
         $client        = $this->getShopifyClientForPublicApp($serviceClient->reveal());
 
         $serviceClient->getCommand('GetShop', [
-            'fields' => 'id',
-            '@http' => [
+            'fields'  => 'id',
+            'version' => '2019-04',
+            '@http'   => [
                 'headers' => [
                     'X-Shopify-Access-Token' => 'token_123'
                 ]
@@ -182,8 +185,9 @@ class ShopifyClientTest extends TestCase
         $client        = $this->getShopifyClientForPrivateApp($serviceClient->reveal());
 
         $serviceClient->getCommand('GetShop', [
-            'fields' => 'id',
-            '@http' => [
+            'fields'  => 'id',
+            'version' => '2019-04',
+            '@http'   => [
                 'auth' => ['key', 'password_123']
             ]
         ])->shouldBeCalled()->willReturn($this->prophesize(CommandInterface::class)->reveal());
@@ -197,8 +201,9 @@ class ShopifyClientTest extends TestCase
         $client        = $this->getShopifyClientForPublicApp($serviceClient->reveal());
 
         $expectedArgs = [
-            'fields' => 'id,name',
-            '@http'  => [
+            'fields'  => 'id,name',
+            'version' => '2019-04',
+            '@http'   => [
                 'headers' => [
                     'X-Shopify-Access-Token' => 'token_123'
                 ]
@@ -233,8 +238,9 @@ class ShopifyClientTest extends TestCase
         $client        = $this->getShopifyClientForPrivateApp($serviceClient->reveal());
 
         $expectedArgs = [
-            'fields' => 'id,name',
-            '@http'  => [
+            'fields'  => 'id,name',
+            'version' => '2019-04',
+            '@http'   => [
                 'auth' => ['key', 'password_123']
             ]
         ];
@@ -265,6 +271,7 @@ class ShopifyClientTest extends TestCase
     {
         $options = [
             'shop'         => 'test.myshopify.com',
+            'version'      => '2019-04',
             'private_app'  => false,
             'access_token' => 'token_123',
             'api_key'      => 'key'
@@ -277,6 +284,7 @@ class ShopifyClientTest extends TestCase
     {
         $options = [
             'shop'         => 'test.myshopify.com',
+            'version'      => '2019-04',
             'private_app'  => true,
             'password'     => 'password_123',
             'api_key'      => 'key'

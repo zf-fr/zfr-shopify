@@ -20,13 +20,13 @@ namespace ZfrShopifyTest\Container;
 
 use Psr\Container\ContainerInterface;
 use ZfrShopify\Exception\RuntimeException;
-use ZfrShopify\Container\ShopifyClientFactory;
+use ZfrShopify\Container\ShopifyGraphQLClientFactory;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @author Michaël Gallego
  */
-class ShopifyClientFactoryTest extends TestCase
+class ShopifyGraphQLClientFactoryTest extends TestCase
 {
     public function testThrowExceptionIfNoConfig()
     {
@@ -36,7 +36,7 @@ class ShopifyClientFactoryTest extends TestCase
         $container->has('config')->shouldBeCalled()->willReturn(true);
         $container->get('config')->shouldBeCalled()->willReturn([]);
 
-        $factory = new ShopifyClientFactory();
+        $factory = new ShopifyGraphQLClientFactory();
         $factory->__invoke($container->reveal());
     }
 
@@ -54,7 +54,7 @@ class ShopifyClientFactoryTest extends TestCase
             ]
         ]);
 
-        $factory = new ShopifyClientFactory();
+        $factory = new ShopifyGraphQLClientFactory();
         $factory->__invoke($container->reveal());
     }
 }
