@@ -330,7 +330,7 @@ query
     }
   }
 }
-'EOT';
+EOT;
 
 $result = $client->request($request);
 ```
@@ -363,7 +363,7 @@ query getProduct($id: ID!)
     title
   }
 }
-'EOT';
+EOT;
 
 $variables = [
     'id' => 'gid://shopify/Product/827442593835'
@@ -393,7 +393,7 @@ mutation createProduct($product: ProductInput!)
     }
   }
 }
-'EOT';
+EOT;
 
 $variables = [
     'product' => [
