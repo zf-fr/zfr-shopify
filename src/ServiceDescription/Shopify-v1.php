@@ -1849,7 +1849,7 @@ return [
               'description' => 'Order ID',
               'location'    => 'uri',
               'type'        => 'integer',
-              'required'    => TRUE
+              'required'    => true
             ],
           ],
           'additionalParameters' => [
