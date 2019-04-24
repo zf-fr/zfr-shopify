@@ -91,6 +91,14 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateBlog(array $args = []) {@command Shopify UpdateBlog}
  * @method array deleteBlog(array $args = []) {@command Shopify DeleteBlog}
  *
+ * CARRIER SERVICE RELATED METHODS:
+ *
+ * @method array getCarrierServices(array $args = []) {@command Shopify GetCarrierServices}
+ * @method array getCarrierService(array $args = []) {@command Shopify GetCarrierService}
+ * @method array createCarrierService(array $args = []) {@command Shopify CreateCarrierService}
+ * @method array updateCarrierService(array $args = []) {@command Shopify UpdateCarrierService}
+ * @method array deleteCarrierService(array $args = []) {@command Shopify DeleteCarrierService}
+ *
  * CUSTOM COLLECTION RELATED METHODS:
  *
  * @method array getCustomCollections(array $args = []) {@command Shopify GetCustomCollections}
