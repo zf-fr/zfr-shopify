@@ -813,21 +813,35 @@ return [
          */
         'GetCarrierServices' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/carrier_services.json',
+            'uri'                  => 'admin/api/{version}/carrier_services.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of carrier services',
             'data'                 => ['root_key' => 'carrier_services'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
             'additionalParameters' => [
                 'location' => 'query',
             ],
         ],
         'GetCarrierService' => [
             'httpMethod'       => 'GET',
-            'uri'              => 'admin/carrier_services/{id}.json',
+            'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Retrieve specific carrier service',
             'data'             => ['root_key' => 'carrier_service'],
             'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
                 'id' => [
                     'description' => 'Carrier service ID',
                     'location'    => 'uri',
@@ -841,11 +855,17 @@ return [
         ],
         'CreateCarrierService' => [
             'httpMethod'       => 'POST',
-            'uri'              => 'admin/carrier_services.json',
+            'uri'              => 'admin/api/{version}/carrier_services.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a carrier service',
             'data'             => ['root_key' => 'carrier_service'],
             'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
                 'name' => [
                     'description' => 'Carrier service name',
                     'location'    => 'json',
@@ -865,11 +885,17 @@ return [
         ],
         'UpdateCarrierService' => [
             'httpMethod'       => 'PUT',
-            'uri'              => 'admin/carrier_services/{id}.json',
+            'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Update a carrier service',
             'data'             => ['root_key' => 'carrier_service'],
             'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
                 'id' => [
                     'description' => 'Carrier service ID',
                     'location'    => 'uri',
@@ -883,10 +909,16 @@ return [
         ],
         'DeleteCarrierService' => [
             'httpMethod'       => 'DELETE',
-            'uri'              => 'admin/carrier_services/{id}.json',
+            'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Delete a carrier service',
             'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
                 'id' => [
                     'description' => 'Carrier service ID',
                     'location'    => 'uri',
