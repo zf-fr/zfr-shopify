@@ -1,3 +1,11 @@
+# 5.2.0
+
+* Add blog count endpoint
+
+# 5.1.0
+
+* Add carrier service endpoints
+
 # 5.0.0
 
 * [BC] Add support for the new "version". You are now required to pass a version when creating a client (both admin

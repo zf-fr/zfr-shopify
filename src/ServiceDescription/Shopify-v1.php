@@ -708,6 +708,24 @@ return [
             ],
         ],
 
+        'GetBlogCount' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/api/{version}/blogs/count.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve the number of blogs',
+            'parameters'    => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
         'GetBlog' => [
             'httpMethod'       => 'GET',
             'uri'              => 'admin/api/{version}/blogs/{id}.json',

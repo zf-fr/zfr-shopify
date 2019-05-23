@@ -484,6 +484,7 @@ Here is a list of supported endpoints (more to come in the future):
 **BLOG RELATED METHODS:**
 
 * array getBlogs(array $args = [])
+* int getBlogCount(array $args = [])
 * array getBlog(array $args = [])
 * array createBlog(array $args = [])
 * array updateBlog(array $args = [])

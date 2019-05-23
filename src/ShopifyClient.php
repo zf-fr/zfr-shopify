@@ -86,6 +86,7 @@ use ZfrShopify\Exception\RuntimeException;
  * BLOG RELATED METHODS:
  *
  * @method array getBlogs(array $args = []) {@command Shopify GetBlogs}
+ * @method array getBlogCount(array $args = []) {@command Shopify GetBlogCount}
  * @method array getBlog(array $args = []) {@command Shopify GetBlog}
  * @method array createBlog(array $args = []) {@command Shopify CreateBlog}
  * @method array updateBlog(array $args = []) {@command Shopify UpdateBlog}
