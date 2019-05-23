@@ -829,6 +829,7 @@ return [
          * DOC: https://help.shopify.com/en/api/reference/shipping-and-fulfillment/carrierservice
          * --------------------------------------------------------------------------------
          */
+
         'GetCarrierServices' => [
             'httpMethod'           => 'GET',
             'uri'                  => 'admin/api/{version}/carrier_services.json',
@@ -847,6 +848,7 @@ return [
                 'location' => 'query',
             ],
         ],
+
         'GetCarrierService' => [
             'httpMethod'       => 'GET',
             'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
@@ -871,6 +873,7 @@ return [
                 'location' => 'query',
             ],
         ],
+
         'CreateCarrierService' => [
             'httpMethod'       => 'POST',
             'uri'              => 'admin/api/{version}/carrier_services.json',
@@ -901,6 +904,7 @@ return [
                 'location' => 'json',
             ],
         ],
+
         'UpdateCarrierService' => [
             'httpMethod'       => 'PUT',
             'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
@@ -925,6 +929,7 @@ return [
                 'location' => 'json',
             ],
         ],
+
         'DeleteCarrierService' => [
             'httpMethod'       => 'DELETE',
             'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
