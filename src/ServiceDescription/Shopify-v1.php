@@ -824,6 +824,130 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * CARRIER SERVICE RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/shipping-and-fulfillment/carrierservice
+         * --------------------------------------------------------------------------------
+         */
+        'GetCarrierServices' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/carrier_services.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of carrier services',
+            'data'                 => ['root_key' => 'carrier_services'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+        'GetCarrierService' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve specific carrier service',
+            'data'             => ['root_key' => 'carrier_service'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Carrier service ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+        'CreateCarrierService' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/api/{version}/carrier_services.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a carrier service',
+            'data'             => ['root_key' => 'carrier_service'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'name' => [
+                    'description' => 'Carrier service name',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'callback_url' => [
+                    'description' => 'Carrier service callback url',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+        'UpdateCarrierService' => [
+            'httpMethod'       => 'PUT',
+            'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Update a carrier service',
+            'data'             => ['root_key' => 'carrier_service'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Carrier service ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+        'DeleteCarrierService' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/api/{version}/carrier_services/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Delete a carrier service',
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Carrier service ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * CUSTOM COLLECTION RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/customcollection
