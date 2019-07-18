@@ -109,6 +109,15 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateCustomCollection(array $args = []) {@command Shopify UpdateCustomCollection}
  * @method array deleteCustomCollection(array $args = []) {@command Shopify DeleteCustomCollection}
  *
+ * COLLECTS RELATED METHODS:
+ *
+ * @method array getCollects(array $args = []) {@command Shopify GetCollects}
+ * @method int getCollectCount(array $args = []) {@command Shopify GetCollectCount}
+ * @method array getCollect(array $args = []) {@command Shopify GetCollect}
+ * @method array createCollect(array $args = []) {@command Shopify CreateCollect}
+ * @method array updateCollect(array $args = []) {@command Shopify UpdateCollect}
+ * @method array deleteCollect(array $args = []) {@command Shopify DeleteCollect}
+ *
  * CUSTOMER RELATED METHODS:
  *
  * @method array getCustomers(array $args = []) {@command Shopify GetCustomers}
@@ -337,6 +346,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method \Traversable getArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetArticles}
  * @method \Traversable getBlogArticlesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetBlogArticles}
  * @method \Traversable getCustomCollectionsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomCollections}
+ * @method \Traversable getCollectsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCollects}
  * @method \Traversable getCustomersIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetCustomersIterator}
  * @method \Traversable getDiscountCodesIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetDiscountCodes}
  * @method \Traversable getEventsIterator(array $commandArgs = [], array $iteratorArgs = []) {@command Shopify GetEvents}

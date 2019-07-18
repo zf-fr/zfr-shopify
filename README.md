@@ -499,6 +499,14 @@ Here is a list of supported endpoints (more to come in the future):
 * array updateCustomCollection(array $args = [])
 * array deleteCustomCollection(array $args = [])
 
+**COLLECT RELATED METHODS:**
+
+* array getCollects(array $args = [])
+* int getCollectCount(array $args = [])
+* array getCollect(array $args = [])
+* array createCollect(array $args = [])
+* array deleteCollect(array $args = [])
+
 **CUSTOMER RELATED METHODS:**
 
 * array getCustomers(array $args = [])
