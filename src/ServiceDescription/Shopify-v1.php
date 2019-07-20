@@ -1094,6 +1094,128 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * COLLECTS RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/products/collect
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetCollects' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/collects.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of collects',
+            'data'                 => ['root_key' => 'collects'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetCollectCount' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/collects/count.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve the number of collects',
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetCollect' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/api/{version}/collects/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieve specific collect',
+            'data'             => ['root_key' => 'collect'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Collect ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateCollect' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/api/{version}/collects.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Adds a product to a custom collection',
+            'data'             => ['root_key' => 'collect'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'product_id' => [
+                    'description' => 'Product ID',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'collection_id' => [
+                    'description' => 'Custom collection ID',
+                    'location'    => 'json',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'DeleteCollect' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/api/{version}/collects/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Delete a collect',
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Collect ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * CUSTOMER RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/customer
