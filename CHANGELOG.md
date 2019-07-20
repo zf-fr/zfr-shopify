@@ -1,3 +1,7 @@
+# 5.3.0
+
+* Add collect endpoints
+
 # 5.2.0
 
 * Add blog count endpoint
