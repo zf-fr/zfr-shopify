@@ -128,6 +128,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array createCustomer(array $args = []) {@command Shopify CreateCustomer}
  * @method array updateCustomer(array $args = []) {@command Shopify UpdateCustomer}
  * @method array deleteCustomer(array $args = []) {@command Shopify DeleteCustomer}
+ * @method array createCustomerInvite(array $args = []) {@command Shopify CreateCustomerInvite}
  *
  * DISCOUNT CODE RELATED METHODS:
  *
