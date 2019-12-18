@@ -1440,6 +1440,31 @@ return [
             ],
         ],
 
+        'CreateCustomerInvite' => [
+            'httpMethod'    => 'POST',
+            'uri'           => 'admin/api/{version}/customers/{id}/send_invite.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Sends an account invite to a customer',
+            'data'          => ['root_key' => 'customer_invite'],
+            'parameters'    => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true,
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
         /**
          * --------------------------------------------------------------------------------
          * DISCOUNT CODE RELATED METHODS
