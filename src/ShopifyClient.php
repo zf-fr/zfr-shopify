@@ -637,10 +637,28 @@ class ShopifyClient
         $operation = $this->guzzleClient->getDescription()->getOperation($command->getName());
         $rootKey   = $operation->getData('root_key');
 
-        $result = (null === $rootKey) ? $commandResult->toArray() : $commandResult->toArray()[$rootKey];
+        $arrayResult = $commandResult->toArray();
+        $result      = (null === $rootKey) ? $arrayResult : $arrayResult[$rootKey];
 
         if (substr($command->getName(), -5) === 'Count') {
             return $result['count'];
+        }
+
+        // If there is a pagination element, we add it to a specific "pagination" hash
+        if (isset($arrayResult['pagination'])) {
+            $pagination = [];
+
+            preg_match("/<(.*)>; rel=\"next\"/", $arrayResult['pagination'], $matches);
+            if (isset($matches[1])) {
+                $pagination['pagination']['next'] = $matches[1];
+            }
+
+            preg_match("/<(.*)>; rel=\"prev\"/", $arrayResult['pagination'], $matches);
+            if (isset($matches[1])) {
+                $pagination['pagination']['prev'] = $matches[1];
+            }
+
+            $result = array_merge($result, $pagination);
         }
 
         return $result;
