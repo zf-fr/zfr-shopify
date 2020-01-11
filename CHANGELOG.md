@@ -1,3 +1,8 @@
+# 6.0.0
+
+* If you are using the 2020-01 API or newer for the REST API, it will now uses the link based pagination when the
+iterator methods are used.
+
 # 5.3.0
 
 * Add collect endpoints
