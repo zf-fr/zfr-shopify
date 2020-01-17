@@ -953,6 +953,64 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * COLLECTION RELATED METHODS
+         *
+         * DOC: https://help.shopify.com/en/api/reference/products/collection
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetCollection' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/collections/{collection_id}.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a collection',
+            'data'                 => ['root_key' => 'collection'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'collection_id' => [
+                    'description' => 'Collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetCollectionProducts' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/collections/{collection_id}/products.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of collection products',
+            'data'                 => ['root_key' => 'products'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'collection_id' => [
+                    'description' => 'Collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * CUSTOM COLLECTION RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/customcollection
