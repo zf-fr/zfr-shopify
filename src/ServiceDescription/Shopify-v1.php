@@ -961,7 +961,7 @@ return [
 
         'GetCollection' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/api/{version}/collections/{collection_id}.json',
+            'uri'                  => 'admin/api/{version}/collections/{id}.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a collection',
             'data'                 => ['root_key' => 'collection'],
@@ -972,7 +972,7 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'collection_id' => [
+                'id' => [
                     'description' => 'Collection ID',
                     'location'    => 'uri',
                     'type'        => 'integer',
@@ -986,7 +986,7 @@ return [
 
         'GetCollectionProducts' => [
             'httpMethod'           => 'GET',
-            'uri'                  => 'admin/api/{version}/collections/{collection_id}/products.json',
+            'uri'                  => 'admin/api/{version}/collections/{id}/products.json',
             'responseModel'        => 'GenericModel',
             'summary'              => 'Retrieve a list of collection products',
             'data'                 => ['root_key' => 'products'],
@@ -997,7 +997,7 @@ return [
                     'type'        => 'string',
                     'required'    => true
                 ],
-                'collection_id' => [
+                'id' => [
                     'description' => 'Collection ID',
                     'location'    => 'uri',
                     'type'        => 'integer',
