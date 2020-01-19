@@ -1,3 +1,11 @@
+# 5.5.0
+
+* Add new methods for the new collection API
+
+# 5.4.0
+
+* Add method for creating customer invite
+
 # 5.3.0
 
 * Add collect endpoints
