@@ -109,6 +109,11 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateCustomCollection(array $args = []) {@command Shopify UpdateCustomCollection}
  * @method array deleteCustomCollection(array $args = []) {@command Shopify DeleteCustomCollection}
  *
+ * COLLECTION RELATED METHODS:
+ *
+ * @method array getCollection(array $args = []) {@command Shopify GetCollection}
+ * @method array getCollectionProducts(array $args = []) {@command Shopify GetCollectionProducts}
+ *
  * COLLECTS RELATED METHODS:
  *
  * @method array getCollects(array $args = []) {@command Shopify GetCollects}
