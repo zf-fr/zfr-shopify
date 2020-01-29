@@ -17,7 +17,7 @@ ZfrShopify is a modern PHP library based on Guzzle for [Shopify](https://www.sho
 Installation of ZfrShopify is only officially supported using Composer:
 
 ```sh
-php composer.phar require 'zfr/zfr-shopify:5.0'
+php composer.phar require 'zfr/zfr-shopify:6.0'
 ```
 
 ## REST API
