@@ -499,6 +499,10 @@ Here is a list of supported endpoints (more to come in the future):
 * array updateCustomCollection(array $args = [])
 * array deleteCustomCollection(array $args = [])
 
+**COLLECTION RELATED METHODS**
+* array getCollection(array $args = [])
+* array getCollectionProducts(array $args = [])
+
 **COLLECT RELATED METHODS:**
 
 * array getCollects(array $args = [])

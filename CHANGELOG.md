@@ -3,6 +3,14 @@
 * If you are using the 2020-01 API or newer for the REST API, it will now uses the link based pagination when the
 iterator methods are used.
 
+# 5.5.0
+
+* Add new methods for the new collection API
+
+# 5.4.0
+
+* Add method for creating customer invite
+
 # 5.3.0
 
 * Add collect endpoints
