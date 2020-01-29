@@ -5130,7 +5130,14 @@ return [
 
     'models' => [
         'GenericModel' => [
-            'type'                 => 'object',
+            'type'       => 'object',
+            'properties' => [
+                'pagination' => [
+                    'location' => 'header',
+                    'sentAs'   => 'Link',
+                    'type'     => 'string'
+                ]
+            ],
             'additionalProperties' => [
                 'location' => 'json'
             ]
