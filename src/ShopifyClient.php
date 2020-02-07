@@ -109,6 +109,11 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateCustomCollection(array $args = []) {@command Shopify UpdateCustomCollection}
  * @method array deleteCustomCollection(array $args = []) {@command Shopify DeleteCustomCollection}
  *
+ * COLLECTION RELATED METHODS:
+ *
+ * @method array getCollection(array $args = []) {@command Shopify GetCollection}
+ * @method array getCollectionProducts(array $args = []) {@command Shopify GetCollectionProducts}
+ *
  * COLLECTS RELATED METHODS:
  *
  * @method array getCollects(array $args = []) {@command Shopify GetCollects}
@@ -401,27 +406,11 @@ class ShopifyClient
      */
     public function getCommand(string $method, $args = []): CommandInterface
     {
-        // Add the mandatory version
-
-        $args = array_merge($args, ['version' => $this->connectionOptions['version']]);
-
-        // Add authentication parameters to each command based on the Shopify app type
-
-        if ($this->connectionOptions['private_app']) {
-            $args = array_merge($args, [
-                '@http' => [
-                    'auth' => [$this->connectionOptions['api_key'], $this->connectionOptions['password']]
-                ]
-            ]);
-        } else {
-            $args = array_merge($args, [
-                '@http' => [
-                    'headers' => [
-                        'X-Shopify-Access-Token' => $this->connectionOptions['access_token']
-                    ]
-                ]
-            ]);
-        }
+        $args = array_merge(
+            $args,
+            ['version' => $this->connectionOptions['version']],
+            ['@http' => $this->getRequestAuthorizationArguments()]
+        );
 
         return $this->guzzleClient->getCommand(ucfirst($method), $args);
     }
@@ -436,7 +425,7 @@ class ShopifyClient
     {
         $result = $this->guzzleClient->execute($command);
 
-        return $this->unwrapResponseData($command, $result);
+        return $this->unwrapResponseData($command, $result->toArray());
     }
 
     /**
@@ -455,7 +444,7 @@ class ShopifyClient
         /** @var Result $commandResult */
         foreach ($commandResults as $index => $commandResult) {
             // If the command has failed, we store the exception, otherwise the payload
-            $results[$index] = ($commandResult instanceof CommandException) ? $commandResult : $this->unwrapResponseData($commands[$index], $commandResult);
+            $results[$index] = ($commandResult instanceof CommandException) ? $commandResult : $this->unwrapResponseData($commands[$index], $commandResult->toArray());
         }
 
         return $results;
@@ -599,40 +588,71 @@ class ShopifyClient
      */
     private function iterateResources(string $commandName, array $args): Generator
     {
-        // When using the iterator, we force the maximum number of items per page. Also, if no "since_id" is set, we force it to 0 because by
-        // default Shopify sort resources by title
-        $args['limit'] = 250;
+        // Since the 2020-01 version, Shopify now uses a cursor based approach
+        if ($this->connectionOptions['version'] >= '2020-01') {
+            // We force a limit of 250 to limit the number of needed requests
+            $args['limit'] = 250;
 
-        if ($commandName === 'getGiftCards') {
-            $args['page'] = $args['page'] ?? 1;
-        } else {
-            $args['since_id'] = $args['since_id'] ?? 0;
-        }
-
-        // Because the iteration depends on the presence of the "id" field, we must make sure that if the "fields" filter is set, it contains
-        // at the minimum the "id" one. We make a simple detection here
-        if (isset($args['fields'])) {
-            $fields         = explode(',', str_replace(' ', '', $args['fields']));
-            $args['fields'] = implode(',', array_unique(array_merge(['id'], $fields)));
-        }
-
-        do {
+            // Do the first request to initate the process
             $command = $this->getCommand($commandName, $args);
-            $results = $this->execute($command);
+            $results = $this->guzzleClient->execute($command);
 
-            foreach ($results as $result) {
-                yield $result;
+            // For the data itself, we delegate to unwrap response data
+            $resources = $this->unwrapResponseData($command, $results->toArray());
+
+            foreach ($resources as $resource) {
+                yield $resource;
             }
 
-            // Unfortunately as of today gift card endpoint does not support "since_id" parameter, so we are forced to use the page
-            // instead of this endpoint
-            if ($commandName === 'getGiftCards') {
-                $args['page']++;
-            } else {
+            // To continue the iteration, we have to use the pagination link (if present)
+            $linkHeader = $results['pagination'] ?? '';
+
+            while (!empty($linkHeader)) {
+                preg_match("/<(.*)>; rel=\"next\"/", $linkHeader, $matches);
+
+                if (!isset($matches[1])) {
+                    break;
+                }
+
+                // We initiate the next request using the bare client, as we can't re-use commands at this stage
+                $httpClient = $this->guzzleClient->getHttpClient();
+                $response   = $httpClient->request('GET', $matches[1], $this->getRequestAuthorizationArguments());
+
+                // Decode the response and yield the result
+                $resources = $this->unwrapResponseData($command, json_decode($response->getBody()->getContents(), true));
+
+                foreach ($resources as $resource) {
+                    yield $resource;
+                }
+
+                // Extract the header line (if any) to continue the process
+                $linkHeader = $response->getHeaderLine('Link');
+            }
+        } else {
+            // When using the iterator, we force the maximum number of items per page. Also, if no "since_id" is set, we force it to 0 because by
+            // default Shopify sort resources by title
+            $args['limit'] = 250;
+            $args['since_id'] = $args['since_id'] ?? 0;
+
+            // Because the iteration depends on the presence of the "id" field, we must make sure that if the "fields" filter is set, it contains
+            // at the minimum the "id" one. We make a simple detection here
+            if (isset($args['fields'])) {
+                $fields         = explode(',', str_replace(' ', '', $args['fields']));
+                $args['fields'] = implode(',', array_unique(array_merge(['id'], $fields)));
+            }
+
+            do {
+                $command = $this->getCommand($commandName, $args);
+                $results = $this->execute($command);
+
+                foreach ($results as $result) {
+                    yield $result;
+                }
+
                 // Advance the since_id
                 $args['since_id'] = end($results)['id'];
-            }
-        } while(count($results) >= 250);
+            } while(count($results) >= 250);
+        }
     }
 
     /**
@@ -640,20 +660,36 @@ class ShopifyClient
      * the data by the "shop" key. This is a bit inconvenient to use in userland. As a consequence, we always "unwrap" the result.
      *
      * @param  CommandInterface $command
-     * @param  ToArrayInterface $commandResult
+     * @param  array            $bodyPayload
      * @return mixed
      */
-    private function unwrapResponseData(CommandInterface $command, ToArrayInterface $commandResult)
+    private function unwrapResponseData(CommandInterface $command, array $bodyPayload)
     {
         $operation = $this->guzzleClient->getDescription()->getOperation($command->getName());
         $rootKey   = $operation->getData('root_key');
-
-        $result = (null === $rootKey) ? $commandResult->toArray() : $commandResult->toArray()[$rootKey];
+        $result    = (null === $rootKey) ? $bodyPayload : $bodyPayload[$rootKey];
 
         if (substr($command->getName(), -5) === 'Count') {
             return $result['count'];
         }
 
         return $result;
+    }
+
+    private function getRequestAuthorizationArguments(): array
+    {
+        // Add authentication parameters to each command based on the Shopify app type
+
+        if ($this->connectionOptions['private_app']) {
+            return [
+                'auth' => [$this->connectionOptions['api_key'], $this->connectionOptions['password']]
+            ];
+        } else {
+            return [
+                'headers' => [
+                    'X-Shopify-Access-Token' => $this->connectionOptions['access_token']
+                ]
+            ];
+        }
     }
 }
