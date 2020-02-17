@@ -189,13 +189,13 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array getLocationInventoryLevels(array $args = []) {@command Shopify GetLocationInventoryLevels}
  *
  * METAFIELDS RELATED METHODS:
- * 
+ *
  * @method array getMetafields(array $args = []) {@command Shopify GetMetafields}
  * @method array getMetafield(array $args = []) {@command Shopify GetMetafield}
  * @method array createMetafield(array $args = []) {@command Shopify CreateMetafield}
  * @method array updateMetafield(array $args = []) {@command Shopify UpdateMetafield}
  * @method array deleteMetafield(array $args = []) {@command Shopify DeleteMetafield}
- * 
+ *
  * ORDER RELATED METHODS:
  *
  * @method array getOrders(array $args = []) {@command Shopify GetOrders}
@@ -283,7 +283,7 @@ use ZfrShopify\Exception\RuntimeException;
  * SHOP RELATED METHODS:
  *
  * @method array getShop(array $args = []) {@command Shopify GetShop}
- * 
+ *
  * SMART COLLECTION RELATED METHODS:
  *
  * @method array getSmartCollections(array $args = []) {@command Shopify GetSmartCollections}
@@ -332,7 +332,7 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array getUsageCharges(array $args = []) {@command Shopify GetUsageCharges}
  * @method array getUsageCharge(array $args = []) {@command Shopify GetUsageCharge}
  * @method array createUsageCharge(array $args = []) {@command Shopify CreateUsageCharge}
- * 
+ *
  * WEBHOOK RELATED METHODS:
  *
  * @method array getWebhooks(array $args = []) {@command Shopify GetWebhooks}
@@ -341,9 +341,9 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array createWebhook(array $args = []) {@command Shopify CreateWebhook}
  * @method array updateWebhook(array $args = []) {@command Shopify UpdateWebhook}
  * @method array deleteWebhook(array $args = []) {@command Shopify DeleteWebhook}
- * 
+ *
  * OTHER METHODS:
- * 
+ *
  * @method array createDelegateAccessToken(array $args = []) {@command Shopify CreateDelegateAccessToken}
  *
  * ITERATOR METHODS:
@@ -385,12 +385,12 @@ class ShopifyClient
      * @param array             $connectionOptions
      * @param GuzzleClient|null $guzzleClient
      */
-    public function __construct(array $connectionOptions, GuzzleClient $guzzleClient = null)
+    public function __construct(array $connectionOptions, GuzzleClient $guzzleClient = null, array $guzzleMiddleware = [])
     {
         $this->validateConnectionOptions($connectionOptions);
         $this->connectionOptions = $connectionOptions;
 
-        $this->guzzleClient = $guzzleClient ?? $this->createDefaultClient();
+        $this->guzzleClient = $guzzleClient ?? $this->createDefaultClient($guzzleMiddleware);
     }
 
     /**
@@ -568,12 +568,17 @@ class ShopifyClient
     /**
      * @return GuzzleClient
      */
-    private function createDefaultClient(): GuzzleClient
+    private function createDefaultClient(array $guzzleMiddleware = []): GuzzleClient
     {
         $baseUri = 'https://' . str_replace('.myshopify.com', '', $this->connectionOptions['shop']) . '.myshopify.com';
 
         $handlerStack = HandlerStack::create(new CurlHandler());
         $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
+
+        foreach ($guzzleMiddleware as $curMiddleware)
+        {
+            $handlerStack->push($curMiddleware);
+        }
 
         $httpClient  = new Client(['base_uri' => $baseUri, 'handler' => $handlerStack]);
         $description = new Description(require __DIR__ . '/ServiceDescription/Shopify-v1.php');
