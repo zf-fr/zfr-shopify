@@ -484,6 +484,7 @@ Here is a list of supported endpoints (more to come in the future):
 **BLOG RELATED METHODS:**
 
 * array getBlogs(array $args = [])
+* array getBlogMetafields(array $args = [])
 * int getBlogCount(array $args = [])
 * array getBlog(array $args = [])
 * array createBlog(array $args = [])
@@ -502,6 +503,7 @@ Here is a list of supported endpoints (more to come in the future):
 **COLLECTION RELATED METHODS**
 * array getCollection(array $args = [])
 * array getCollectionProducts(array $args = [])
+* array getCollectionMetafields(array $args = [])
 
 **COLLECT RELATED METHODS:**
 
@@ -598,6 +600,7 @@ Here is a list of supported endpoints (more to come in the future):
 **DRAFT ORDER RELATED METHODS:**
 
 * array getDraftOrders(array $args = [])
+* array getDraftOrderMetafields(array $args = [])
 * int getDraftOrderCount(array $args = [])
 * array createDraftOrder(array $args = [])
 * array updateDraftOrder(array $args = [])

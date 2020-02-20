@@ -1,3 +1,7 @@
+# 6.2.0
+
+* Add metafields methods for blog, collection, draft order resources
+
 # 6.1.0
 
 * Upgrade dependencies to use "Laminas" instead of deprecated Zend
