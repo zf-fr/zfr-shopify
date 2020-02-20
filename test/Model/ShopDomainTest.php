@@ -24,36 +24,27 @@ use PHPUnit\Framework\TestCase;
 
 class ShopDomainTest extends TestCase
 {
-    public function domainProvider()
+    public function invalidDomainProvider()
     {
         return [
             [
-                'domain' => 'test',
-                'valid'  => false
+                'domain' => 'test'
             ],
             [
-                'domain' => 'test@@.myshopify.com',
-                'valid'  => false
+                'domain' => 'test@@.myshopify.com'
             ],
             [
-                'domain' => 'test.myshopify.com/other',
-                'valid'  => false
-            ],
-            [
-                'domain' => 'test.myshopify.com',
-                'valid'  => true
+                'domain' => 'test.myshopify.com/other'
             ]
         ];
     }
 
     /**
-     * @dataProvider domainProvider
+     * @dataProvider invalidDomainProvider
      */
-    public function testShopDomain(string $domain, bool $isValid)
+    public function testShopDomain(string $domain)
     {
-        if (!$isValid) {
-            $this->expectException(InvalidArgumentException::class);
-        }
+        $this->expectException(InvalidArgumentException::class);
 
         new ShopDomain($domain);
     }

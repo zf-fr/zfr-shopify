@@ -1,3 +1,7 @@
+# 6.1.0
+
+* Upgrade dependencies to use "Laminas" instead of deprecated Zend
+
 # 6.0.0
 
 * If you are using the 2020-01 API or newer for the REST API, it will now uses the link based pagination when the

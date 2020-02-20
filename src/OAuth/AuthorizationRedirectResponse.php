@@ -18,7 +18,7 @@
 
 namespace ZfrShopify\OAuth;
 
-use Zend\Diactoros\Response\RedirectResponse;
+use Laminas\Diactoros\Response\RedirectResponse;
 
 /**
  * Create a redirection response to Shopify
