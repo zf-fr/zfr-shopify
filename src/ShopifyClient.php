@@ -575,8 +575,7 @@ class ShopifyClient
         $handlerStack = HandlerStack::create(new CurlHandler());
         $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
 
-        foreach ($guzzleMiddleware as $curMiddleware)
-        {
+        foreach ($guzzleMiddleware as $curMiddleware) {
             $handlerStack->push($curMiddleware);
         }
 
@@ -656,7 +655,7 @@ class ShopifyClient
 
                 // Advance the since_id
                 $args['since_id'] = end($results)['id'];
-            } while(count($results) >= 250);
+            } while (count($results) >= 250);
         }
     }
 
