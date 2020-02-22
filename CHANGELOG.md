@@ -1,3 +1,7 @@
+# 6.2.1
+
+* Extend ShopifyClient to allow passing in array of middleware to be added to GuzzleClient handler stack.
+
 # 6.1.0
 
 * Upgrade dependencies to use "Laminas" instead of deprecated Zend
