@@ -86,6 +86,7 @@ use ZfrShopify\Exception\RuntimeException;
  * BLOG RELATED METHODS:
  *
  * @method array getBlogs(array $args = []) {@command Shopify GetBlogs}
+ * @method array getBlogMetafields(array $args = []) {@command Shopify GetBlogMetafields}
  * @method array getBlogCount(array $args = []) {@command Shopify GetBlogCount}
  * @method array getBlog(array $args = []) {@command Shopify GetBlog}
  * @method array createBlog(array $args = []) {@command Shopify CreateBlog}
@@ -113,6 +114,7 @@ use ZfrShopify\Exception\RuntimeException;
  *
  * @method array getCollection(array $args = []) {@command Shopify GetCollection}
  * @method array getCollectionProducts(array $args = []) {@command Shopify GetCollectionProducts}
+ * @method array getCollectionMetafields(array $args = []) {@command Shopify GetCollectionMetafields}
  *
  * COLLECTS RELATED METHODS:
  *
@@ -211,6 +213,7 @@ use ZfrShopify\Exception\RuntimeException;
  * DRAFT ORDER RELATED METHODS:
  *
  * @method array getDraftOrders(array $args = []) {@command Shopify GetDraftOrders}
+ * @method array getDraftOrderMetafields(array $args = []) {@command Shopify GetDraftOrderMetafields}
  * @method int getDraftOrderCount(array $args = []) {@command Shopify GetDraftOrderCount}
  * @method array createDraftOrder(array $args = []) {@command Shopify CreateDraftOrder}
  * @method array updateDraftOrder(array $args = []) {@command Shopify UpdateDraftOrder}

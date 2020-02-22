@@ -708,6 +708,31 @@ return [
             ],
         ],
 
+        'GetBlogMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/api/{version}/blogs/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for an blog',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Blog ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
         'GetBlogCount' => [
             'httpMethod'    => 'GET',
             'uri'           => 'admin/api/{version}/blogs/count.json',
@@ -991,6 +1016,31 @@ return [
             'summary'              => 'Retrieve a list of collection products',
             'data'                 => ['root_key' => 'products'],
             'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Collection ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetCollectionMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/api/{version}/collections/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for an collection',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
                 'version' => [
                     'description' => 'API version',
                     'location'    => 'uri',
@@ -2778,7 +2828,7 @@ return [
             'location' => 'json',
           ],
         ],
-        
+
         'CancelOrder' => [
             'httpMethod'       => 'POST',
             'uri'              => 'admin/api/{version}/orders/{id}/cancel.json',
@@ -2823,6 +2873,31 @@ return [
                     'description' => 'API version',
                     'location'    => 'uri',
                     'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetDraftOrderMetafields' => [
+            'httpMethod'    => 'GET',
+            'uri'           => 'admin/api/{version}/draft_orders/{id}/metafields.json',
+            'responseModel' => 'GenericModel',
+            'summary'       => 'Retrieve a list of metafields for an draft order',
+            'data'          => ['root_key' => 'metafields'],
+            'parameters'    => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Draft Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
                     'required'    => true
                 ],
             ],
