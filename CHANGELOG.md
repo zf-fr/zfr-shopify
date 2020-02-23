@@ -1,3 +1,7 @@
+# 6.2.1
+
+* Extend ShopifyClient to allow passing in array of middleware to be added to GuzzleClient handler stack.
+
 # 6.2.0
 
 * Add metafields methods for blog, collection, draft order resources

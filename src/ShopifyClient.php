@@ -388,12 +388,12 @@ class ShopifyClient
      * @param array             $connectionOptions
      * @param GuzzleClient|null $guzzleClient
      */
-    public function __construct(array $connectionOptions, GuzzleClient $guzzleClient = null)
+    public function __construct(array $connectionOptions, GuzzleClient $guzzleClient = null, array $guzzleMiddleware = [])
     {
         $this->validateConnectionOptions($connectionOptions);
         $this->connectionOptions = $connectionOptions;
 
-        $this->guzzleClient = $guzzleClient ?? $this->createDefaultClient();
+        $this->guzzleClient = $guzzleClient ?? $this->createDefaultClient($guzzleMiddleware);
     }
 
     /**
@@ -571,12 +571,16 @@ class ShopifyClient
     /**
      * @return GuzzleClient
      */
-    private function createDefaultClient(): GuzzleClient
+    private function createDefaultClient(array $guzzleMiddleware = []): GuzzleClient
     {
         $baseUri = 'https://' . str_replace('.myshopify.com', '', $this->connectionOptions['shop']) . '.myshopify.com';
 
         $handlerStack = HandlerStack::create(new CurlHandler());
         $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
+
+        foreach ($guzzleMiddleware as $curMiddleware) {
+            $handlerStack->push($curMiddleware);
+        }
 
         $httpClient  = new Client(['base_uri' => $baseUri, 'handler' => $handlerStack]);
         $description = new Description(require __DIR__ . '/ServiceDescription/Shopify-v1.php');
@@ -654,7 +658,7 @@ class ShopifyClient
 
                 // Advance the since_id
                 $args['since_id'] = end($results)['id'];
-            } while(count($results) >= 250);
+            } while (count($results) >= 250);
         }
     }
 
