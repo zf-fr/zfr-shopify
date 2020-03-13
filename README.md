@@ -524,6 +524,15 @@ Here is a list of supported endpoints (more to come in the future):
 * array updateCustomer(array $args = [])
 * array deleteCustomer(array $args = [])
 
+**CUSTOMER ADDRESS RELATED METHODS:**
+
+* array getCustomerAddresses(array $args = [])
+* array getCustomerAddress(array $args = [])
+* array createCustomerAddress(array $args = [])
+* array updateCustomerAddress(array $args = [])
+* array deleteCustomerAddress(array $args = [])
+* array setDefaultCustomerAddress(array $args = [])
+
 **DISCOUNT CODE RELATED METHODS:**
 
 * array getDiscountCodes(array $args = [])

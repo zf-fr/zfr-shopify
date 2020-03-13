@@ -137,6 +137,14 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array deleteCustomer(array $args = []) {@command Shopify DeleteCustomer}
  * @method array createCustomerInvite(array $args = []) {@command Shopify CreateCustomerInvite}
  *
+ * CUSTOMER ADDRESS RELATED METHODS:
+ * @method array getCustomerAddresses(array $args = []) {@command Shopify GetCustomerAddresses}
+ * @method array getCustomerAddress(array $args = []) {@command Shopify GetCustomerAddress}
+ * @method array createCustomerAddress(array $args = []) {@command Shopify CreateCustomerAddress}
+ * @method array updateCustomerAddress(array $args = []) {@command Shopify UpdateCustomerAddress}
+ * @method array deleteCustomerAddress(array $args = []) {@command Shopify DeleteCustomerAddress}
+ * @method array setDefaultCustomerAddress(array $args = []) {@command Shopify SetDefaultCustomerAddress}
+ *
  * DISCOUNT CODE RELATED METHODS:
  *
  * @method array getDiscountCodes(array $args = []) {@command Shopify GetDiscountCodes}
