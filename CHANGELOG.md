@@ -1,3 +1,7 @@
+# 6.3.0
+
+* Add customer address endpoints
+
 # 6.2.1
 
 * Extend ShopifyClient to allow passing in array of middleware to be added to GuzzleClient handler stack.
