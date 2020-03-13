@@ -1722,6 +1722,198 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * CUSTOMER ADDRESS RELATED METHODS
+         *
+         * DOC: https://shopify.dev/docs/admin-api/rest/reference/customers/customer-address
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetCustomerAddresses' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/customers/{customer_id}/addresses.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieves a list addresses for a customer',
+            'data'                 => ['root_key' => 'addresses'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'customer_id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetCustomerAddress' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/customers/{customer_id}/addresses/{id}.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieves details of a single customer addresses',
+            'data'                 => ['root_key' => 'customer_address'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'customer_id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Address ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateCustomerAddress' => [
+            'httpMethod'           => 'POST',
+            'uri'                  => 'admin/api/{version}/customers/{customer_id}/addresses.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Creates a new address for a customer',
+            'data'                 => ['root_key' => 'customer_address'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'customer_id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'address' => [
+                    'description' => 'The customer address',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => true,
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'UpdateCustomerAddress' => [
+            'httpMethod'           => 'PUT',
+            'uri'                  => 'admin/api/{version}/customers/{customer_id}/addresses/{id}.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Update an existing address for a customer',
+            'data'                 => ['root_key' => 'customer_address'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'customer_id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Address ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'address' => [
+                    'description' => 'The customer address',
+                    'location'    => 'json',
+                    'type'        => 'array',
+                    'required'    => true,
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'DeleteCustomerAddress' => [
+            'httpMethod'           => 'DELETE',
+            'uri'                  => 'admin/api/{version}/customers/{customer_id}/addresses/{id}.json',
+            'responseModel'        => 'GenericModel',
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'customer_id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Address ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'SetDefaultCustomerAddress' => [
+            'httpMethod'           => 'PUT',
+            'uri'                  => 'admin/api/{version}/customers/{customer_id}/addresses/{id}/default.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Update an existing address for a customer',
+            'data'                 => ['root_key' => 'customer_address'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'customer_id' => [
+                    'description' => 'Customer ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'Address ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * EVENTS RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/events
