@@ -121,8 +121,8 @@ class ShopifyGraphQLClient
 
         // We also check for "userErrors" (this requires that they are part of the request though) to throw a
         // specific exception
-        
-        if(is_iterable(current($result['data']))) {
+
+        if (is_iterable(current($result['data']))) {
             foreach (current($result['data']) as $key => $value) {
                 if ($key === 'userErrors' && !empty($value)) {
                     throw new GraphQLUserErrorException($value);
