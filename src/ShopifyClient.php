@@ -331,6 +331,10 @@ use ZfrShopify\Exception\RuntimeException;
  * @method array updateScriptTag(array $args = []) {@command Shopify UpdateScriptTag}
  * @method array deleteScriptTag(array $args = []) {@command Shopify DeleteScriptTag}
  *
+ * SHIPPING ZONE RELATED METHODS:
+ *
+ * @method array getShippingZones(array $args = []) {@command Shopify GetShippingZones}
+ *
  * TRANSACTION RELATED METHODS:
  *
  * @method array getTransactions(array $args = []) {@command Shopify GetTransactions}
