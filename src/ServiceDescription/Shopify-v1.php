@@ -4982,6 +4982,33 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * SHIPPING ZONE RELATED METHODS
+         *
+         * DOC: https://shopify.dev/docs/admin-api/rest/reference/store-properties/shippingzone
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetShippingZones' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/shipping_zones.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of all shipping zones',
+            'data'                 => ['root_key' => 'shipping_zones'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * TRANSACTION RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/transaction
