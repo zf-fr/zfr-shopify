@@ -50,6 +50,12 @@ use ZfrShopify\Exception\RuntimeException;
  *
  * @method array getAccessScopes(array $args = []) {@command Shopify GetAccessScopes}
  *
+ * STOREFRONT ACCESS TOKEN METHODS:
+ *
+ * @method array getStorefrontAccessTokens(array $args = []) {@command Shopify GetStorefrontAccessTokens}
+ * @method array createStorefrontAccessToken(array $args = []) {@command Shopify CreateStorefrontAccessToken}
+ * @method array deleteStorefrontAccessToken(array $args = []) {@command Shopify DeleteStorefrontAccessToken}
+ *
  * APPLICATION CHARGE RELATED METHODS:
  *
  * @method array getApplicationCharges(array $args = []) {@command Shopify GetApplicationCharges}
