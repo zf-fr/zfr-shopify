@@ -447,7 +447,13 @@ Here is a list of supported endpoints (more to come in the future):
 
 * array getAccessScopes(array $args = [])
 
-** APPLICATION CHARGE RELATED METHODS:**
+**ACCESS SCOPE RELATED METHODS:**
+
+* array getStorefrontAccessTokens(array $args = [])
+* array createStorefrontAccessToken(array $args = [])
+* array deleteStorefrontAccessToken(array $args = [])
+
+**STOREFRONT ACCESS TOKEN RELATED METHODS:**
 
 * array getApplicationCharges(array $args = [])
 * array getApplicationCharge(array $args = [])

@@ -41,6 +41,79 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * STOREFRONT RELATED METHODS
+         *
+         * DOC: https://shopify.dev/docs/admin-api/rest/reference/access/storefrontaccesstoken
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetStorefrontAccessTokens' => [
+            'httpMethod'           => 'GET',
+            'uri'                  => 'admin/api/{version}/storefront_access_tokens.json',
+            'responseModel'        => 'GenericModel',
+            'summary'              => 'Retrieve a list of storefront access tokens',
+            'data'                 => ['root_key' => 'storefront_access_tokens'],
+            'parameters'           => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CreateStorefrontAccessToken' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/api/{version}/storefront_access_tokens.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Create a new storefront token',
+            'data'             => ['root_key' => 'article'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'title' => [
+                    'description' => 'StorefrontAccessToken title',
+                    'location'    => 'json',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'json',
+            ],
+        ],
+
+        'DeleteStorefrontAccessToken' => [
+            'httpMethod'       => 'DELETE',
+            'uri'              => 'admin/api/{version}/storefront_access_tokens/{id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Delete an existing storefront access token',
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'id' => [
+                    'description' => 'StorefrontAccessToken ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ]
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * APPLICATION CHARGES RELATED METHODS
          *
          * DOC: https://help.shopify.com/en/api/reference/billing/applicationcharge
