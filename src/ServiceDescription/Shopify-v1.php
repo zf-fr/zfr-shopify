@@ -71,7 +71,7 @@ return [
             'uri'              => 'admin/api/{version}/storefront_access_tokens.json',
             'responseModel'    => 'GenericModel',
             'summary'          => 'Create a new storefront token',
-            'data'             => ['root_key' => 'article'],
+            'data'             => ['root_key' => 'storefront_access_token'],
             'parameters'       => [
                 'version' => [
                     'description' => 'API version',
