@@ -1,3 +1,23 @@
+# 6.6.0
+
+* Added fulfillment order endpoints
+
+# 6.5.1
+
+* Fixed storefront access token method
+
+# 6.5.0
+
+* Add storefront access tokens related methods
+
+# 6.4.0
+
+* Add support for shipping zones in the REST API
+
+# 6.3.1
+
+* Add check before iterating GraphQL results
+
 # 6.3.0
 
 * Add customer address endpoints

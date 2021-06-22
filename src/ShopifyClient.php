@@ -529,7 +529,7 @@ class ShopifyClient
      * @param  RequestException|null  $exception
      * @return bool
      */
-    public function retryDecider(int $retries, RequestInterface $request, ResponseInterface $response = null, RequestException $exception = null): bool
+    public function retryDecider(int $retries, RequestInterface $request, ResponseInterface $response = null, $exception = null): bool
     {
         // Limit the number of retries to 5
         if ($retries >= 5) {
