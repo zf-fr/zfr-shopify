@@ -44,7 +44,7 @@ $shopifyClient = new ShopifyClient([
 ### Public app
 
 When using a public app, you instantiate the client a bit differently:
- 
+
 ```php
 $shopifyClient = new ShopifyClient([
     'private_app'   => false,
@@ -137,7 +137,7 @@ try {
 
 ### Create an authorization response
 
-ZfrShopify provides an easy way to create a PSR7 compliant `ResponseInterface` to create an authorization response: 
+ZfrShopify provides an easy way to create a PSR7 compliant `ResponseInterface` to create an authorization response:
 
 ```php
 use ZfrShopify\OAuth\AuthorizationRedirectResponse;
@@ -257,7 +257,7 @@ foreach ($results as $singleResult) {
       $command = $singleResult->getCommand();
       continue;
    }
-   
+
    // Otherwise, $singleResult is just an array that contains the Shopify data
 }
 ```
@@ -372,7 +372,7 @@ $variables = [
 $result = $client->request($request, $variables);
 
 var_dump($result);
-``` 
+```
 
 ### Mutations
 
@@ -428,7 +428,7 @@ try {
 
 #### User errors
 
-Those errors are for requests that are missing data (like incorrect data, missing data...). You can catch them using the 
+Those errors are for requests that are missing data (like incorrect data, missing data...). You can catch them using the
 `\ZfrShopify\Exception\GraphQLUserErrorException` exception:
 
 ```php
@@ -560,7 +560,17 @@ Here is a list of supported endpoints (more to come in the future):
 * array createFulfillment(array $args = [])
 * array updateFilfillment(array $args = [])
 * array completeFulfillment(array $args = [])
-* array cancelFulfillment(array $args = []) 
+* array cancelFulfillment(array $args = [])
+
+**FULFILLMENT ORDER RELATED METHODS:**
+
+* array getFulfillmentOrders(array $args = [])
+* array getFulfillmentOrder(array $args = [])
+* array cancelFulfillmentOrder(array $args = [])
+* array closeFulfillmentOrder(array $args = [])
+* array moveFulfillmentOrder(array $args = [])
+* array openFulfillmentOrder(array $args = [])
+* array rescheduleFulfillmentOrder(array $args = [])
 
 **GIFT CARD RELATED METHODS:**
 
@@ -619,7 +629,7 @@ Here is a list of supported endpoints (more to come in the future):
 * int getDraftOrderCount(array $args = [])
 * array createDraftOrder(array $args = [])
 * array updateDraftOrder(array $args = [])
-* array getDraftOrder(array $args = []) 
+* array getDraftOrder(array $args = [])
 * array sendDraftOrderInvoice(array $args = [])
 * array completeDraftOrder(array $args = [])
 * array deleteDraftOrder(array $args = [])

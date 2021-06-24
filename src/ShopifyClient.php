@@ -19,24 +19,25 @@
 namespace ZfrShopify;
 
 use Generator;
-use GuzzleHttp\Client;
-use GuzzleHttp\Command\CommandInterface;
-use GuzzleHttp\Command\Exception\CommandException;
-use GuzzleHttp\Command\Guzzle\Description;
-use GuzzleHttp\Command\Guzzle\GuzzleClient;
-use GuzzleHttp\Command\Guzzle\Serializer;
-use GuzzleHttp\Command\Result;
-use GuzzleHttp\Command\ToArrayInterface;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Handler\CurlHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7;
+use GuzzleHttp\Client;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Command\Result;
+use GuzzleHttp\Handler\CurlHandler;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use GuzzleHttp\Command\CommandInterface;
+use GuzzleHttp\Command\ToArrayInterface;
+use GuzzleHttp\Command\Guzzle\Serializer;
+use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Command\Guzzle\Description;
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\RequestException;
 use ZfrShopify\Exception\RuntimeException;
+use GuzzleHttp\Command\Guzzle\GuzzleClient;;
+use GuzzleHttp\Command\Exception\CommandException;
+use Psr\Http\Client\ClientExceptionInterface;
 
 /**
  * Shopify client used to interact with the Shopify API
@@ -529,7 +530,7 @@ class ShopifyClient
      * @param  RequestException|null  $exception
      * @return bool
      */
-    public function retryDecider(int $retries, RequestInterface $request, ResponseInterface $response = null, RequestException $exception = null): bool
+    public function retryDecider(int $retries, RequestInterface $request, ResponseInterface $response = null, ClientExceptionInterface $exception = null): bool
     {
         // Limit the number of retries to 5
         if ($retries >= 5) {

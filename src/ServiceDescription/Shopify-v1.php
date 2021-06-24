@@ -2257,6 +2257,174 @@ return [
 
         /**
          * --------------------------------------------------------------------------------
+         * FULFILLMENT ORDER RELATED METHODS
+         *
+         * DOC: https://shopify.dev/docs/admin-api/rest/reference/shipping-and-fulfillment/fulfillmentorder
+         * --------------------------------------------------------------------------------
+         */
+
+        'GetFulfillmentOrders' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/api/{version}/orders/{order_id}/fulfillment_orders.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieves a list of fulfillment orders for a specific order',
+            'data'             => ['root_key' => 'fulfillment_orders'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'order_id' => [
+                    'description' => 'The ID of the order that is associated with the fulfillment orders',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'GetFulfillmentOrder' => [
+            'httpMethod'       => 'GET',
+            'uri'              => 'admin/api/{version}/fulfillment_orders/{fulfillment_order_id}.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Retrieves a specific fulfillment order',
+            'data'             => ['root_key' => 'fulfillment_order'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'fulfillment_order_id' => [
+                    'description' => 'The ID of the fulfillment order to retrieve',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ],
+            'additionalParameters' => [
+                'location' => 'query',
+            ],
+        ],
+
+        'CancelFulfillmentOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/api/{version}/fulfillment_orders/{fulfillment_order_id}/cancel.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Marks a fulfillment order as cancelled',
+            'data'             => ['root_key' => 'fulfillment_order'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'fulfillment_order_id' => [
+                    'description' => 'Fulfillment Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        'CloseFulfillmentOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/api/{version}/fulfillment_orders/{fulfillment_order_id}/close.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Marks an in progress fulfillment order as incomplete, indicating the fulfillment service is unable to ship any remaining items and intends to close the fulfillment order',
+            'data'             => ['root_key' => 'fulfillment_order'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'fulfillment_order_id' => [
+                    'description' => 'Fulfillment Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        'MoveFulfillmentOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/api/{version}/fulfillment_orders/{fulfillment_order_id}/move.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Moves a fulfillment order from one merchant managed location to another merchant managed location',
+            'data'             => ['root_key' => 'fulfillment_order'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'fulfillment_order_id' => [
+                    'description' => 'Fulfillment Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        'OpenFulfillmentOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/api/{version}/fulfillment_orders/{fulfillment_order_id}/open.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Marks a scheduled fulfillment order as ready for fulfillment',
+            'data'             => ['root_key' => 'fulfillment_order'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'fulfillment_order_id' => [
+                    'description' => 'Fulfillment Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        'RescheduleFulfillmentOrder' => [
+            'httpMethod'       => 'POST',
+            'uri'              => 'admin/api/{version}/fulfillment_orders/{fulfillment_order_id}/move.json',
+            'responseModel'    => 'GenericModel',
+            'summary'          => 'Updates the fulfill_at time of a scheduled fulfillment order',
+            'data'             => ['root_key' => 'fulfillment_order'],
+            'parameters'       => [
+                'version' => [
+                    'description' => 'API version',
+                    'location'    => 'uri',
+                    'type'        => 'string',
+                    'required'    => true
+                ],
+                'fulfillment_order_id' => [
+                    'description' => 'Fulfillment Order ID',
+                    'location'    => 'uri',
+                    'type'        => 'integer',
+                    'required'    => true
+                ],
+            ]
+        ],
+
+        /**
+         * --------------------------------------------------------------------------------
          * GIFT CARD RELATED METHODS
          *
          * DOC: https://docs.shopify.com/api/reference/gift_card
