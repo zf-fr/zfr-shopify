@@ -613,70 +613,43 @@ class ShopifyClient
      */
     private function iterateResources(string $commandName, array $args): Generator
     {
-        // Since the 2020-01 version, Shopify now uses a cursor based approach
-        if ($this->connectionOptions['version'] >= '2020-01') {
-            // We force a limit of 250 to limit the number of needed requests
-            $args['limit'] = 250;
+        // We force a limit of 250 to limit the number of needed requests
+        $args['limit'] = 250;
 
-            // Do the first request to initate the process
-            $command = $this->getCommand($commandName, $args);
-            $results = $this->guzzleClient->execute($command);
+        // Do the first request to initate the process
+        $command = $this->getCommand($commandName, $args);
+        $results = $this->guzzleClient->execute($command);
 
-            // For the data itself, we delegate to unwrap response data
-            $resources = $this->unwrapResponseData($command, $results->toArray());
+        // For the data itself, we delegate to unwrap response data
+        $resources = $this->unwrapResponseData($command, $results->toArray());
+
+        foreach ($resources as $resource) {
+            yield $resource;
+        }
+
+        // To continue the iteration, we have to use the pagination link (if present)
+        $linkHeader = $results['pagination'] ?? '';
+
+        while (!empty($linkHeader)) {
+            preg_match("/<(.*)>; rel=\"next\"/", $linkHeader, $matches);
+
+            if (!isset($matches[1])) {
+                break;
+            }
+
+            // We initiate the next request using the bare client, as we can't re-use commands at this stage
+            $httpClient = $this->guzzleClient->getHttpClient();
+            $response   = $httpClient->request('GET', $matches[1], $this->getRequestAuthorizationArguments());
+
+            // Decode the response and yield the result
+            $resources = $this->unwrapResponseData($command, json_decode($response->getBody()->getContents(), true));
 
             foreach ($resources as $resource) {
                 yield $resource;
             }
 
-            // To continue the iteration, we have to use the pagination link (if present)
-            $linkHeader = $results['pagination'] ?? '';
-
-            while (!empty($linkHeader)) {
-                preg_match("/<(.*)>; rel=\"next\"/", $linkHeader, $matches);
-
-                if (!isset($matches[1])) {
-                    break;
-                }
-
-                // We initiate the next request using the bare client, as we can't re-use commands at this stage
-                $httpClient = $this->guzzleClient->getHttpClient();
-                $response   = $httpClient->request('GET', $matches[1], $this->getRequestAuthorizationArguments());
-
-                // Decode the response and yield the result
-                $resources = $this->unwrapResponseData($command, json_decode($response->getBody()->getContents(), true));
-
-                foreach ($resources as $resource) {
-                    yield $resource;
-                }
-
-                // Extract the header line (if any) to continue the process
-                $linkHeader = $response->getHeaderLine('Link');
-            }
-        } else {
-            // When using the iterator, we force the maximum number of items per page. Also, if no "since_id" is set, we force it to 0 because by
-            // default Shopify sort resources by title
-            $args['limit'] = 250;
-            $args['since_id'] = $args['since_id'] ?? 0;
-
-            // Because the iteration depends on the presence of the "id" field, we must make sure that if the "fields" filter is set, it contains
-            // at the minimum the "id" one. We make a simple detection here
-            if (isset($args['fields'])) {
-                $fields         = explode(',', str_replace(' ', '', $args['fields']));
-                $args['fields'] = implode(',', array_unique(array_merge(['id'], $fields)));
-            }
-
-            do {
-                $command = $this->getCommand($commandName, $args);
-                $results = $this->execute($command);
-
-                foreach ($results as $result) {
-                    yield $result;
-                }
-
-                // Advance the since_id
-                $args['since_id'] = end($results)['id'];
-            } while (count($results) >= 250);
+            // Extract the header line (if any) to continue the process
+            $linkHeader = $response->getHeaderLine('Link');
         }
     }
 
