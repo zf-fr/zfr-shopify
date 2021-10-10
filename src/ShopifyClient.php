@@ -410,7 +410,10 @@ class ShopifyClient
     public function __construct(array $connectionOptions, GuzzleClient $guzzleClient = null, array $guzzleMiddleware = [])
     {
         $this->validateConnectionOptions($connectionOptions);
-        $this->connectionOptions = $connectionOptions;
+        $this->connectionOptions = array_merge([
+            "use_retry_decider" => true,
+            "max_retries"       => 5,
+        ], $connectionOptions);
 
         $this->guzzleClient = $guzzleClient ?? $this->createDefaultClient($guzzleMiddleware);
     }
@@ -514,7 +517,7 @@ class ShopifyClient
 
         if (($method === 'post' || $method === 'put') && $rootKey !== null) {
             $newBody = [$rootKey => json_decode($request->getBody()->getContents(), true)];
-            $request = $request->withBody(Psr7\stream_for(json_encode($newBody)));
+            $request = $request->withBody(Psr7\Utils::streamFor(json_encode($newBody)));
         }
 
         return $request;
@@ -533,7 +536,8 @@ class ShopifyClient
     public function retryDecider(int $retries, RequestInterface $request, ResponseInterface $response = null, ClientExceptionInterface $exception = null): bool
     {
         // Limit the number of retries to 5
-        if ($retries >= 5) {
+        $max_retries = $this->connectionOptions["max_retries"];
+        if ($retries >= $max_retries) {
             return false;
         }
 
@@ -595,14 +599,16 @@ class ShopifyClient
         $baseUri = 'https://' . str_replace('.myshopify.com', '', $this->connectionOptions['shop']) . '.myshopify.com';
 
         $handlerStack = HandlerStack::create(new CurlHandler());
-        $handlerStack->push(Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']));
+        if ($this->connectionOptions["use_retry_decider"]) {
+            $handlerStack->push($this->getRetryDecider());
+        }
 
         foreach ($guzzleMiddleware as $curMiddleware) {
             $handlerStack->push($curMiddleware);
         }
 
         $httpClient  = new Client(['base_uri' => $baseUri, 'handler' => $handlerStack]);
-        $description = new Description(require __DIR__ . '/ServiceDescription/Shopify-v1.php');
+        $description = new Description($this->getServiceDescription());
 
         return new GuzzleClient($httpClient, $description, [$this, 'wrapRequestData']);
     }
@@ -690,5 +696,13 @@ class ShopifyClient
                 ]
             ];
         }
+    }
+
+    public function getRetryDecider() {
+        return Middleware::retry([$this, 'retryDecider'], [$this, 'retryDelay']);
+    }
+
+    public function getServiceDescription() : array {
+        return require __DIR__ . '/ServiceDescription/Shopify-v1.php';
     }
 }
