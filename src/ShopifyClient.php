@@ -632,15 +632,19 @@ class ShopifyClient
         $linkHeader = $results['pagination'] ?? '';
 
         while (!empty($linkHeader)) {
-            preg_match("/<(.*)>; rel=\"next\"/", $linkHeader, $matches);
+            preg_match("/(<(.*)>; rel=\"previous\")?(,\s+)?(<(.*)>; rel=\"next\")?/", $linkHeader, $matches);
 
-            if (!isset($matches[1])) {
+            if (!isset($matches[5])) {
+                break;
+            }
+
+            if(!$matches[5]) {
                 break;
             }
 
             // We initiate the next request using the bare client, as we can't re-use commands at this stage
             $httpClient = $this->guzzleClient->getHttpClient();
-            $response   = $httpClient->request('GET', $matches[1], $this->getRequestAuthorizationArguments());
+            $response   = $httpClient->request('GET', $matches[5], $this->getRequestAuthorizationArguments());
 
             // Decode the response and yield the result
             $resources = $this->unwrapResponseData($command, json_decode($response->getBody()->getContents(), true));
