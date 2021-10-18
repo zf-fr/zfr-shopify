@@ -1,3 +1,7 @@
+# 6.6.1
+
+* Fix an issue with the cursor-based pagination #119
+
 # 6.6.0
 
 * Added fulfillment order endpoints
