@@ -91,7 +91,7 @@ class RequestValidator
 
         if (hash_equals($expectedHmac, hash_hmac('sha256', $key, $sharedSecret))) {
             return;
-        };
+        }
 
         throw new Exception\InvalidRequestException('Incoming request from Shopify could not be validated');
     }

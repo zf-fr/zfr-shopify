@@ -89,7 +89,7 @@ class ApplicationProxyRequestValidator
 
         if (hash_equals($expectedSignature, hash_hmac('sha256', $signature, $sharedSecret))) {
             return;
-        };
+        }
 
         throw new Exception\InvalidApplicationProxyRequestException(
             'Incoming application proxy request from Shopify could not be validated'

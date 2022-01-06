@@ -35,7 +35,7 @@ use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use ZfrShopify\Exception\RuntimeException;
-use GuzzleHttp\Command\Guzzle\GuzzleClient;;
+use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Command\Exception\CommandException;
 use Psr\Http\Client\ClientExceptionInterface;
 

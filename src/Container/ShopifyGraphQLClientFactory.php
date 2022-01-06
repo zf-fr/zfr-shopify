@@ -46,7 +46,7 @@ class ShopifyGraphQLClientFactory
 {
     /**
      * @param  ContainerInterface $container
-     * @return ShopifyClient
+     * @return ShopifyGraphQLClient
      */
     public function __invoke(ContainerInterface $container): ShopifyGraphQLClient
     {
