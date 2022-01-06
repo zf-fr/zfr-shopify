@@ -44,10 +44,11 @@ class AuthorizationRedirectResponseTest extends TestCase
         $location = $response->getHeaderLine('Location');
 
         $this->assertEquals(302, $response->getStatusCode());
-        $this->assertStringContainsString('https://mystore.myshopify.com/admin/oauth/authorize', $location);
-        $this->assertStringContainsString('client_id=app_123', $location);
-        $this->assertStringContainsString('scope=read_content,write_content', $location);
-        $this->assertStringContainsString('redirect_uri=https://www.mysite.com', $location);
-        $this->assertStringContainsString('state=', $location);
+
+        $this->assertContains('https://mystore.myshopify.com/admin/oauth/authorize', $location);
+        $this->assertContains('client_id=app_123', $location);
+        $this->assertContains('scope=read_content,write_content', $location);
+        $this->assertContains('redirect_uri=https://www.mysite.com', $location);
+        $this->assertContains('state=', $location);
     }
 }
