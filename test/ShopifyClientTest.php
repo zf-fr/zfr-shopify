@@ -31,12 +31,15 @@ use Psr\Http\Message\ResponseInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\ShopifyClient;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @author Michaël Gallego
  */
 class ShopifyClientTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function validationData()
     {
         return [

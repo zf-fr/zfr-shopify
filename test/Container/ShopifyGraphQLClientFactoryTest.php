@@ -22,12 +22,15 @@ use Psr\Container\ContainerInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\Container\ShopifyGraphQLClientFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @author Michaël Gallego
  */
 class ShopifyGraphQLClientFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testThrowExceptionIfNoConfig()
     {
         $this->expectException(RuntimeException::class);

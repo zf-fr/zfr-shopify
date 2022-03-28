@@ -2,12 +2,15 @@
 
 namespace ZfrShopifyTest\Validator;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use ZfrShopify\Exception\InvalidApplicationProxyRequestException;
 use ZfrShopify\Validator\ApplicationProxyRequestValidator;
 
 class ApplicationProxyRequestValidatorTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
+
     public function testValidateSignature()
     {
         $sharedSecret = 'hush';
