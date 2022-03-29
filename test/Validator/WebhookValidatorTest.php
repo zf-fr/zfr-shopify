@@ -18,6 +18,7 @@
 
 namespace ZfrShopifyTest\Validator;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use ZfrShopify\Exception\InvalidRequestException;
 use ZfrShopify\Validator\WebhookValidator;
@@ -27,6 +28,8 @@ use ZfrShopify\Validator\WebhookValidator;
  */
 class WebhookValidatorTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
+
     public function testThrowExceptionIfWebhookHeaderIsNotPresent()
     {
         $this->expectException(InvalidRequestException::class);

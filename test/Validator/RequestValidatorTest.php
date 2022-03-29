@@ -18,6 +18,7 @@
 
 namespace ZfrShopifyTest\Validator;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ServerRequestInterface;
 use ZfrShopify\Exception\InvalidRequestException;
 use ZfrShopify\Validator\RequestValidator;
@@ -27,6 +28,8 @@ use ZfrShopify\Validator\RequestValidator;
  */
 class RequestValidatorTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
+
     public function shopHmacProvider()
     {
         $key       = 'shop=mystore.myshopify.com&timestamp=123';

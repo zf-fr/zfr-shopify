@@ -18,16 +18,19 @@
 
 namespace ZfrShopifyTest\Container;
 
+use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\Container\ShopifyClientFactory;
-use PHPUnit\Framework\TestCase;
 
 /**
  * @author Michaël Gallego
  */
 class ShopifyClientFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testThrowExceptionIfNoConfig()
     {
         $this->expectException(RuntimeException::class);

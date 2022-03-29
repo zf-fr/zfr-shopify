@@ -23,12 +23,15 @@ use Psr\Http\Message\ResponseInterface;
 use ZfrShopify\Exception\RuntimeException;
 use ZfrShopify\OAuth\TokenExchanger;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @author Michaël Gallego
  */
 class TokenExchangerTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function shopDomainProvider()
     {
         return [
