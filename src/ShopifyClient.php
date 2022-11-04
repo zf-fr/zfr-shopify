@@ -514,7 +514,7 @@ class ShopifyClient
 
         if (($method === 'post' || $method === 'put') && $rootKey !== null) {
             $newBody = [$rootKey => json_decode($request->getBody()->getContents(), true)];
-            $request = $request->withBody(Psr7\stream_for(json_encode($newBody)));
+            $request = $request->withBody(Psr7\Utils::streamFor(json_encode($newBody)));
         }
 
         return $request;
